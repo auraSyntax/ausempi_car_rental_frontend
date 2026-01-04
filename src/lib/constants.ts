@@ -45,9 +45,10 @@ export const EXTERNAL_LINKS = {
   booking: "https://allriders.com",
   appStore: "#", // Replace with actual App Store link
   playStore: "#", // Replace with actual Play Store link
-  instagram: "#",
-  twitter: "#",
-  linkedin: "#",
+  instagram: "https://instagram.com/auxempi",
+  twitter: "https://twitter.com/auxempi",
+  linkedin: "https://linkedin.com/company/auxempi",
+  facebook: "https://facebook.com/auxempi",
 } as const;
 
 // ============================================
