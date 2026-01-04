@@ -4,6 +4,7 @@ import {
   Services,
   ServicePackages,
   Fleet,
+  About,
   Experience,
   AppDownload,
   Footer,
@@ -18,6 +19,7 @@ const Index = () => {
       <Services />
       <ServicePackages />
       <Fleet />
+      <About />
       <Experience />
       <AppDownload />
       <Footer />
