@@ -2,6 +2,7 @@ import {
   Navbar,
   Hero,
   Services,
+  ServicePackages,
   Fleet,
   Experience,
   AppDownload,
@@ -15,6 +16,7 @@ const Index = () => {
       <Navbar />
       <Hero />
       <Services />
+      <ServicePackages />
       <Fleet />
       <Experience />
       <AppDownload />
