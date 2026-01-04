@@ -1,14 +1,17 @@
-import Navbar from "@/components/Navbar";
-import Hero from "@/components/Hero";
-import Services from "@/components/Services";
-import Fleet from "@/components/Fleet";
-import Experience from "@/components/Experience";
-import AppDownload from "@/components/AppDownload";
-import Footer from "@/components/Footer";
+import {
+  Navbar,
+  Hero,
+  Services,
+  Fleet,
+  Experience,
+  AppDownload,
+  Footer,
+} from "@/components/sections";
+import MainLayout from "@/layouts/MainLayout";
 
 const Index = () => {
   return (
-    <main className="min-h-screen bg-background">
+    <MainLayout>
       <Navbar />
       <Hero />
       <Services />
@@ -16,7 +19,7 @@ const Index = () => {
       <Experience />
       <AppDownload />
       <Footer />
-    </main>
+    </MainLayout>
   );
 };
 
