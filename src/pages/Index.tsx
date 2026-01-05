@@ -6,6 +6,7 @@ import {
   Fleet,
   About,
   Experience,
+  ReserveCTA,
   AppDownload,
   Footer,
 } from "@/components/sections";
@@ -19,6 +20,7 @@ const Index = () => {
       <Services />
       <ServicePackages />
       <Fleet />
+      <ReserveCTA />
       <About />
       <Experience />
       <AppDownload />
