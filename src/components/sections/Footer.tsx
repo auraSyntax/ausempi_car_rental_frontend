@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
-import { Mail, Phone, MapPin, Instagram, Twitter, Linkedin, Facebook, ArrowUpRight } from "lucide-react";
+import { Mail, Phone, MapPin, Instagram, Twitter, Linkedin, Facebook, ArrowUpRight, ArrowRight } from "lucide-react";
 import { BRAND, CONTACT, EXTERNAL_LINKS } from "@/lib/constants";
+import { Button } from "@/components/ui/button";
 
 const footerLinks = {
   navigation: [
@@ -34,6 +35,51 @@ const Footer = () => {
 
   return (
     <footer id="contact" className="bg-charcoal relative overflow-hidden">
+      {/* Footer CTA Section */}
+      <div className="bg-gradient-to-b from-charcoal-light to-charcoal border-b border-border/30">
+        <div className="container-luxury py-16 lg:py-20">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="flex flex-col lg:flex-row items-center justify-between gap-8"
+          >
+            <div className="text-center lg:text-left">
+              <h3 className="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
+                Ready for <span className="text-gradient-gold">Luxury</span>?
+              </h3>
+              <p className="text-muted-foreground text-lg">
+                Your premium experience awaits. Book your ride today.
+              </p>
+            </div>
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Button
+                variant="gold-cta"
+                size="xl"
+                className="group"
+                asChild
+              >
+                <a
+                  href={EXTERNAL_LINKS.booking}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Reserve Now
+                  <ArrowRight 
+                    size={20} 
+                    className="ml-2 transition-transform duration-300 group-hover:translate-x-1" 
+                  />
+                </a>
+              </Button>
+            </motion.div>
+          </motion.div>
+        </div>
+      </div>
+
       {/* Decorative gradient line */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
 

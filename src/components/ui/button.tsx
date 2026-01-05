@@ -21,6 +21,8 @@ const buttonVariants = cva(
         "luxury-ghost": "text-foreground hover:text-primary uppercase tracking-widest",
         hero: "bg-primary text-primary-foreground hover:bg-gold-dark shadow-lg hover:shadow-xl hover:-translate-y-1 uppercase tracking-[0.2em] text-base font-semibold rounded-sm",
         "hero-outline": "border-2 border-foreground/30 text-foreground bg-transparent hover:border-primary hover:text-primary uppercase tracking-[0.2em] text-base font-medium backdrop-blur-sm rounded-sm",
+        // Premium Gold CTA - Black text on gold with premium hover effects
+        "gold-cta": "bg-gradient-to-r from-primary via-gold to-primary text-charcoal font-bold uppercase tracking-[0.2em] shadow-[0_0_30px_rgba(212,175,55,0.3)] hover:shadow-[0_0_50px_rgba(212,175,55,0.5)] hover:-translate-y-1 rounded-sm border border-gold/50 hover:border-gold transition-all duration-500",
       },
       size: {
         default: "h-10 px-4 py-2",
