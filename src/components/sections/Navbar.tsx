@@ -1,21 +1,23 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { EXTERNAL_LINKS } from "@/lib/constants";
 
 const navLinks = [
-  { name: "Home", href: "#" },
-  { name: "Services", href: "#services" },
-  { name: "About", href: "#experience" },
-  { name: "Contact", href: "#contact" },
-  { name: "Mobile App", href: "#app" },
+  { name: "Home", href: "/" },
+  { name: "Services", href: "/#services" },
+  { name: "About", href: "/#experience" },
+  { name: "Contact", href: "/#contact" },
+  { name: "Mobile App", href: "/#app" },
   { name: "Driver Login", href: "/driver-login", isSecondary: true },
 ];
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,6 +26,21 @@ const Navbar = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Handle hash scroll when coming from another page
+  useEffect(() => {
+    if (location.hash) {
+      const id = location.hash.replace("#", "");
+      const element = document.getElementById(id);
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: "smooth" });
+        }, 100);
+      }
+    } else if (location.pathname === "/") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, [location]);
 
   // Prevent body scroll when mobile menu is open
   useEffect(() => {
@@ -50,39 +67,44 @@ const Navbar = () => {
     >
       <div className="container-luxury">
         <nav className="flex items-center justify-between h-20 lg:h-24">
-          {/* Logo */}
-          <motion.a
-            href="#"
-            className="flex items-center group"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            <span className="text-2xl lg:text-3xl font-display font-bold tracking-[0.3em] text-gradient-gold group-hover:opacity-80 transition-opacity duration-300">
-              AUXEMPI
-            </span>
-          </motion.a>
-
-          {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-8 xl:gap-10">
-            {navLinks.map((link) => (
-              <motion.a
-                key={link.name}
-                href={link.href}
-                className={`relative text-sm uppercase tracking-[0.15em] transition-colors duration-300 group ${
-                  link.isSecondary
-                    ? "text-muted-foreground/70 hover:text-muted-foreground"
-                    : "text-muted-foreground hover:text-primary"
-                }`}
-                whileHover={{ y: -2 }}
-                transition={{ duration: 0.2 }}
+            {/* Logo */}
+            <Link
+              to="/"
+              className="flex items-center group"
+            >
+              <motion.span 
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="text-2xl lg:text-3xl font-display font-bold tracking-[0.3em] text-gradient-gold group-hover:opacity-80 transition-opacity duration-300"
               >
-                {link.name}
-                {!link.isSecondary && (
-                  <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-primary transition-all duration-300 group-hover:w-full" />
-                )}
-              </motion.a>
-            ))}
-          </div>
+                AUXEMPI
+              </motion.span>
+            </Link>
+
+            {/* Desktop Navigation */}
+            <div className="hidden lg:flex items-center gap-8 xl:gap-10">
+              {navLinks.map((link) => (
+                <motion.div
+                  key={link.name}
+                  whileHover={{ y: -2 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <Link
+                    to={link.href}
+                    className={`relative text-sm uppercase tracking-[0.15em] transition-colors duration-300 group ${
+                      link.isSecondary
+                        ? "text-muted-foreground/70 hover:text-muted-foreground"
+                        : "text-muted-foreground hover:text-primary"
+                    }`}
+                  >
+                    {link.name}
+                    {!link.isSecondary && (
+                      <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-primary transition-all duration-300 group-hover:w-full" />
+                    )}
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
 
           {/* CTA Button */}
           <div className="hidden lg:block">
@@ -155,24 +177,27 @@ const Navbar = () => {
               transition={{ duration: 0.3, ease: "easeOut" }}
               className="fixed inset-x-0 top-20 bottom-0 lg:hidden overflow-y-auto"
             >
-              <div className="container-luxury py-12 flex flex-col gap-2 min-h-full">
-                {navLinks.map((link, index) => (
-                  <motion.a
-                    key={link.name}
-                    href={link.href}
-                    initial={{ opacity: 0, x: -30 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.3, delay: index * 0.08 }}
-                    className={`text-2xl font-display py-4 border-b border-border/30 transition-colors duration-300 ${
-                      link.isSecondary
-                        ? "text-muted-foreground/60"
-                        : "text-foreground hover:text-primary"
-                    }`}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    {link.name}
-                  </motion.a>
-                ))}
+                <div className="container-luxury py-12 flex flex-col gap-2 min-h-full">
+                  {navLinks.map((link, index) => (
+                    <motion.div
+                      key={link.name}
+                      initial={{ opacity: 0, x: -30 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.3, delay: index * 0.08 }}
+                    >
+                      <Link
+                        to={link.href}
+                        className={`block text-2xl font-display py-4 border-b border-border/30 transition-colors duration-300 ${
+                          link.isSecondary
+                            ? "text-muted-foreground/60"
+                            : "text-foreground hover:text-primary"
+                        }`}
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        {link.name}
+                      </Link>
+                    </motion.div>
+                  ))}
 
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}

@@ -1,20 +1,21 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, Instagram, Twitter, Linkedin, Facebook, ArrowUpRight, ArrowRight } from "lucide-react";
 import { BRAND, CONTACT, EXTERNAL_LINKS } from "@/lib/constants";
 import { Button } from "@/components/ui/button";
 
 const footerLinks = {
   navigation: [
-    { name: "Home", href: "#" },
-    { name: "Services", href: "#services" },
-    { name: "About", href: "#experience" },
-    { name: "Contact", href: "#contact" },
+    { name: "Home", href: "/" },
+    { name: "Services", href: "/#services" },
+    { name: "About", href: "/#experience" },
+    { name: "Contact", href: "/#contact" },
   ],
   services: [
-    { name: "Airport Transfers", href: "#services" },
-    { name: "Corporate Travel", href: "#services" },
-    { name: "Special Events", href: "#services" },
-    { name: "Hourly Charters", href: "#services" },
+    { name: "Airport Transfers", href: "/#services" },
+    { name: "Corporate Travel", href: "/#services" },
+    { name: "Special Events", href: "/#services" },
+    { name: "Hourly Charters", href: "/#services" },
   ],
   legal: [
     { name: "Privacy Policy", href: "/privacy" },
@@ -245,13 +246,13 @@ const Footer = () => {
             className="flex flex-wrap justify-center gap-6"
           >
             {footerLinks.legal.map((link) => (
-              <a
+              <Link
                 key={link.name}
-                href={link.href}
+                to={link.href}
                 className="text-muted-foreground hover:text-primary transition-colors duration-300 text-xs uppercase tracking-[0.1em]"
               >
                 {link.name}
-              </a>
+              </Link>
             ))}
           </motion.div>
         </div>
