@@ -1,7 +1,6 @@
-import { useRef, memo } from "react";
+import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { Award, Clock, Shield, HeartHandshake } from "lucide-react";
-import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 const stats = [
   { number: "15K+", label: "Rides Completed" },
@@ -33,61 +32,57 @@ const features = [
   },
 ];
 
-const Experience = memo(() => {
+const Experience = () => {
   const sectionRef = useRef<HTMLElement>(null);
-  const isInView = useInView(sectionRef, { once: true, margin: "-50px" });
-  const prefersReducedMotion = useReducedMotion();
-
-  const getAnimationProps = (delay = 0) => prefersReducedMotion
-    ? {}
-    : { initial: { opacity: 0, y: 30 }, animate: isInView ? { opacity: 1, y: 0 } : {}, transition: { duration: 0.5, delay } };
+  const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
 
   return (
     <section
       id="experience"
       ref={sectionRef}
       className="section-padding bg-charcoal relative overflow-hidden"
-      aria-labelledby="experience-heading"
     >
-      {/* Decorative Elements - simplified */}
-      <div className="absolute top-0 left-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl" aria-hidden="true" />
-      <div className="absolute bottom-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl" aria-hidden="true" />
+      {/* Decorative Elements */}
+      <div className="absolute top-0 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
 
       <div className="container-luxury relative z-10">
         {/* Section Header */}
         <motion.div
-          {...getAnimationProps()}
-          className="text-center mb-12 lg:mb-20"
+          initial={{ opacity: 0, y: 40 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8 }}
+          className="text-center mb-16 lg:mb-24"
         >
-          <span className="text-primary text-sm uppercase tracking-[0.3em] font-medium">
+          <span className="text-primary text-sm uppercase tracking-[0.4em] font-medium">
             The Experience
           </span>
-          <h2 id="experience-heading" className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mt-3 mb-4">
+          <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mt-4 mb-6">
             Beyond
             <span className="text-gradient-gold"> Transportation</span>
           </h2>
-          <div className="luxury-divider mx-auto" aria-hidden="true" />
+          <div className="luxury-divider mx-auto" />
         </motion.div>
 
         {/* Stats Row */}
         <motion.div
-          {...getAnimationProps(0.1)}
-          className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-16 lg:mb-24"
+          initial={{ opacity: 0, y: 40 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="grid grid-cols-2 lg:grid-cols-4 gap-8 mb-20 lg:mb-28"
         >
           {stats.map((stat, index) => (
             <motion.div
               key={stat.label}
-              {...(prefersReducedMotion ? {} : {
-                initial: { opacity: 0, scale: 0.9 },
-                animate: isInView ? { opacity: 1, scale: 1 } : {},
-                transition: { duration: 0.4, delay: 0.2 + index * 0.08 }
-              })}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={isInView ? { opacity: 1, scale: 1 } : {}}
+              transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
               className="text-center"
             >
-              <span className="font-display text-3xl lg:text-4xl xl:text-5xl font-bold text-gradient-gold">
+              <span className="font-display text-4xl lg:text-5xl xl:text-6xl font-bold text-gradient-gold">
                 {stat.number}
               </span>
-              <p className="text-muted-foreground text-xs uppercase tracking-[0.15em] mt-1">
+              <p className="text-muted-foreground text-sm uppercase tracking-[0.2em] mt-2">
                 {stat.label}
               </p>
             </motion.div>
@@ -95,25 +90,22 @@ const Experience = memo(() => {
         </motion.div>
 
         {/* Features Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {features.map((feature, index) => (
             <motion.div
               key={feature.title}
-              {...(prefersReducedMotion ? {} : {
-                initial: { opacity: 0, y: 25 },
-                animate: isInView ? { opacity: 1, y: 0 } : {},
-                transition: { duration: 0.4, delay: 0.3 + index * 0.08 }
-              })}
-              className="group text-center p-5 lg:p-6"
+              initial={{ opacity: 0, y: 40 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.4 + index * 0.1 }}
+              className="group text-center p-6 lg:p-8"
             >
-              <div className="w-14 h-14 mx-auto mb-4 rounded-sm bg-secondary/50 flex items-center justify-center transition-colors duration-300 group-hover:bg-primary">
+              <div className="w-16 h-16 mx-auto mb-6 rounded-sm bg-secondary/50 flex items-center justify-center transition-all duration-300 group-hover:bg-primary group-hover:glow-gold">
                 <feature.icon
-                  size={24}
+                  size={28}
                   className="text-primary transition-colors duration-300 group-hover:text-primary-foreground"
-                  aria-hidden="true"
                 />
               </div>
-              <h3 className="font-display text-lg font-semibold text-foreground mb-2">
+              <h3 className="font-display text-xl font-semibold text-foreground mb-3">
                 {feature.title}
               </h3>
               <p className="text-muted-foreground text-sm leading-relaxed">
@@ -125,8 +117,6 @@ const Experience = memo(() => {
       </div>
     </section>
   );
-});
-
-Experience.displayName = "Experience";
+};
 
 export default Experience;

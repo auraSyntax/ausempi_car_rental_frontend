@@ -1,8 +1,7 @@
-import { useRef, memo } from "react";
+import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { Users, Briefcase, Wifi, Snowflake } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useReducedMotion } from "@/hooks/useReducedMotion";
 import fleetSedan from "@/assets/fleet-sedan.jpg";
 import fleetSuv from "@/assets/fleet-suv.jpg";
 
@@ -33,50 +32,43 @@ const vehicles = [
   },
 ];
 
-const Fleet = memo(() => {
+const Fleet = () => {
   const sectionRef = useRef<HTMLElement>(null);
-  const isInView = useInView(sectionRef, { once: true, margin: "-50px" });
-  const prefersReducedMotion = useReducedMotion();
-
-  const animationProps = prefersReducedMotion
-    ? {}
-    : { initial: { opacity: 0, y: 40 }, animate: isInView ? { opacity: 1, y: 0 } : {} };
+  const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
 
   return (
     <section
       id="fleet"
       ref={sectionRef}
       className="section-padding bg-background relative overflow-hidden"
-      aria-labelledby="fleet-heading"
     >
       <div className="container-luxury">
         {/* Section Header */}
         <motion.div
-          {...animationProps}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-12 lg:mb-20"
+          initial={{ opacity: 0, y: 40 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8 }}
+          className="text-center mb-16 lg:mb-24"
         >
-          <span className="text-primary text-sm uppercase tracking-[0.3em] font-medium">
+          <span className="text-primary text-sm uppercase tracking-[0.4em] font-medium">
             The Fleet
           </span>
-          <h2 id="fleet-heading" className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mt-3 mb-4">
+          <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mt-4 mb-6">
             Curated for
             <span className="text-gradient-gold"> Distinction</span>
           </h2>
-          <div className="luxury-divider mx-auto" aria-hidden="true" />
+          <div className="luxury-divider mx-auto" />
         </motion.div>
 
         {/* Vehicle Cards */}
-        <div className="space-y-16 lg:space-y-24">
+        <div className="space-y-24 lg:space-y-32">
           {vehicles.map((vehicle, index) => (
-            <motion.article
+            <motion.div
               key={vehicle.name}
-              {...(prefersReducedMotion ? {} : {
-                initial: { opacity: 0, y: 50 },
-                animate: isInView ? { opacity: 1, y: 0 } : {},
-              })}
-              transition={{ duration: 0.6, delay: prefersReducedMotion ? 0 : index * 0.2 }}
-              className={`grid lg:grid-cols-2 gap-6 lg:gap-12 items-center ${
+              initial={{ opacity: 0, y: 80 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.9, delay: index * 0.3 }}
+              className={`grid lg:grid-cols-2 gap-8 lg:gap-16 items-center ${
                 index % 2 === 1 ? "lg:grid-flow-col-dense" : ""
               }`}
             >
@@ -87,17 +79,16 @@ const Fleet = memo(() => {
                 <div className="relative overflow-hidden rounded-sm">
                   <img
                     src={vehicle.image}
-                    alt={`${vehicle.name} - ${vehicle.description}`}
-                    className="w-full aspect-[4/3] object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                    alt={vehicle.name}
+                    className="w-full aspect-[4/3] object-cover transition-transform duration-700 group-hover:scale-105"
                     loading="lazy"
-                    decoding="async"
                   />
                   {/* Overlay on hover */}
-                  <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" aria-hidden="true" />
+                  <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 </div>
                 {/* Category Badge */}
-                <div className="absolute top-3 left-3">
-                  <span className="bg-primary text-primary-foreground text-xs uppercase tracking-[0.15em] px-2.5 py-1 font-semibold">
+                <div className="absolute top-4 left-4">
+                  <span className="bg-primary text-primary-foreground text-xs uppercase tracking-[0.2em] px-3 py-1.5 font-semibold">
                     {vehicle.category}
                   </span>
                 </div>
@@ -105,29 +96,29 @@ const Fleet = memo(() => {
 
               {/* Content */}
               <div className={index % 2 === 1 ? "lg:col-start-1 lg:row-start-1" : ""}>
-                <h3 className="font-display text-2xl lg:text-3xl xl:text-4xl font-bold text-foreground mb-3">
+                <h3 className="font-display text-3xl lg:text-4xl xl:text-5xl font-bold text-foreground mb-4">
                   {vehicle.name}
                 </h3>
-                <p className="text-muted-foreground text-base lg:text-lg leading-relaxed mb-6">
+                <p className="text-muted-foreground text-lg leading-relaxed mb-8">
                   {vehicle.description}
                 </p>
 
                 {/* Specs Grid */}
-                <ul className="grid grid-cols-2 gap-3 mb-6" aria-label={`${vehicle.name} specifications`}>
+                <div className="grid grid-cols-2 gap-4 mb-8">
                   {vehicle.specs.map((spec) => (
-                    <li
+                    <div
                       key={spec.label}
-                      className="flex items-center gap-2 text-foreground"
+                      className="flex items-center gap-3 text-foreground"
                     >
-                      <div className="w-8 h-8 rounded-sm bg-secondary flex items-center justify-center flex-shrink-0">
-                        <spec.icon size={16} className="text-primary" aria-hidden="true" />
+                      <div className="w-10 h-10 rounded-sm bg-secondary flex items-center justify-center">
+                        <spec.icon size={18} className="text-primary" />
                       </div>
                       <span className="text-sm">{spec.label}</span>
-                    </li>
+                    </div>
                   ))}
-                </ul>
+                </div>
 
-                <Button variant="luxury-outline" size="lg" className="touch-target" asChild>
+                <Button variant="luxury-outline" size="lg" asChild>
                   <a
                     href="https://allriders.com"
                     target="_blank"
@@ -137,14 +128,12 @@ const Fleet = memo(() => {
                   </a>
                 </Button>
               </div>
-            </motion.article>
+            </motion.div>
           ))}
         </div>
       </div>
     </section>
   );
-});
-
-Fleet.displayName = "Fleet";
+};
 
 export default Fleet;
