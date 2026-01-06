@@ -64,15 +64,15 @@ export const CookieConsent = () => {
 
   return (
     <>
-    <AnimatePresence>
-      {isVisible && (
-        <motion.div
-          initial={{ y: 100, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: 100, opacity: 0 }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="fixed bottom-0 left-0 right-0 p-4 md:p-8 z-[100] pointer-events-none"
-        >
+      <AnimatePresence>
+        {isVisible && !showPreferences && (
+          <motion.div
+            initial={{ y: 100, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 100, opacity: 0 }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed bottom-0 left-0 right-0 p-4 md:p-8 z-[40] pointer-events-none"
+          >
           <div className="container-luxury max-w-7xl mx-auto flex justify-center md:justify-end">
             <div className="pointer-events-auto w-full md:max-w-lg bg-charcoal-light/80 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl overflow-hidden relative group">
               {/* Subtle gold accent line at top */}
@@ -138,18 +138,7 @@ export const CookieConsent = () => {
     </AnimatePresence>
 
     <Dialog open={showPreferences} onOpenChange={setShowPreferences}>
-      <DialogContent className="bg-charcoal border-white/10 text-white max-w-xl sm:rounded-3xl p-0 overflow-hidden shadow-2xl">
-        <div className="absolute top-6 right-6 z-10">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setShowPreferences(false)}
-            className="text-white/40 hover:text-white hover:bg-white/5 rounded-full h-10 w-10 transition-all duration-300"
-          >
-            <X className="w-5 h-5" />
-          </Button>
-        </div>
-
+      <DialogContent className="bg-charcoal border-white/10 text-white max-w-xl w-[95vw] sm:w-full max-h-[90vh] overflow-y-auto sm:rounded-3xl p-0 shadow-2xl custom-scrollbar">
         <div className="relative">
           {/* Header background decoration */}
           <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-primary/10 to-transparent pointer-events-none" />
