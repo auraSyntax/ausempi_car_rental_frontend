@@ -254,12 +254,6 @@ const Footer = () => {
                   {link.name}
                 </Link>
               ))}
-              <button
-                onClick={() => window.dispatchEvent(new CustomEvent("open-cookie-preferences"))}
-                className="text-muted-foreground hover:text-primary transition-colors duration-300 text-xs uppercase tracking-[0.1em]"
-              >
-                Manage Cookies
-              </button>
             </motion.div>
         </div>
       </div>

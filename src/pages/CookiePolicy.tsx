@@ -93,9 +93,22 @@ const CookiePolicy = () => {
               <h2 className="text-2xl md:text-3xl font-display text-primary border-l-4 border-primary pl-6 py-1">
                 4. Managing Cookie Preferences
               </h2>
-              <p className="text-muted-foreground leading-relaxed text-lg">
-                You can manage your cookie preferences at any time by clicking the "Manage Cookies" link in our footer or by adjusting your browser settings. Please note that disabling certain cookies may affect the functionality of our website.
-              </p>
+              <div className="space-y-6">
+                <p className="text-muted-foreground leading-relaxed text-lg">
+                  You can manage your cookie preferences at any time by clicking the button below or by adjusting your browser settings. Please note that disabling certain cookies may affect the functionality of our website.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 pt-4">
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => window.dispatchEvent(new CustomEvent("open-cookie-preferences"))}
+                    className="flex items-center justify-center gap-2 px-8 py-4 bg-primary/10 hover:bg-primary/20 border border-primary/30 text-primary font-display uppercase tracking-widest text-sm transition-all duration-300 rounded-sm group"
+                  >
+                    <span>Manage My Preferences</span>
+                    <div className="w-1.5 h-1.5 rounded-full bg-primary group-hover:scale-125 transition-transform duration-300" />
+                  </motion.button>
+                </div>
+              </div>
             </div>
 
             <Separator className="bg-white/10" />
