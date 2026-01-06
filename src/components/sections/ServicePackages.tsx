@@ -9,13 +9,14 @@ import {
   Check, 
   Crown, 
   Star,
-  Users,
-  Briefcase,
-  Clock,
-  Shield
+  ArrowRight
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { EXTERNAL_LINKS } from "@/lib/constants";
+
+// Assets
+import sedanImg from "@/assets/fleet-sedan.jpg";
+import suvImg from "@/assets/fleet-suv.jpg";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -58,7 +59,7 @@ const specialPackages = [
     id: "airport",
     icon: Plane,
     title: "Airport Transfers",
-    description: "Seamless arrivals and departures with real-time flight monitoring.",
+    description: "Seamless arrivals and departures with real-time flight monitoring and meet & greet.",
     features: ["Flight tracking", "Meet at arrivals", "Luggage assistance"],
   },
   {
@@ -89,7 +90,7 @@ const comparisonFeatures = [
 const ServicePackages = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(sectionRef, { once: true, margin: "-50px" });
+  const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
 
   useEffect(() => {
     if (!headerRef.current) return;
@@ -121,87 +122,90 @@ const ServicePackages = () => {
       ref={sectionRef}
       className="bg-charcoal relative overflow-hidden py-24 md:py-32 lg:py-40"
     >
-      {/* Subtle Background Pattern */}
-      <div className="absolute inset-0 opacity-[0.02]">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,hsl(var(--primary))_1px,transparent_1px)] bg-[length:40px_40px]" />
+      {/* Dynamic Background Elements */}
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-1/4 -left-20 w-96 h-96 bg-primary/5 rounded-full blur-[120px]" />
+        <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-primary/10 rounded-full blur-[120px]" />
       </div>
 
       <div className="container-luxury relative z-10">
         {/* Section Header */}
         <div ref={headerRef} className="text-center mb-16 lg:mb-24">
-          <span className="header-animate inline-flex items-center gap-3 text-primary text-xs md:text-sm uppercase tracking-[0.4em] font-medium mb-4">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={isInView ? { opacity: 1, scale: 1 } : {}}
+            transition={{ duration: 0.5 }}
+            className="header-animate inline-flex items-center gap-3 text-primary text-xs md:text-sm uppercase tracking-[0.4em] font-medium mb-4"
+          >
             <span className="w-8 md:w-12 h-px bg-primary/60" />
             Service Packages
             <span className="w-8 md:w-12 h-px bg-primary/60" />
-          </span>
-          <h2 className="header-animate font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mt-4 mb-6">
+          </motion.div>
+          <h2 className="header-animate font-display text-4xl md:text-5xl lg:text-7xl font-bold text-foreground mt-4 mb-8">
             Tailored to
             <span className="text-gradient-gold"> Your Needs</span>
           </h2>
-          <p className="header-animate text-muted-foreground text-lg max-w-2xl mx-auto">
+          <p className="header-animate text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
             From executive sedan service to fleet management, we offer flexible packages 
-            designed around your requirements.
+            designed around your unique requirements.
           </p>
         </div>
 
         {/* Service Tiers */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="grid md:grid-cols-2 gap-6 lg:gap-8 max-w-4xl mx-auto mb-20 lg:mb-28"
-        >
+        <div className="grid md:grid-cols-2 gap-8 lg:gap-12 max-w-5xl mx-auto mb-24 lg:mb-32">
           {serviceTiers.map((tier, index) => (
             <motion.div
               key={tier.name}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 40 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.3 + index * 0.15 }}
-              className={`relative p-8 lg:p-10 rounded-sm border transition-all duration-500 ${
+              transition={{ duration: 0.8, delay: 0.2 + index * 0.2 }}
+              className={`group relative p-8 lg:p-12 rounded-2xl border transition-all duration-700 ${
                 tier.highlighted
-                  ? "border-primary/50 bg-primary/5 shadow-lg"
-                  : "border-border/50 bg-background/50"
+                  ? "border-primary/40 bg-primary/[0.03] shadow-[0_0_50px_-12px_rgba(212,175,55,0.15)]"
+                  : "border-white/5 bg-white/[0.02]"
               }`}
             >
               {/* Highlighted Badge */}
               {tier.highlighted && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                  <span className="bg-primary text-primary-foreground text-[10px] uppercase tracking-[0.2em] px-4 py-1.5 font-semibold">
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2">
+                  <span className="bg-primary text-primary-foreground text-[10px] md:text-xs uppercase tracking-[0.2em] px-6 py-2 rounded-full font-bold shadow-lg shadow-primary/20">
                     Recommended
                   </span>
                 </div>
               )}
 
               {/* Icon & Title */}
-              <div className="flex items-center gap-3 mb-4">
-                <div className={`w-10 h-10 rounded-sm flex items-center justify-center ${
-                  tier.highlighted ? "bg-primary/20" : "bg-secondary/50"
+              <div className="flex flex-col items-center text-center mb-8">
+                <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-6 transition-transform duration-500 group-hover:scale-110 ${
+                  tier.highlighted ? "bg-primary/20 shadow-[0_0_30px_-5px_rgba(212,175,55,0.3)]" : "bg-white/5"
                 }`}>
-                  <tier.icon size={20} className={tier.highlighted ? "text-primary" : "text-muted-foreground"} />
+                  <tier.icon size={32} className={tier.highlighted ? "text-primary" : "text-muted-foreground"} />
                 </div>
-                <div>
-                  <h3 className={`font-display text-2xl font-bold ${
-                    tier.highlighted ? "text-gradient-gold" : "text-foreground"
-                  }`}>
-                    {tier.name}
-                  </h3>
-                  <p className="text-xs uppercase tracking-wider text-muted-foreground">
-                    {tier.tagline}
-                  </p>
-                </div>
+                <h3 className={`font-display text-3xl md:text-4xl font-bold mb-2 ${
+                  tier.highlighted ? "text-gradient-gold" : "text-foreground"
+                }`}>
+                  {tier.name}
+                </h3>
+                <p className="text-sm uppercase tracking-[0.2em] text-primary/80 font-medium">
+                  {tier.tagline}
+                </p>
               </div>
 
               {/* Description */}
-              <p className="text-muted-foreground text-sm leading-relaxed mb-6">
+              <p className="text-muted-foreground text-center text-base leading-relaxed mb-10">
                 {tier.description}
               </p>
 
               {/* Features */}
-              <ul className="space-y-3 mb-8">
+              <ul className="space-y-4 mb-12">
                 {tier.features.map((feature) => (
-                  <li key={feature} className="flex items-center gap-3 text-sm">
-                    <Check size={14} className={tier.highlighted ? "text-primary" : "text-muted-foreground"} />
-                    <span className="text-foreground">{feature}</span>
+                  <li key={feature} className="flex items-center gap-4 text-base">
+                    <div className={`shrink-0 w-6 h-6 rounded-full flex items-center justify-center ${
+                      tier.highlighted ? "bg-primary/20 text-primary" : "bg-white/10 text-muted-foreground"
+                    }`}>
+                      <Check size={14} />
+                    </div>
+                    <span className="text-foreground/90">{feature}</span>
                   </li>
                 ))}
               </ul>
@@ -210,7 +214,9 @@ const ServicePackages = () => {
               <Button
                 variant={tier.highlighted ? "luxury" : "luxury-outline"}
                 size="lg"
-                className="w-full"
+                className={`w-full h-14 text-base tracking-widest uppercase transition-all duration-300 ${
+                  tier.highlighted ? "hover:shadow-[0_0_30px_-5px_rgba(212,175,55,0.4)]" : ""
+                }`}
                 asChild
               >
                 <a href={EXTERNAL_LINKS.booking} target="_blank" rel="noopener noreferrer">
@@ -219,42 +225,135 @@ const ServicePackages = () => {
               </Button>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
 
-        {/* Special Packages */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="mb-20 lg:mb-28"
-        >
-          <h3 className="font-display text-2xl md:text-3xl font-bold text-foreground text-center mb-4">
-            Special Packages
-          </h3>
-          <div className="w-16 h-px bg-gradient-to-r from-transparent via-primary to-transparent mx-auto mb-12" />
+        {/* Comparison Section with Images */}
+        <div className="mb-24 lg:mb-32">
+          <div className="text-center mb-12 lg:mb-16">
+            <h3 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Select Your <span className="text-primary">Vessel</span>
+            </h3>
+            <div className="w-24 h-px bg-gradient-to-r from-transparent via-primary to-transparent mx-auto" />
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 max-w-6xl mx-auto">
+            {/* Sedan Comparison Card */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="group relative overflow-hidden rounded-3xl bg-white/[0.02] border border-white/5"
+            >
+              <div className="aspect-[16/10] overflow-hidden">
+                <img 
+                  src={sedanImg} 
+                  alt="Premium Sedan" 
+                  className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-transparent to-transparent opacity-60" />
+              </div>
+              <div className="p-8 lg:p-10 relative">
+                <div className="flex justify-between items-center mb-8">
+                  <h4 className="font-display text-3xl font-bold text-foreground">Premium Sedan</h4>
+                  <span className="text-primary font-bold text-xl">$95<span className="text-xs text-muted-foreground font-normal ml-1">Starting</span></span>
+                </div>
+                
+                <div className="space-y-4">
+                  {comparisonFeatures.map((row) => (
+                    <div key={row.feature} className="flex justify-between items-center py-3 border-b border-white/5 last:border-0">
+                      <span className="text-muted-foreground text-sm uppercase tracking-wider">{row.feature}</span>
+                      <span className="text-foreground font-medium">{row.sedan}</span>
+                    </div>
+                  ))}
+                </div>
+                
+                <Button variant="luxury-outline" className="w-full mt-8 group" asChild>
+                  <a href={EXTERNAL_LINKS.booking} className="flex items-center justify-center gap-2">
+                    Book Sedan <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+                  </a>
+                </Button>
+              </div>
+            </motion.div>
+
+            {/* SUV Comparison Card */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="group relative overflow-hidden rounded-3xl bg-primary/[0.03] border border-primary/20 shadow-[0_0_50px_-12px_rgba(212,175,55,0.1)]"
+            >
+              <div className="aspect-[16/10] overflow-hidden">
+                <img 
+                  src={suvImg} 
+                  alt="Luxury SUV" 
+                  className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-transparent to-transparent opacity-60" />
+                <div className="absolute top-4 right-4 bg-primary text-primary-foreground px-4 py-1 rounded-full text-[10px] uppercase font-bold tracking-widest">
+                  Groups Choice
+                </div>
+              </div>
+              <div className="p-8 lg:p-10 relative">
+                <div className="flex justify-between items-center mb-8">
+                  <h4 className="font-display text-3xl font-bold text-gradient-gold">Luxury SUV</h4>
+                  <span className="text-primary font-bold text-xl">$145<span className="text-xs text-muted-foreground font-normal ml-1">Starting</span></span>
+                </div>
+                
+                <div className="space-y-4">
+                  {comparisonFeatures.map((row) => (
+                    <div key={row.feature} className="flex justify-between items-center py-3 border-b border-white/5 last:border-0">
+                      <span className="text-muted-foreground text-sm uppercase tracking-wider">{row.feature}</span>
+                      <span className="text-foreground font-medium">{row.suv}</span>
+                    </div>
+                  ))}
+                </div>
+                
+                <Button variant="luxury" className="w-full mt-8 group glow-gold" asChild>
+                  <a href={EXTERNAL_LINKS.booking} className="flex items-center justify-center gap-2">
+                    Book SUV <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+                  </a>
+                </Button>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+
+        {/* Special Packages Grid */}
+        <div className="relative">
+          <div className="text-center mb-12 lg:mb-16">
+            <h3 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Premium <span className="text-primary">Experiences</span>
+            </h3>
+            <p className="text-muted-foreground max-w-xl mx-auto">
+              Specialized services tailored for specific travel requirements.
+            </p>
+          </div>
 
           <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
             {specialPackages.map((pkg, index) => (
               <motion.div
                 key={pkg.id}
                 initial={{ opacity: 0, y: 30 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: 0.5 + index * 0.1 }}
-                className="group p-6 lg:p-8 rounded-sm border border-border/30 bg-background/30 hover:border-primary/30 hover:bg-primary/5 transition-all duration-500"
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.1 * index }}
+                className="group p-8 rounded-2xl border border-white/5 bg-white/[0.01] hover:border-primary/30 hover:bg-primary/[0.02] transition-all duration-500"
               >
-                <div className="w-12 h-12 rounded-sm bg-secondary/50 flex items-center justify-center mb-5 group-hover:bg-primary/20 transition-colors duration-300">
-                  <pkg.icon size={22} className="text-primary" />
+                <div className="w-14 h-14 rounded-xl bg-white/5 flex items-center justify-center mb-6 group-hover:bg-primary/20 group-hover:scale-110 transition-all duration-500">
+                  <pkg.icon size={28} className="text-primary" />
                 </div>
-                <h4 className="font-display text-xl font-semibold text-foreground mb-2">
+                <h4 className="font-display text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors">
                   {pkg.title}
                 </h4>
-                <p className="text-muted-foreground text-sm leading-relaxed mb-4">
+                <p className="text-muted-foreground text-sm leading-relaxed mb-6">
                   {pkg.description}
                 </p>
-                <ul className="space-y-2">
+                <ul className="space-y-3">
                   {pkg.features.map((feature) => (
-                    <li key={feature} className="flex items-center gap-2 text-xs text-muted-foreground">
-                      <span className="w-1 h-1 rounded-full bg-primary/60" />
+                    <li key={feature} className="flex items-center gap-3 text-xs text-muted-foreground">
+                      <div className="w-1.5 h-1.5 rounded-full bg-primary/40" />
                       {feature}
                     </li>
                   ))}
@@ -262,103 +361,11 @@ const ServicePackages = () => {
               </motion.div>
             ))}
           </div>
-        </motion.div>
-
-        {/* Sedan vs SUV Comparison */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.6 }}
-        >
-          <h3 className="font-display text-2xl md:text-3xl font-bold text-foreground text-center mb-4">
-            Sedan vs SUV
-          </h3>
-          <div className="w-16 h-px bg-gradient-to-r from-transparent via-primary to-transparent mx-auto mb-12" />
-
-          {/* Desktop Table */}
-          <div className="hidden md:block max-w-3xl mx-auto">
-            <div className="rounded-sm border border-border/30 overflow-hidden">
-              {/* Header */}
-              <div className="grid grid-cols-3 bg-secondary/30">
-                <div className="p-4 lg:p-5 border-r border-border/30">
-                  <span className="text-xs uppercase tracking-wider text-muted-foreground">Feature</span>
-                </div>
-                <div className="p-4 lg:p-5 border-r border-border/30 text-center">
-                  <span className="font-display text-lg font-semibold text-foreground">Sedan</span>
-                </div>
-                <div className="p-4 lg:p-5 text-center bg-primary/5">
-                  <span className="font-display text-lg font-semibold text-gradient-gold">SUV</span>
-                </div>
-              </div>
-
-              {/* Rows */}
-              {comparisonFeatures.map((row, index) => (
-                <div
-                  key={row.feature}
-                  className={`grid grid-cols-3 ${
-                    index !== comparisonFeatures.length - 1 ? "border-b border-border/20" : ""
-                  }`}
-                >
-                  <div className="p-4 lg:p-5 border-r border-border/20 flex items-center">
-                    <span className="text-sm text-muted-foreground">{row.feature}</span>
-                  </div>
-                  <div className="p-4 lg:p-5 border-r border-border/20 flex items-center justify-center">
-                    <span className="text-sm text-foreground">{row.sedan}</span>
-                  </div>
-                  <div className="p-4 lg:p-5 flex items-center justify-center bg-primary/5">
-                    <span className="text-sm text-foreground font-medium">{row.suv}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Mobile Cards */}
-          <div className="md:hidden grid grid-cols-2 gap-4">
-            {/* Sedan Card */}
-            <div className="p-5 rounded-sm border border-border/30 bg-background/30">
-              <h4 className="font-display text-lg font-semibold text-foreground mb-4 text-center">Sedan</h4>
-              <ul className="space-y-3">
-                {comparisonFeatures.map((row) => (
-                  <li key={row.feature} className="text-center">
-                    <span className="block text-[10px] uppercase tracking-wider text-muted-foreground mb-1">
-                      {row.feature}
-                    </span>
-                    <span className="text-sm text-foreground">{row.sedan}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* SUV Card */}
-            <div className="p-5 rounded-sm border border-primary/30 bg-primary/5">
-              <h4 className="font-display text-lg font-semibold text-gradient-gold mb-4 text-center">SUV</h4>
-              <ul className="space-y-3">
-                {comparisonFeatures.map((row) => (
-                  <li key={row.feature} className="text-center">
-                    <span className="block text-[10px] uppercase tracking-wider text-muted-foreground mb-1">
-                      {row.feature}
-                    </span>
-                    <span className="text-sm text-foreground font-medium">{row.suv}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-
-          {/* CTA */}
-          <div className="text-center mt-12">
-            <Button variant="luxury" size="lg" className="glow-gold" asChild>
-              <a href={EXTERNAL_LINKS.booking} target="_blank" rel="noopener noreferrer">
-                Reserve Your Ride
-              </a>
-            </Button>
-          </div>
-        </motion.div>
+        </div>
       </div>
 
-      {/* Bottom Accent */}
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
+      {/* Decorative Accents */}
+      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-black to-transparent opacity-40 pointer-events-none" />
     </section>
   );
 };
