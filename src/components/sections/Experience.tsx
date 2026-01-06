@@ -45,7 +45,7 @@ const Experience = () => {
       {/* Decorative Background Text */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full text-center pointer-events-none select-none overflow-hidden opacity-[0.02]">
         <span className="font-display text-[20vw] font-bold whitespace-nowrap leading-none">
-          AUXEMPI EXPERIENCE
+          AUXEMPI
         </span>
       </div>
 
@@ -124,7 +124,7 @@ const Experience = () => {
               initial={{ opacity: 0, y: 40 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.6 + index * 0.1 }}
-              className="group relative p-8 rounded-2xl bg-white/[0.02] border border-white/5 hover:bg-white/[0.04] hover:border-primary/30 transition-all duration-500"
+              className="group relative p-8 rounded-none bg-white/[0.02] border border-white/5 hover:bg-white/[0.04] hover:border-primary/30 transition-all duration-500"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
               

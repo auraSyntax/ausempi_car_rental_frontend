@@ -35,7 +35,7 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer id="contact" className="bg-charcoal relative overflow-hidden">
+    <footer className="bg-charcoal relative overflow-hidden">
       {/* Texture Overlay */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]" />
       
@@ -95,11 +95,11 @@ const Footer = () => {
 
       <div className="container-luxury pt-20 pb-12 lg:pt-32 lg:pb-16 relative z-10">
         {/* Background Decorative Text */}
-        <div className="absolute top-40 left-0 w-full flex justify-center opacity-[0.02] pointer-events-none select-none overflow-hidden">
-          <span className="text-[20vw] font-display font-bold tracking-[0.2em] whitespace-nowrap">
+        {/* <div className="absolute top-40 left-0 bottom-0 w-full flex justify-center opacity-[0.02] leading-loose pointer-events-none select-none overflow-visible">
+          <span className="text-[15vw] font-display font-bold tracking-[0.2em] whitespace-nowrap">
             {BRAND.name}
           </span>
-        </div>
+        </div> */}
 
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-16 lg:gap-12 mb-20 relative z-10">

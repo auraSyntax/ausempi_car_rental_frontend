@@ -159,7 +159,7 @@ const ServicePackages = () => {
               initial={{ opacity: 0, y: 40 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.2 + index * 0.2 }}
-              className={`group relative p-8 lg:p-12 rounded-2xl border transition-all duration-700 ${
+              className={`group relative p-8 lg:p-12 rounded-none border transition-all duration-700 ${
                 tier.highlighted
                   ? "border-primary/40 bg-primary/[0.03] shadow-[0_0_50px_-12px_rgba(212,175,55,0.15)]"
                   : "border-white/5 bg-white/[0.02]"
@@ -243,7 +243,7 @@ const ServicePackages = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="group relative overflow-hidden rounded-3xl bg-white/[0.02] border border-white/5"
+              className="group relative overflow-hidden rounded-none bg-white/[0.02] border border-white/5"
             >
               <div className="aspect-[16/10] overflow-hidden">
                 <img 
@@ -282,7 +282,7 @@ const ServicePackages = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="group relative overflow-hidden rounded-3xl bg-primary/[0.03] border border-primary/20 shadow-[0_0_50px_-12px_rgba(212,175,55,0.1)]"
+              className="group relative overflow-hidden rounded-none bg-primary/[0.03] border border-primary/20 shadow-[0_0_50px_-12px_rgba(212,175,55,0.1)]"
             >
               <div className="aspect-[16/10] overflow-hidden">
                 <img 
@@ -339,12 +339,12 @@ const ServicePackages = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.1 * index }}
-                className="group p-8 rounded-2xl border border-white/5 bg-white/[0.01] hover:border-primary/30 hover:bg-primary/[0.02] transition-all duration-500"
+                className="group p-8 rounded-none border border-white/5 bg-white/[0.01] hover:border-primary/30 hover:bg-primary/[0.02] transition-all duration-500"
               >
                 <div className="w-14 h-14 rounded-xl bg-white/5 flex items-center justify-center mb-6 group-hover:bg-primary/20 group-hover:scale-110 transition-all duration-500">
                   <pkg.icon size={28} className="text-primary" />
                 </div>
-                <h4 className="font-display text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors">
+                <h4 className="font-display text-2xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors">
                   {pkg.title}
                 </h4>
                 <p className="text-muted-foreground text-sm leading-relaxed mb-6">
@@ -352,7 +352,7 @@ const ServicePackages = () => {
                 </p>
                 <ul className="space-y-3">
                   {pkg.features.map((feature) => (
-                    <li key={feature} className="flex items-center gap-3 text-xs text-muted-foreground">
+                    <li key={feature} className="flex items-center gap-3 text-sm text-muted-foreground">
                       <div className="w-1.5 h-1.5 rounded-full bg-primary/40" />
                       {feature}
                     </li>
