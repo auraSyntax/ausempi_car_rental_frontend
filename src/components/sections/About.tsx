@@ -1,31 +1,17 @@
 import { useRef, useState, useEffect } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Link } from "react-router-dom";
 import { 
   Quote, 
   Star, 
-  MapPin, 
-  Car, 
-  Users, 
-  Calendar,
   ChevronLeft,
   ChevronRight,
   Shield,
   Award,
   CheckCircle,
-  Clock
+  Clock,
+  ArrowRight
 } from "lucide-react";
-
-gsap.registerPlugin(ScrollTrigger);
-
-// Stats Data
-const stats = [
-  { number: "8+", label: "Years of Excellence", icon: Calendar },
-  { number: "15K+", label: "Completed Rides", icon: Car },
-  { number: "25+", label: "Cities Covered", icon: MapPin },
-  { number: "50+", label: "Premium Vehicles", icon: Users },
-];
 
 // Testimonials
 const testimonials = [
@@ -67,15 +53,23 @@ const trustBadges = [
   { icon: Clock, label: "24/7 Availability" },
 ];
 
-// Coverage Areas
-const coverageAreas = [
-  "New York", "Los Angeles", "Chicago", "Miami", "San Francisco",
-  "Boston", "Washington D.C.", "Dallas", "Seattle", "Atlanta"
+const highlights = [
+  {
+    title: "Unmatched Fleet Quality",
+    description: "Our meticulously maintained vehicles represent the pinnacle of automotive luxury and safety."
+  },
+  {
+    title: "Expert Chauffeur Service",
+    description: "Highly trained professionals dedicated to providing a seamless, discrete, and safe experience."
+  },
+  {
+    title: "Global Service Excellence",
+    description: "Consistent high-end service standards maintained across major cities and travel hubs worldwide."
+  }
 ];
 
 const About = () => {
   const sectionRef = useRef<HTMLElement>(null);
-  const statsRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
   const [activeTestimonial, setActiveTestimonial] = useState(0);
 
@@ -85,42 +79,6 @@ const About = () => {
       setActiveTestimonial((prev) => (prev + 1) % testimonials.length);
     }, 6000);
     return () => clearInterval(interval);
-  }, []);
-
-  // GSAP Counter Animation
-  useEffect(() => {
-    if (!statsRef.current) return;
-
-    const ctx = gsap.context(() => {
-      const counters = statsRef.current?.querySelectorAll(".stat-number");
-      
-      counters?.forEach((counter) => {
-        const target = counter.getAttribute("data-value") || "0";
-        const numericValue = parseInt(target.replace(/\D/g, ""));
-        const suffix = target.replace(/[0-9]/g, "");
-
-        gsap.fromTo(
-          counter,
-          { innerText: "0" },
-          {
-            innerText: numericValue,
-            duration: 2,
-            ease: "power2.out",
-            snap: { innerText: 1 },
-            scrollTrigger: {
-              trigger: counter,
-              start: "top 85%",
-            },
-            onUpdate: function () {
-              const current = Math.floor(parseFloat(counter.textContent || "0"));
-              counter.textContent = current + suffix;
-            },
-          }
-        );
-      });
-    }, sectionRef);
-
-    return () => ctx.revert();
   }, []);
 
   const nextTestimonial = () => {
@@ -137,10 +95,10 @@ const About = () => {
       ref={sectionRef}
       className="bg-background relative overflow-hidden"
     >
-      {/* Mission & Vision */}
+      {/* Redesigned About Section - Split Layout */}
       <div className="container-luxury py-24 md:py-32 lg:py-40">
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-          {/* Left: Mission */}
+          {/* Left: Content */}
           <motion.div
             initial={{ opacity: 0, x: -40 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
@@ -152,74 +110,79 @@ const About = () => {
             </span>
             
             <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-[1.1] mb-8">
-              Where Excellence
-              <span className="block text-gradient-gold">Becomes Standard</span>
+              Elevating the Standard of 
+              <span className="block text-gradient-gold">Private Travel</span>
             </h2>
 
-            <div className="space-y-6 text-muted-foreground leading-relaxed">
-              <p className="text-lg">
-                Founded on the principle that transportation should be an experience, 
-                not just a service. We believe every journey deserves the same attention 
-                to detail as the destination itself.
-              </p>
-              <p>
-                Our mission is simple: deliver uncompromising luxury with unwavering 
-                reliability. From our meticulously maintained fleet to our professionally 
-                trained chauffeurs, every element is designed to exceed expectations.
-              </p>
+            <p className="text-lg text-muted-foreground leading-relaxed mb-10">
+              We don't just provide a ride; we deliver an experience defined by precision, luxury, and an unwavering commitment to your journey's excellence. Every mile is a testament to our dedication to superior service.
+            </p>
+
+            {/* Highlights Grid */}
+            <div className="space-y-8 mb-12">
+              {highlights.map((item, idx) => (
+                <div key={idx} className="flex gap-6 group">
+                  <div className="flex-shrink-0 w-px h-12 bg-primary/20 group-hover:bg-primary transition-colors duration-500" />
+                  <div>
+                    <h4 className="text-foreground font-semibold uppercase tracking-wider text-sm mb-2">{item.title}</h4>
+                    <p className="text-muted-foreground text-sm leading-relaxed max-w-sm">{item.description}</p>
+                  </div>
+                </div>
+              ))}
             </div>
 
-            {/* Coverage */}
-            <div className="mt-10 pt-8 border-t border-border/30">
-              <h4 className="text-sm uppercase tracking-[0.2em] text-foreground font-medium mb-4">
-                Service Coverage
-              </h4>
-              <div className="flex flex-wrap gap-2">
-                {coverageAreas.slice(0, 6).map((city) => (
-                  <span
-                    key={city}
-                    className="text-xs px-3 py-1.5 rounded-sm bg-secondary/50 text-muted-foreground"
-                  >
-                    {city}
-                  </span>
-                ))}
-                <span className="text-xs px-3 py-1.5 rounded-sm bg-primary/10 text-primary">
-                  +{coverageAreas.length - 6} more
-                </span>
-              </div>
-            </div>
+            <motion.div
+              whileHover={{ x: 5 }}
+              transition={{ duration: 0.3 }}
+            >
+              <Link 
+                to="/about" 
+                className="inline-flex items-center gap-2 text-primary font-medium tracking-[0.2em] uppercase text-xs group"
+              >
+                Learn More About Our Vision
+                <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
+              </Link>
+            </motion.div>
           </motion.div>
 
-          {/* Right: Stats */}
+          {/* Right: Editorial Image */}
           <motion.div
-            ref={statsRef}
-            initial={{ opacity: 0, x: 40 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="grid grid-cols-2 gap-6"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={isInView ? { opacity: 1, scale: 1 } : {}}
+            transition={{ duration: 1, ease: "easeOut" }}
+            className="relative"
           >
-            {stats.map((stat, index) => (
-              <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, y: 30 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
-                className="relative p-6 lg:p-8 rounded-sm border border-border/30 bg-charcoal/50 group hover:border-primary/30 transition-colors duration-500"
-              >
-                <div className="absolute top-4 right-4 opacity-10 group-hover:opacity-20 transition-opacity duration-500">
-                  <stat.icon size={40} className="text-primary" />
+            {/* Main Image Frame */}
+            <div className="aspect-[4/5] overflow-hidden rounded-sm relative z-10 shadow-2xl shadow-black/50">
+              <img 
+                src="https://images.unsplash.com/photo-1514316454349-750a7fd3da3a?q=80&w=2070&auto=format&fit=crop" 
+                alt="Luxury Vehicle Interior"
+                className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-1000"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+            </div>
+
+            {/* Decorative Elements */}
+            <div className="absolute -top-6 -right-6 w-32 h-32 border-t border-r border-primary/30 z-0" />
+            <div className="absolute -bottom-6 -left-6 w-32 h-32 border-b border-l border-primary/30 z-0" />
+            
+            {/* Floating Trust Card */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: 0.5, duration: 0.8 }}
+              className="absolute -bottom-10 right-10 z-20 bg-charcoal/90 backdrop-blur-md p-6 border border-border/30 rounded-sm shadow-xl hidden md:block"
+            >
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-sm bg-primary/10 flex items-center justify-center">
+                  <Award className="text-primary" size={24} />
                 </div>
-                <span
-                  className="stat-number block font-display text-4xl lg:text-5xl font-bold text-gradient-gold mb-2"
-                  data-value={stat.number}
-                >
-                  0
-                </span>
-                <span className="text-sm text-muted-foreground uppercase tracking-wider">
-                  {stat.label}
-                </span>
-              </motion.div>
-            ))}
+                <div>
+                  <p className="text-foreground font-bold text-lg leading-none">8+ Years</p>
+                  <p className="text-muted-foreground text-xs uppercase tracking-widest mt-1">of Excellence</p>
+                </div>
+              </div>
+            </motion.div>
           </motion.div>
         </div>
       </div>

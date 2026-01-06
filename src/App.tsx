@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
+import AboutPage from "./pages/AboutPage";
 import Terms from "./pages/Terms";
 import Privacy from "./pages/Privacy";
 import CookiePolicy from "./pages/CookiePolicy";
@@ -18,9 +19,11 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/terms" element={<Terms />} />
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/about" element={<AboutPage />} />
+              <Route path="/terms" element={<Terms />} />
+
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/cookies" element={<CookiePolicy />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

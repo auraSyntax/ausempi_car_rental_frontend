@@ -8,7 +8,7 @@ import { EXTERNAL_LINKS } from "@/lib/constants";
 const navLinks = [
   { name: "Home", href: "/" },
   { name: "Services", href: "/#services" },
-  { name: "About", href: "/#experience" },
+  { name: "About", href: "/about" },
   { name: "Contact", href: "/#contact" },
   { name: "Mobile App", href: "/#app" },
   { name: "Driver Login", href: "/driver-login", isSecondary: true },
