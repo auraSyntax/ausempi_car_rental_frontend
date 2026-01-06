@@ -238,23 +238,29 @@ const Footer = () => {
             © {currentYear} {BRAND.name}. All rights reserved.
           </motion.p>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            className="flex flex-wrap justify-center gap-6"
-          >
-            {footerLinks.legal.map((link) => (
-              <Link
-                key={link.name}
-                to={link.href}
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              className="flex flex-wrap justify-center gap-6"
+            >
+              {footerLinks.legal.map((link) => (
+                <Link
+                  key={link.name}
+                  to={link.href}
+                  className="text-muted-foreground hover:text-primary transition-colors duration-300 text-xs uppercase tracking-[0.1em]"
+                >
+                  {link.name}
+                </Link>
+              ))}
+              <button
+                onClick={() => window.dispatchEvent(new CustomEvent("open-cookie-preferences"))}
                 className="text-muted-foreground hover:text-primary transition-colors duration-300 text-xs uppercase tracking-[0.1em]"
               >
-                {link.name}
-              </Link>
-            ))}
-          </motion.div>
+                Manage Cookies
+              </button>
+            </motion.div>
         </div>
       </div>
     </footer>
