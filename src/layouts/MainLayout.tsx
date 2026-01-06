@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import { motion } from "framer-motion";
 import { pageTransition } from "@/lib/animations";
+import { BackToTop } from "@/components/common/BackToTop";
 
 interface MainLayoutProps {
   children: ReactNode;
@@ -16,6 +17,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
       className="min-h-screen bg-background"
     >
       {children}
+      <BackToTop />
     </motion.div>
   );
 };
