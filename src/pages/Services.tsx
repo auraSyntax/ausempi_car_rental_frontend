@@ -38,7 +38,7 @@ const sections = {
     title: "Luxury Sedan Services",
     subtitle: "Executive Excellence",
     description: "Refined elegance for the discerning professional. Our sedan services are designed for those who value understated luxury and absolute precision.",
-    image: "https://images.unsplash.com/photo-1617469767053-d3b508a0d182?q=80&w=2070&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1621135802920-133df287f89c?q=80&w=2070&auto=format&fit=crop",
     amenities: [
       { icon: Wifi, label: "High-Speed WiFi" },
       { icon: BatteryCharging, label: "Device Charging" },

@@ -15,7 +15,7 @@ const services = [
     title: "Luxury Sedan",
     subtitle: "Executive Excellence",
     description: "Experience the pinnacle of executive travel. Our premium sedans offer a sanctuary of calm and sophistication, designed for the discerning professional who values time and tranquility.",
-    image: fleetSedan,
+    image: "https://images.unsplash.com/photo-1621135802920-133df287f89c?q=80&w=2070&auto=format&fit=crop",
     index: "01",
     tiers: [
       { name: "Premium", icon: Star, features: ["Professional chauffeur", "Complimentary water", "Phone charging"] },

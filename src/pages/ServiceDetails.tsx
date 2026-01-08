@@ -14,7 +14,7 @@ const SERVICES_DATA = {
     tagline: "The Pinnacle of Executive Travel",
     heroImage: "https://images.unsplash.com/photo-1563720223185-11003d516935?q=80&w=2070&auto=format&fit=crop",
     overviewText: "Experience the ultimate in executive transportation with our Luxury Sedan Service. Perfect for solo travelers or small groups seeking discretion, comfort, and sophistication.",
-    overviewImage: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?q=80&w=2070&auto=format&fit=crop",
+      overviewImage: "https://images.unsplash.com/photo-1621135802920-133df287f89c?q=80&w=2070&auto=format&fit=crop",
     highlights: [
       { title: "Maximum Comfort", description: "Leather interiors and climate control for a relaxing journey." },
       { title: "Professional Chauffeurs", description: "Vetted, experienced drivers dedicated to your schedule." },
