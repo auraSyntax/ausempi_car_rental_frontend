@@ -39,7 +39,7 @@ const sections = {
       "We recognized that for our discerning clientele, the journey is as significant as the destination. This realization led us to curate a fleet and a service philosophy that transcends the ordinary.",
       "Today, AUXEMPI stands as the premier choice for executives, global leaders, and private individuals who demand a bespoke travel experience defined by meticulous planning and executive care."
     ],
-      image: "https://images.unsplash.com/photo-1600706432502-77a0e2e3277c?q=80&w=2070&auto=format&fit=crop"
+      image: "https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?q=80&w=2070&auto=format&fit=crop"
   },
   fleet: [
     {
@@ -90,12 +90,12 @@ const sections = {
       description: "Beyond driving, our chauffeurs are masters of hospitality and local navigation.",
       image: "https://images.unsplash.com/photo-1508974239320-0a029497e820?q=80&w=2070&auto=format&fit=crop"
     },
-    {
-      title: "Bespoke Comfort",
-      description: "In-vehicle amenities curated to your specific requirements and tastes.",
-      image: "https://images.unsplash.com/photo-1620067644342-9989a664e434?q=80&w=2070&auto=format&fit=crop"
-    }
-  ],
+      {
+        title: "Bespoke Comfort",
+        description: "In-vehicle amenities curated to your specific requirements and tastes.",
+        image: "https://images.unsplash.com/photo-1633425571190-fe4112e452a3?q=80&w=2070&auto=format&fit=crop"
+      }
+    ],
   stats: [
     { value: "8", label: "Years of Service", suffix: "+" },
     { value: "15", label: "Rides Completed", suffix: "K+" },
