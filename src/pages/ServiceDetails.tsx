@@ -21,11 +21,11 @@ const SERVICES_DATA = {
       { title: "Privacy & Safety", description: "Tinted windows and advanced safety features for peace of mind." },
       { title: "Premium Amenities", description: "Complimentary water, Wi-Fi, and charging ports." },
     ],
-    showcase: [
-      "https://images.unsplash.com/photo-1617469767053-d3b508a0d84d?q=80&w=2070&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?q=80&w=2070&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1603584173870-7f1370257925?q=80&w=2070&auto=format&fit=crop",
-    ],
+      showcase: [
+        "https://images.unsplash.com/photo-1600706432502-77a0e2e327fc?q=80&w=2070&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1616455579100-2ceaa4eb2d37?q=80&w=2070&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1605515298946-d062f2e9da53?q=80&w=2070&auto=format&fit=crop",
+      ],
   },
   "luxury-suv": {
     title: "Luxury SUV Service",
