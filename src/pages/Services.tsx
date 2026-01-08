@@ -221,24 +221,18 @@ const ServicesPage = () => {
                   ))}
                 </div>
 
-                <div className="space-y-6">
-                  {sections.sedan.tiers.map((tier, i) => (
-                    <div key={i} className={`p-6 border transition-all duration-500 rounded-sm ${tier.highlighted ? 'border-primary/50 bg-primary/5' : 'border-white/10 bg-white/5'}`}>
-                      <div className="flex justify-between items-center mb-4">
-                        <h4 className={`text-xl font-bold ${tier.highlighted ? 'text-primary' : 'text-white'}`}>{tier.name}</h4>
-                        {tier.highlighted && <Crown size={20} className="text-primary" />}
-                      </div>
-                      <div className="flex flex-wrap gap-4">
-                        {tier.features.map((f, fi) => (
-                          <div key={fi} className="flex items-center gap-2 text-xs text-white/40 uppercase tracking-widest">
-                            <CheckIcon className="w-3 h-3 text-primary" />
-                            {f}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  ))}
-                </div>
+                  <div className="flex flex-col sm:flex-row gap-4">
+                    <Button size="lg" className="bg-primary text-black hover:bg-primary/90" asChild>
+                      <a href={EXTERNAL_LINKS.booking} target="_blank" rel="noopener noreferrer">
+                        Book Sedan
+                      </a>
+                    </Button>
+                    <Button size="lg" variant="luxury-outline" asChild>
+                      <a href="/services/luxury-sedan">
+                        View Details
+                      </a>
+                    </Button>
+                  </div>
               </div>
             </FadeInSection>
           </div>
@@ -276,24 +270,18 @@ const ServicesPage = () => {
                   ))}
                 </div>
 
-                <div className="space-y-6">
-                  {sections.suv.tiers.map((tier, i) => (
-                    <div key={i} className={`p-6 border transition-all duration-500 rounded-sm ${tier.highlighted ? 'border-primary/50 bg-primary/5' : 'border-charcoal/5 bg-charcoal/5'}`}>
-                      <div className="flex justify-between items-center mb-4">
-                        <h4 className={`text-xl font-bold ${tier.highlighted ? 'text-primary' : 'text-foreground'}`}>{tier.name}</h4>
-                        {tier.highlighted && <Crown size={20} className="text-primary" />}
-                      </div>
-                      <div className="flex flex-wrap gap-4">
-                        {tier.features.map((f, fi) => (
-                          <div key={fi} className="flex items-center gap-2 text-xs text-muted-foreground/60 uppercase tracking-widest">
-                            <CheckIcon className="w-3 h-3 text-primary" />
-                            {f}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  ))}
-                </div>
+                  <div className="flex flex-col sm:flex-row gap-4">
+                    <Button size="lg" className="bg-primary text-black hover:bg-primary/90" asChild>
+                      <a href={EXTERNAL_LINKS.booking} target="_blank" rel="noopener noreferrer">
+                        Book SUV
+                      </a>
+                    </Button>
+                    <Button size="lg" variant="luxury-outline" asChild>
+                      <a href="/services/luxury-suv">
+                        View Details
+                      </a>
+                    </Button>
+                  </div>
               </div>
             </FadeInSection>
           </div>
