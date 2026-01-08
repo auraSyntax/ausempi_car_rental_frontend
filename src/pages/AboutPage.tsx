@@ -20,11 +20,6 @@ import {
 import MainLayout from "@/layouts/MainLayout";
 import { Navbar, Footer, ReserveCTA } from "@/components/sections";
 
-// Asset Imports
-import heroSedan from "@/assets/hero-sedan.jpg";
-import fleetSedan from "@/assets/fleet-sedan.jpg";
-import fleetSuv from "@/assets/fleet-suv.jpg";
-
 const sections = {
     hero: {
     title: "About AUXEMPI",
@@ -57,7 +52,7 @@ const sections = {
     {
       type: "Luxury SUVs",
       description: "Commanding presence and generous space for group travel or extra luggage.",
-      image: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?q=80&w=2070&auto=format&fit=crop",
+      image: "https://images.unsplash.com/photo-1606148695344-b6ed50bb3f5d?q=80&w=2070&auto=format&fit=crop",
       specs: [
         { icon: Users, label: "Up to 6 guests" },
         { icon: Briefcase, label: "4 luggage" },
@@ -104,9 +99,9 @@ const sections = {
   ],
     gallery: [
       "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?q=80&w=2070&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=2070&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=2070&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1502877338535-766e1452684a?q=80&w=2072&auto=format&fit=crop"
+      "https://images.unsplash.com/photo-1605898835373-023bbba1d261?q=80&w=2070&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1555215695-3004980ad54e?q=80&w=2070&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?q=80&w=2072&auto=format&fit=crop"
     ]
   };
 
