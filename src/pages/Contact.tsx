@@ -51,120 +51,47 @@ const Contact = () => {
   return (
     <MainLayout>
       <Navbar />
-      
+
       {/* Hero Section – Premium Brand Reveal */}
-      <section className="relative min-h-[85vh] flex items-center justify-center pt-20 lg:pt-24 overflow-hidden">
-        {/* Background Image with Cinematic Ken Burns Effect */}
-        <div className="absolute inset-0 z-0 overflow-hidden">
-          <motion.img 
-            initial={{ scale: 1.15 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 20, repeat: Infinity, repeatType: "reverse", ease: "linear" }}
-            src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?q=80&w=2070&auto=format&fit=crop" 
-            alt="Luxury Executive Lounge" 
-            className="w-full h-full object-cover"
+      <section className="relative min-h-[80vh] flex items-center justify-center pt-32 pb-20 overflow-hidden">
+        {/* Background Image with Dark Overlay */}
+        <div className="absolute inset-0 z-0">
+          <img
+            src="https://images.unsplash.com/photo-1511407397940-d57f68e8118a?q=80&w=2000&auto=format&fit=crop"
+            alt="Luxury Car Interior"
+            className="w-full h-full object-cover scale-105"
           />
-          {/* Layered Overlays for Depth */}
-          <div className="absolute inset-0 bg-black/70" />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-r from-background/60 via-transparent to-background/60" />
-          
-          {/* Animated Light Trails / Particles (Optional but luxury) */}
-          <div className="absolute top-0 left-0 w-full h-full opacity-30 pointer-events-none">
-            <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-[120px] animate-float" />
-            <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-primary/10 rounded-full blur-[150px] animate-float" style={{ animationDelay: "1.5s" }} />
-          </div>
+          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/70 to-background" />
         </div>
 
-        <div className="container-luxury relative z-10">
-          <div className="max-w-6xl mx-auto flex flex-col items-center text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-              className="w-full"
-            >
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.2, duration: 0.8 }}
-                className="mb-10 inline-block"
-              >
-                <span className="relative inline-flex items-center gap-3 px-8 py-3 rounded-full border border-primary/20 bg-primary/5 backdrop-blur-md overflow-hidden group">
-                  <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-                  <span className="flex h-2 w-2 rounded-full bg-primary relative">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" />
-                  </span>
-                  <span className="text-[11px] md:text-xs uppercase tracking-[0.5em] font-bold text-primary-foreground/90">
-                    Concierge & Excellence
-                  </span>
-                </span>
-              </motion.div>
-              
-              <h1 className="font-display text-4xl sm:text-7xl md:text-8xl lg:text-9xl font-bold text-foreground mb-10 leading-[1.1] md:leading-[1] tracking-tight text-balance">
-                Your <span className="text-gradient-gold italic">Elite Passage</span> <br className="hidden md:block" />
-                Awaits You
-              </h1>
-              
-              <motion.div 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.6, duration: 1 }}
-                className="max-w-3xl mx-auto relative"
-              >
-                <div className="absolute -left-12 top-0 text-primary/20 hidden lg:block">
-                  <span className="text-6xl font-serif">“</span>
-                </div>
-                <p className="text-lg md:text-2xl text-muted-foreground/90 font-light leading-relaxed mb-12 text-balance">
-                  Orchestrating seamless transportation with unparalleled discretion. Experience the pinnacle of luxury travel with AUXEMPI's 24/7 dedicated concierge service.
-                </p>
-                <div className="absolute -right-12 bottom-0 text-primary/20 hidden lg:block">
-                  <span className="text-6xl font-serif">”</span>
-                </div>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.8, duration: 0.8 }}
-                className="flex flex-col sm:flex-row items-center justify-center gap-6"
-              >
-                <Button variant="luxury" size="xl" className="min-w-[220px] h-16 text-sm tracking-[0.2em] uppercase font-bold group overflow-hidden">
-                  <span className="relative z-10 flex items-center">
-                    Speak with Concierge
-                    <Phone className="ml-3 w-4 h-4 transition-transform group-hover:rotate-12" />
-                  </span>
-                  <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
-                </Button>
-                <Button variant="luxury-outline" size="xl" className="min-w-[220px] h-16 text-sm tracking-[0.2em] uppercase font-bold group">
-                  <MapPin className="mr-3 w-4 h-4 text-primary group-hover:animate-bounce" />
-                  Our Locations
-                </Button>
-              </motion.div>
-            </motion.div>
-          </div>
+        <div className="container-luxury relative z-10 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="max-w-4xl mx-auto"
+          >
+            <span className="inline-block text-primary text-xs md:text-sm uppercase tracking-[0.5em] font-semibold mb-6 px-4 py-1 border border-primary/20 bg-primary/5 rounded-full backdrop-blur-md">
+              Concierge & Support
+            </span>
+            <h1 className="font-display text-5xl md:text-8xl font-bold text-foreground mb-8 leading-tight">
+              Let Us Elevate <br />
+              Your <span className="text-gradient-gold">Experience</span>
+            </h1>
+            <p className="text-lg md:text-xl text-muted-foreground font-light max-w-2xl mx-auto leading-relaxed">
+              At AUXEMPI, we believe in seamless communication and personalized care. Our team is standing by to ensure your journey is nothing short of perfection.
+            </p>
+          </motion.div>
         </div>
-        
-        {/* Luxury Scroll Indicator */}
-        <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5, duration: 1 }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-6"
+
+        {/* Subtle Animated Scroll Indicator */}
+        <motion.div
+          animate={{ y: [0, 10, 0] }}
+          transition={{ duration: 2, repeat: Infinity }}
+          className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 hidden md:block"
         >
-          <div className="w-[1px] h-20 bg-gradient-to-b from-primary/80 via-primary/20 to-transparent relative">
-            <motion.div 
-              animate={{ y: [0, 80] }}
-              transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-              className="absolute top-0 left-[-1.5px] w-[4px] h-[4px] bg-primary rounded-full shadow-[0_0_10px_rgba(212,175,55,1)]"
-            />
-          </div>
-          <span className="text-[10px] uppercase tracking-[0.6em] text-primary/50 font-bold ml-1">Scroll</span>
+          <div className="w-px h-16 bg-gradient-to-b from-primary to-transparent" />
         </motion.div>
-
-        {/* Decorative corner accents */}
-        <div className="absolute top-32 left-8 md:left-16 w-12 h-12 border-t-2 border-l-2 border-primary/20 opacity-30" />
-        <div className="absolute top-32 right-8 md:right-16 w-12 h-12 border-t-2 border-r-2 border-primary/20 opacity-30" />
       </section>
 
       {/* Main Content Section */}
@@ -175,7 +102,7 @@ const Contact = () => {
 
         <div className="container-luxury">
           <div className="grid lg:grid-cols-12 gap-16 lg:gap-24 items-start">
-            
+
             {/* LEFT: Contact Information & Branding */}
             <div className="lg:col-span-5 space-y-16">
               <motion.div
@@ -191,12 +118,12 @@ const Contact = () => {
 
                 <div className="grid sm:grid-cols-1 gap-8">
                   {contactInfo.map((item, idx) => (
-                    <motion.div 
-                      key={idx} 
+                    <motion.div
+                      key={idx}
                       whileHover={{ x: 10 }}
-                      className="group flex gap-6 items-start p-6 rounded-xl border border-border/10 bg-white/[0.02] hover:bg-white/[0.04] transition-all duration-300"
+                      className="group flex gap-6 items-start p-6 rounded-none border border-border/10 bg-white/[0.02] hover:bg-white/[0.04] transition-all duration-300"
                     >
-                      <div className="flex-shrink-0 w-14 h-14 bg-primary/10 rounded-lg flex items-center justify-center border border-primary/20 group-hover:border-primary/50 group-hover:bg-primary/20 transition-all duration-300">
+                      <div className="flex-shrink-0 w-14 h-14 bg-primary/10 rounded-none flex items-center justify-center border border-primary/20 group-hover:border-primary/50 group-hover:bg-primary/20 transition-all duration-300">
                         <item.icon className="text-primary" size={26} />
                       </div>
                       <div className="space-y-1">
@@ -220,7 +147,7 @@ const Contact = () => {
                 <h3 className="text-sm uppercase tracking-widest font-bold text-foreground mb-6">Follow Our Journey</h3>
                 <div className="flex gap-4">
                   {socialLinks.map((social, idx) => (
-                    <a 
+                    <a
                       key={idx}
                       href={social.href}
                       className="w-12 h-12 rounded-full border border-border/30 flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary transition-all duration-300"
@@ -241,11 +168,11 @@ const Contact = () => {
               transition={{ duration: 0.8 }}
               className="lg:col-span-7"
             >
-              <div className="relative group">
+              <div className="relative">
                 {/* Animated Glowing Border Effect */}
-                <div className="absolute -inset-1 bg-gradient-to-r from-primary/50 via-primary/20 to-primary/50 rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-1000 group-hover:duration-200" />
-                
-                <div className="relative bg-charcoal/40 backdrop-blur-xl p-8 md:p-14 rounded-2xl border border-white/10 shadow-2xl">
+                {/* <div className="absolute -inset-1 bg-gradient-to-r from-primary/50 via-primary/20 to-primary/50 rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-1000 group-hover:duration-200" /> */}
+
+                <div className="relative bg-charcoal/50 backdrop-blur-xl p-8 md:p-14 rounded-none border border-white/10 shadow-2xl">
                   <div className="mb-12">
                     <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4">Send an Inquiry</h2>
                     <p className="text-muted-foreground">Complete the form below and a concierge member will reach out shortly.</p>
@@ -255,19 +182,19 @@ const Contact = () => {
                     <div className="grid md:grid-cols-2 gap-8">
                       <div className="space-y-3">
                         <Label htmlFor="name" className="text-xs uppercase tracking-[0.2em] font-semibold text-muted-foreground ml-1">Full Name</Label>
-                        <Input 
-                          id="name" 
-                          placeholder="Ex: Alexander Pierce" 
-                          className="bg-white/[0.03] border-border/30 focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all duration-300 h-14 rounded-lg px-5 text-lg" 
+                        <Input
+                          id="name"
+                          placeholder="Ex: Alexander Pierce"
+                          className="bg-white/[0.03] border-border/30 focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all duration-300 h-14 rounded-none px-5 !text-base"
                         />
                       </div>
                       <div className="space-y-3">
                         <Label htmlFor="email" className="text-xs uppercase tracking-[0.2em] font-semibold text-muted-foreground ml-1">Email Address</Label>
-                        <Input 
-                          id="email" 
-                          type="email" 
-                          placeholder="pierce@prestige.com" 
-                          className="bg-white/[0.03] border-border/30 focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all duration-300 h-14 rounded-lg px-5 text-lg" 
+                        <Input
+                          id="email"
+                          type="email"
+                          placeholder="pierce@prestige.com"
+                          className="bg-white/[0.03] border-border/30 focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all duration-300 h-14 rounded-none px-5 !text-base"
                         />
                       </div>
                     </div>
@@ -275,16 +202,16 @@ const Contact = () => {
                     <div className="grid md:grid-cols-2 gap-8">
                       <div className="space-y-3">
                         <Label htmlFor="phone" className="text-xs uppercase tracking-[0.2em] font-semibold text-muted-foreground ml-1">Phone Number</Label>
-                        <Input 
-                          id="phone" 
-                          placeholder="+44 7700 900000" 
-                          className="bg-white/[0.03] border-border/30 focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all duration-300 h-14 rounded-lg px-5 text-lg" 
+                        <Input
+                          id="phone"
+                          placeholder="+44 7700 900000"
+                          className="bg-white/[0.03] border-border/30 focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all duration-300 h-14 rounded-none px-5 !text-base"
                         />
                       </div>
                       <div className="space-y-3">
                         <Label htmlFor="subject" className="text-xs uppercase tracking-[0.2em] font-semibold text-muted-foreground ml-1">Inquiry Type</Label>
                         <Select>
-                          <SelectTrigger className="bg-white/[0.03] border-border/30 focus:border-primary transition-all duration-300 h-14 rounded-lg px-5 text-lg">
+                          <SelectTrigger className="bg-white/[0.03] border-border/30 focus:border-primary transition-all duration-300 h-14 rounded-none px-5 text-base">
                             <SelectValue placeholder="Select service" />
                           </SelectTrigger>
                           <SelectContent className="bg-charcoal border-border text-foreground">
@@ -300,17 +227,17 @@ const Contact = () => {
 
                     <div className="space-y-3">
                       <Label htmlFor="message" className="text-xs uppercase tracking-[0.2em] font-semibold text-muted-foreground ml-1">Your Message</Label>
-                      <Textarea 
-                        id="message" 
-                        placeholder="Please describe your requirements..." 
-                        className="min-h-[180px] bg-white/[0.03] border-border/30 focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all duration-300 rounded-xl px-5 py-4 text-lg resize-none" 
+                      <Textarea
+                        id="message"
+                        placeholder="Please describe your requirements..."
+                        className="min-h-[180px] bg-white/[0.03] border-border/30 focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all duration-300 rounded-none px-5 py-4 text-base resize-none"
                       />
                     </div>
 
-                    <Button variant="gold-cta" size="xl" className="w-full h-16 text-lg font-bold tracking-widest uppercase group relative overflow-hidden">
+                    <Button variant="gold-cta" size="xl" className="w-full h-14 text-base font-bold tracking-widest uppercase group relative overflow-hidden">
                       <span className="relative z-10 flex items-center justify-center">
                         Send Message
-                        <Send className="ml-3 w-5 h-5 transition-transform duration-500 group-hover:translate-x-2 group-hover:-translate-y-2" />
+                        <Send className="ml-3 w-5 h-5 transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1" />
                       </span>
                       {/* Button Shine Effect */}
                       <div className="absolute top-0 -inset-full h-full w-1/2 z-5 block transform -skew-x-12 bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:animate-shimmer" />
@@ -349,13 +276,13 @@ const Contact = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 1 }}
-            className="w-full h-[600px] rounded-2xl border border-white/10 overflow-hidden relative shadow-2xl group"
+            className="w-full h-[600px] rounded-none border border-white/10 overflow-hidden relative shadow-2xl group"
           >
             {/* Styled Map Interface */}
             <div className="absolute inset-0 z-0">
-              <img 
-                src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?q=80&w=2000&auto=format&fit=crop" 
-                alt="Map Background" 
+              <img
+                src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?q=80&w=2000&auto=format&fit=crop"
+                alt="Map Background"
                 className="w-full h-full object-cover transition-transform duration-10000 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-black/60 backdrop-blur-[1px] group-hover:backdrop-blur-0 transition-all duration-700" />
@@ -373,7 +300,7 @@ const Contact = () => {
                   <MapPin className="text-primary" size={32} />
                 </div>
               </motion.div>
-              <div className="mt-6 p-6 bg-charcoal/80 backdrop-blur-md rounded-xl border border-white/10 shadow-2xl max-w-xs mx-auto">
+              <div className="mt-6 p-6 bg-charcoal/80 backdrop-blur-md rounded-none border border-white/10 shadow-2xl max-w-xs mx-auto">
                 <h3 className="font-display text-xl font-bold text-foreground mb-1">AUXEMPI London</h3>
                 <p className="text-muted-foreground text-sm mb-4">123 Luxury Way, Mayfair</p>
                 <div className="flex items-center justify-center gap-2 text-primary text-xs font-bold tracking-widest uppercase">
@@ -384,7 +311,7 @@ const Contact = () => {
             </div>
 
             {/* Map Details Panel (Desktop Only) */}
-            <div className="absolute bottom-10 left-10 z-10 hidden lg:block bg-background/80 backdrop-blur-xl p-8 rounded-xl border border-white/10 max-w-sm">
+            <div className="absolute bottom-10 left-10 z-10 hidden lg:block bg-background/80 backdrop-blur-xl p-8 rounded-none border border-white/10 max-w-sm">
               <h4 className="text-xs uppercase tracking-[0.3em] font-bold text-primary mb-4">Quick Facts</h4>
               <ul className="space-y-4">
                 <li className="flex items-start gap-3">

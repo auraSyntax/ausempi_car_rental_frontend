@@ -279,7 +279,7 @@ const AppDownload = () => {
                 </Button>
 
                 {/* Premium QR Code Frame */}
-                <div className="relative group ml-auto hidden xl:block">
+                {/* <div className="relative group ml-auto hidden xl:block">
                   <div className="absolute inset-0 bg-primary/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   <div className="relative bg-[#111] border border-white/10 p-2 rounded-2xl">
                     <div className="w-12 h-12 bg-white rounded-lg p-1.5 overflow-hidden">
@@ -289,7 +289,7 @@ const AppDownload = () => {
                     </div>
                   </div>
                   <p className="text-[9px] text-white/30 text-center mt-2 uppercase tracking-widest">Scan to join</p>
-                </div>
+                </div> */}
               </div>
             </motion.div>
           </div>

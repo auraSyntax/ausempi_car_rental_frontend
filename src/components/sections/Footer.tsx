@@ -45,7 +45,7 @@ const Footer = () => {
 
       {/* Footer CTA Section */}
       <div className="relative z-10 border-b border-border/20">
-        <div className="bg-gradient-to-r from-charcoal via-charcoal-light/50 to-charcoal">
+        <div className="bg-gradient-to-r from-charcoal via-charcoal-light/0 to-charcoal">
           <div className="container-luxury py-16 lg:py-24">
             <motion.div
               initial={{ opacity: 0, y: 30 }}

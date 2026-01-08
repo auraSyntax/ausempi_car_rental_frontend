@@ -148,10 +148,10 @@ const ServicesPage = () => {
         <motion.div style={{ y }} className="absolute inset-0 z-0">
           <img 
             src={sections.hero.image} 
-            className="w-full h-full object-cover brightness-[0.35]" 
+            className="w-full h-full object-cover brightness-[0.3]" 
             alt="Luxury Transportation Hero" 
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-background" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-transparent to-background" />
         </motion.div>
         
         <div className="container-luxury relative z-10">

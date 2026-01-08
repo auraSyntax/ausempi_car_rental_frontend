@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { CookieConsent } from "./components/common/CookieConsent";
 import { PageLoader } from "./components/common/PageLoader";
+import { ScrollToTop } from "./components/common/ScrollToTop";
 
 // Lazy load pages
 const Index = lazy(() => import("./pages/Index"));
@@ -28,6 +29,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <ScrollToTop />
         <PageLoader />
         <Suspense fallback={null}>
           <Routes>

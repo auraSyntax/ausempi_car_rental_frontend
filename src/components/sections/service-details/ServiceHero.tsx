@@ -10,12 +10,12 @@ interface ServiceHeroProps {
 
 export function ServiceHero({ title, tagline, image }: ServiceHeroProps) {
   return (
-    <section className="relative h-[80vh] w-full overflow-hidden">
+    <section className="relative h-[85vh] w-full overflow-hidden">
       <div className="absolute inset-0">
         <img
           src={image}
           alt={title}
-          className="h-full w-full object-cover"
+          className="h-full w-full object-cover brightness-[0.4]"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-[#1A1A1A]" />
       </div>

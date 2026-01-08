@@ -43,12 +43,12 @@ export const PageLoader = () => {
             <motion.div
               animate={{ rotate: 360 }}
               transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-              className="w-20 h-20 rounded-full border-t-2 border-b-2 border-primary"
+              className="w-24 h-24 rounded-full border-t-2 border-b-2 border-primary"
             />
             <motion.div
               animate={{ rotate: -360 }}
               transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
-              className="absolute inset-0 w-20 h-20 rounded-full border-l-2 border-r-2 border-primary/30 scale-75"
+              className="absolute inset-0 w-24 h-24 rounded-full border-l-2 border-r-2 border-primary/30 scale-75"
             />
             
             {/* Logo Text Reveal */}
