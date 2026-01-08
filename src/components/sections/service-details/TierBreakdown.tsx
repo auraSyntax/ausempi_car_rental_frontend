@@ -25,32 +25,36 @@ export function TierBreakdown() {
         </div>
 
         <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-          {tiers.map((tier, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: index * 0.2 }}
-              viewport={{ once: true }}
-              className={`p-10 border ${tier.highlight ? 'border-gold/50 bg-gold/5' : 'border-white/5 bg-black/20'} relative overflow-hidden`}
-            >
-              {tier.highlight && (
-                <div className="absolute top-0 right-0 bg-gold text-black text-[10px] uppercase tracking-widest py-1 px-4 font-bold">
-                  Recommended
+            {tiers.map((tier, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: index * 0.2 }}
+                viewport={{ once: true }}
+                className={`p-10 border ${tier.highlight ? 'border-gold bg-gold/5 shadow-[0_0_30px_rgba(212,175,55,0.1)]' : 'border-white/5 bg-black/20'} relative overflow-hidden group hover:border-gold/30 transition-colors duration-500`}
+              >
+                {tier.highlight && (
+                  <div className="absolute top-0 right-0 bg-gold text-black text-[10px] uppercase tracking-widest py-1 px-4 font-bold shadow-lg">
+                    Recommended
+                  </div>
+                )}
+                <div className="relative z-10">
+                  <h3 className={`text-2xl font-bold mb-4 ${tier.highlight ? 'text-gold' : 'text-white'} group-hover:text-gold transition-colors`}>{tier.name}</h3>
+                  <p className="text-gray-400 mb-8 font-light">{tier.description}</p>
+                  <ul className="space-y-4">
+                    {tier.features.map((feature, idx) => (
+                      <li key={idx} className="flex items-center text-gray-300 font-light text-sm group-hover:text-white transition-colors">
+                        <span className="w-1.5 h-1.5 bg-gold rounded-full mr-3 shadow-[0_0_5px_rgba(212,175,55,0.8)]" />
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-              )}
-              <h3 className={`text-2xl font-bold mb-4 ${tier.highlight ? 'text-gold' : 'text-white'}`}>{tier.name}</h3>
-              <p className="text-gray-400 mb-8 font-light">{tier.description}</p>
-              <ul className="space-y-4">
-                {tier.features.map((feature, idx) => (
-                  <li key={idx} className="flex items-center text-gray-300 font-light text-sm">
-                    <span className="w-1.5 h-1.5 bg-gold rounded-full mr-3 opacity-60" />
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-          ))}
+                {/* Subtle gold accent at bottom */}
+                <div className={`absolute bottom-0 left-0 h-[2px] bg-gold transition-all duration-700 ${tier.highlight ? 'w-full' : 'w-0 group-hover:w-full'}`} />
+              </motion.div>
+            ))}
         </div>
       </div>
     </section>

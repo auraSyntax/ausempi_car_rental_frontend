@@ -1,4 +1,6 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import { ArrowLeft } from "lucide-react";
 
 interface ServiceHeroProps {
   title: string;
@@ -16,6 +18,17 @@ export function ServiceHero({ title, tagline, image }: ServiceHeroProps) {
           className="h-full w-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-[#1A1A1A]" />
+      </div>
+
+      {/* Back Button */}
+      <div className="absolute top-32 left-8 z-20">
+        <Link 
+          to="/services" 
+          className="flex items-center gap-2 text-white/60 hover:text-gold transition-colors group"
+        >
+          <ArrowLeft size={20} className="group-hover:-translate-x-1 transition-transform" />
+          <span className="text-xs uppercase tracking-[0.3em] font-bold">Back to Services</span>
+        </Link>
       </div>
       
       <div className="relative h-full container mx-auto px-4 flex flex-col justify-center items-center text-center">
