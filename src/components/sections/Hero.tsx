@@ -1,252 +1,238 @@
-import { useEffect, useRef, useState } from "react";
-import { motion, useScroll, useTransform, useSpring, useMotionValue } from "framer-motion";
+import { useEffect, useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { gsap } from "gsap";
+import { ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { EXTERNAL_LINKS } from "@/lib/constants";
-
-// Using a high-quality, cinematic luxury car image for a more premium feel
-const HERO_IMAGE = "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?q=80&w=2070&auto=format&fit=crop";
+import heroImage from "@/assets/hero-sedan.jpg";
 
 const Hero = () => {
   const heroRef = useRef<HTMLElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const sublineRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
-  const [isMobile, setIsMobile] = useState(false);
 
-  // Mouse Parallax values
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  // Smooth springs for mouse parallax
-  const springConfig = { damping: 25, stiffness: 150 };
-  const mouseXSpring = useSpring(mouseX, springConfig);
-  const mouseYSpring = useSpring(mouseY, springConfig);
-
-  // Scroll Parallax
+  // Parallax effect on scroll
   const { scrollY } = useScroll();
-  const backgroundY = useTransform(scrollY, [0, 1000], [0, 300]);
-  const contentY = useTransform(scrollY, [0, 500], [0, 150]);
-  const opacity = useTransform(scrollY, [0, 500], [1, 0]);
-  const scale = useTransform(scrollY, [0, 500], [1, 1.1]);
-
-  // Derived mouse parallax transforms
-  const bgTranslateX = useTransform(mouseXSpring, [-0.5, 0.5], ["-2%", "2%"]);
-  const bgTranslateY = useTransform(mouseYSpring, [-0.5, 0.5], ["-2%", "2%"]);
-  const decorTranslateX = useTransform(mouseXSpring, [-0.5, 0.5], ["-5%", "5%"]);
-  const decorTranslateY = useTransform(mouseYSpring, [-0.5, 0.5], ["-5%", "5%"]);
+  const backgroundY = useTransform(scrollY, [0, 800], [0, 200]);
+  const contentY = useTransform(scrollY, [0, 500], [0, 100]);
+  const opacity = useTransform(scrollY, [0, 400], [1, 0]);
 
   useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 768);
-    handleResize();
-    window.addEventListener("resize", handleResize);
-
-    const handleMouseMove = (e: MouseEvent) => {
-      if (isMobile) return;
-      const { innerWidth, innerHeight } = window;
-      const x = (e.clientX / innerWidth) - 0.5;
-      const y = (e.clientY / innerHeight) - 0.5;
-      mouseX.set(x);
-      mouseY.set(y);
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ delay: 0.3 });
 
+      // Animate headline
       if (headlineRef.current) {
         tl.fromTo(
           headlineRef.current.querySelectorAll(".hero-word"),
-          { opacity: 0, y: 100, rotateX: -60, filter: "blur(10px)" },
+          { 
+            opacity: 0, 
+            y: 80,
+            rotateX: -40,
+          },
           { 
             opacity: 1, 
-            y: 0, 
-            rotateX: 0, 
-            filter: "blur(0px)",
-            duration: 1.5, 
-            ease: "expo.out", 
-            stagger: 0.1 
+            y: 0,
+            rotateX: 0,
+            duration: 1.2, 
+            ease: "power4.out",
+            stagger: 0.15,
           }
         );
       }
 
+      // Animate subline
       if (sublineRef.current) {
         tl.fromTo(
           sublineRef.current,
-          { opacity: 0, y: 40, filter: "blur(5px)" },
-          { opacity: 1, y: 0, filter: "blur(0px)", duration: 1, ease: "power3.out" },
-          "-=1"
+          { opacity: 0, y: 30 },
+          { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" },
+          "-=0.6"
         );
       }
 
+      // Animate CTAs
       if (ctaRef.current) {
         tl.fromTo(
           ctaRef.current.children,
-          { opacity: 0, y: 30, scale: 0.9 },
-          { opacity: 1, y: 0, scale: 1, duration: 0.8, ease: "back.out(1.7)", stagger: 0.2 },
-          "-=0.7"
+          { opacity: 0, y: 20, scale: 0.95 },
+          { 
+            opacity: 1, 
+            y: 0, 
+            scale: 1,
+            duration: 0.6, 
+            ease: "back.out(1.7)",
+            stagger: 0.15,
+          },
+          "-=0.4"
         );
       }
     }, heroRef);
 
-    return () => {
-      window.removeEventListener("resize", handleResize);
-      window.removeEventListener("mousemove", handleMouseMove);
-      ctx.revert();
-    };
-  }, [isMobile, mouseX, mouseY]);
+    return () => ctx.revert();
+  }, []);
 
   return (
     <section 
       ref={heroRef}
-      className="relative h-screen min-h-[700px] flex items-center justify-center overflow-hidden bg-background"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* Background Layer with Multi-parallax */}
+      {/* Background Image with Parallax */}
       <motion.div 
-        className="absolute inset-0 z-0"
-        style={{ 
-          y: backgroundY,
-          scale,
-          translateX: isMobile ? 0 : bgTranslateX,
-          translateY: isMobile ? 0 : bgTranslateY,
-        }}
+        className="absolute inset-0"
+        style={{ y: backgroundY }}
       >
-        <div className="absolute inset-0 bg-black/40 z-10" />
         <img
-          src={HERO_IMAGE}
-          alt="Luxury car showcase"
-          className="w-full h-full object-cover object-center"
+          src={heroImage}
+          alt="Luxury black sedan on city street at night"
+          className="w-full h-[120%] object-cover object-center scale-105"
           loading="eager"
         />
         
-        {/* Dynamic Gradient Overlays */}
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent z-20" />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-transparent z-20" />
-        <div className="absolute inset-0 bg-gradient-to-r from-background/80 via-transparent to-background/20 z-20" />
+        {/* Multi-layer Gradient Overlays for depth */}
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-background/20" />
+        <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/30 to-background/60" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-transparent" />
+        
+        {/* Gold accent overlay */}
+        <div className="absolute inset-0 bg-gradient-to-tr from-primary/5 via-transparent to-primary/10 mix-blend-overlay" />
+        
+        {/* Subtle vignette */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,hsl(var(--background)/0.4)_100%)]" />
       </motion.div>
 
-      {/* Floating Particles/Decorative Elements */}
-      {!isMobile && (
-        <motion.div 
-          className="absolute inset-0 z-10 pointer-events-none"
-          style={{ 
-            translateX: decorTranslateX,
-            translateY: decorTranslateY,
-          }}
-        >
-          {[...Array(6)].map((_, i) => (
-            <div 
-              key={i}
-              className="absolute w-1 h-1 bg-primary/40 rounded-full blur-[1px]"
-              style={{
-                top: `${Math.random() * 100}%`,
-                left: `${Math.random() * 100}%`,
-                animation: `float ${3 + Math.random() * 4}s ease-in-out infinite`,
-                animationDelay: `${Math.random() * 5}s`
-              }}
-            />
-          ))}
-          <div className="absolute top-1/4 right-[15%] w-64 h-64 bg-primary/5 rounded-full blur-[120px]" />
-          <div className="absolute bottom-1/4 left-[10%] w-96 h-96 bg-primary/10 rounded-full blur-[150px]" />
-        </motion.div>
-      )}
+      {/* Decorative Elements */}
+      <div className="absolute top-1/4 left-0 w-px h-32 bg-gradient-to-b from-transparent via-primary/50 to-transparent hidden lg:block" />
+      <div className="absolute top-1/3 right-0 w-px h-40 bg-gradient-to-b from-transparent via-primary/30 to-transparent hidden lg:block" />
 
-      {/* Main Content */}
+      {/* Content */}
       <motion.div 
-        className="relative z-30 container-luxury text-center px-4"
+        className="relative container-luxury text-center z-10 pt-24 md:pt-20 px-4"
         style={{ y: contentY, opacity }}
       >
+        {/* Pre-headline Badge */}
         <motion.div
-          initial={{ opacity: 0, tracking: "0.2em" }}
-          animate={{ opacity: 1, tracking: "0.5em" }}
-          transition={{ duration: 1.5, ease: "circOut" }}
-          className="mb-8"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.1 }}
+          className="mb-6 md:mb-8"
         >
-          <span className="text-primary text-[10px] md:text-xs uppercase font-medium flex items-center justify-center gap-4">
-            <span className="w-12 h-px bg-gradient-to-r from-transparent to-primary/50" />
-            ELEVATING EVERY JOURNEY
-            <span className="w-12 h-px bg-gradient-to-l from-transparent to-primary/50" />
+          <span className="inline-flex items-center gap-3 text-primary text-xs md:text-sm uppercase tracking-[0.4em] font-medium">
+            <span className="w-8 md:w-12 h-px bg-primary/60" />
+            Exclusive Transportation
+            <span className="w-8 md:w-12 h-px bg-primary/60" />
           </span>
         </motion.div>
 
+        {/* Main Headline */}
         <h1
           ref={headlineRef}
-          className="font-display text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-bold text-foreground mb-8 leading-[0.9] tracking-tight"
+          className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-foreground mb-4 md:mb-6 leading-[1.1] perspective-1000"
         >
-          <span className="hero-word inline-block mr-4">The</span>
-          <span className="hero-word inline-block text-gradient-gold">Art</span>
-          <span className="block mt-4">
-            <span className="hero-word inline-block mr-4">of</span>
-            <span className="hero-word inline-block italic font-light opacity-90">Arrival</span>
+          <span className="hero-word inline-block">The</span>{" "}
+          <span className="hero-word inline-block">Art</span>{" "}
+          <span className="hero-word inline-block">of</span>
+          <span className="block mt-2 md:mt-4">
+            <span className="hero-word inline-block text-gradient-gold">Arrival</span>
           </span>
         </h1>
 
+        {/* Subline */}
         <p
           ref={sublineRef}
-          className="text-base sm:text-lg md:text-xl text-muted-foreground/80 max-w-2xl mx-auto mb-12 font-light leading-relaxed"
+          className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-xl mx-auto mb-8 md:mb-12 font-light leading-relaxed px-4"
         >
-          Experience the pinnacle of luxury transportation. Where impeccable service 
-          meets uncompromising comfort for the discerning traveler.
+          Where every journey becomes an experience.
+          <span className="hidden sm:inline"> Uncompromising luxury, impeccable service.</span>
         </p>
 
+        {/* CTAs */}
         <div
           ref={ctaRef}
-          className="flex flex-col sm:flex-row gap-6 justify-center items-center"
+          className="flex flex-col sm:flex-row gap-4 justify-center items-center"
         >
-          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-            <Button variant="hero" size="xl" className="glow-gold min-w-[240px] h-16 text-lg" asChild>
-              <a href={EXTERNAL_LINKS.booking} target="_blank" rel="noopener noreferrer">
-                Reserve Now
+          <motion.div
+            whileHover={{ scale: 1.03, y: -2 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            <Button variant="hero" size="xl" className="glow-gold min-w-[200px] md:min-w-[220px]" asChild>
+              <a
+                href={EXTERNAL_LINKS.booking}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Reserve Your Ride
               </a>
             </Button>
           </motion.div>
           
-          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-            <Button variant="hero-outline" size="xl" className="min-w-[240px] h-16 text-lg border-primary/20 hover:border-primary/50" asChild>
-              <a href="#fleet">Explore Fleet</a>
+          <motion.div
+            whileHover={{ scale: 1.03, y: -2 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            <Button variant="hero-outline" size="xl" className="min-w-[200px] md:min-w-[220px]" asChild>
+              <a href="#fleet">Explore Our Fleet</a>
             </Button>
           </motion.div>
         </div>
 
-        {/* Stats / Trust Indicators */}
+        {/* Trust Indicator */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 2, duration: 1.5 }}
-          className="mt-20 pt-10 border-t border-border/10 max-w-3xl mx-auto"
+          transition={{ delay: 2, duration: 1 }}
+          className="mt-12 md:mt-16"
         >
-          <div className="grid grid-cols-3 gap-8 md:gap-12">
-            {[
-              { label: "Elite Rides", value: "25K+" },
-              { label: "Client Rating", value: "4.9/5" },
-              { label: "Global Cities", value: "12+" }
-            ].map((stat, i) => (
-              <div key={i} className="flex flex-col gap-1">
-                <span className="text-2xl md:text-4xl font-display font-bold text-gradient-gold">
-                  {stat.value}
-                </span>
-                <span className="text-[10px] md:text-xs uppercase tracking-widest text-muted-foreground/60">
-                  {stat.label}
-                </span>
-              </div>
-            ))}
+          <div className="flex items-center justify-center gap-6 md:gap-8 text-muted-foreground/60">
+            <div className="text-center">
+              <span className="block text-2xl md:text-3xl font-display font-bold text-gradient-gold">15K+</span>
+              <span className="text-[10px] md:text-xs uppercase tracking-wider">Rides</span>
+            </div>
+            <div className="w-px h-8 bg-border/50" />
+            <div className="text-center">
+              <span className="block text-2xl md:text-3xl font-display font-bold text-gradient-gold">4.9</span>
+              <span className="text-[10px] md:text-xs uppercase tracking-wider">Rating</span>
+            </div>
+            <div className="w-px h-8 bg-border/50" />
+            <div className="text-center">
+              <span className="block text-2xl md:text-3xl font-display font-bold text-gradient-gold">24/7</span>
+              <span className="text-[10px] md:text-xs uppercase tracking-wider">Service</span>
+            </div>
           </div>
         </motion.div>
       </motion.div>
 
       {/* Scroll Indicator */}
       <motion.div
-        animate={{ y: [0, 10, 0] }}
-        transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center gap-3 cursor-pointer group"
-        onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2.5, duration: 1 }}
+        className="absolute bottom-6 md:bottom-10 left-1/2 -translate-x-1/2"
       >
-        <span className="text-[10px] uppercase tracking-[0.4em] text-muted-foreground/50 group-hover:text-primary transition-colors">
-          Scroll
-        </span>
-        <div className="w-px h-16 bg-gradient-to-b from-primary/50 to-transparent" />
+        <a
+          href="#services"
+          className="flex flex-col items-center text-muted-foreground/70 hover:text-primary transition-colors duration-300 group"
+        >
+          <span className="text-[10px] md:text-xs uppercase tracking-[0.3em] mb-2 opacity-70 group-hover:opacity-100 transition-opacity">
+            Discover More
+          </span>
+          <motion.div
+            animate={{ y: [0, 6, 0] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            className="w-6 h-10 rounded-full border border-muted-foreground/30 flex items-start justify-center pt-2 group-hover:border-primary/50 transition-colors"
+          >
+            <motion.div
+              animate={{ y: [0, 8, 0], opacity: [1, 0.3, 1] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              className="w-1 h-2 rounded-full bg-primary"
+            />
+          </motion.div>
+        </a>
       </motion.div>
+
+      {/* Bottom Gold Accent Line */}
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
     </section>
   );
 };

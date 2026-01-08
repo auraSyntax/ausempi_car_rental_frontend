@@ -17,11 +17,12 @@ const footerLinks = {
     { name: "Special Events", href: "/#services" },
     { name: "Hourly Charters", href: "/#services" },
   ],
-  legal: [
-    { name: "Privacy Policy", href: "/privacy" },
-    { name: "Terms of Service", href: "/terms" },
-    { name: "Cookie Policy", href: "/cookies" },
-  ],
+    legal: [
+      { name: "Privacy Policy", href: "/privacy" },
+      { name: "Terms of Service", href: "/terms" },
+      { name: "Cookie Policy", href: "/cookies" },
+      { name: "Driver Portal", href: "/driver-login" },
+    ],
 };
 
 const socialLinks = [
