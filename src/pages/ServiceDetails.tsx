@@ -27,24 +27,24 @@ const SERVICES_DATA = {
         "https://images.unsplash.com/photo-1605515298946-d062f2e9da53?q=80&w=2070&auto=format&fit=crop",
       ],
   },
-  "luxury-suv": {
-    title: "Luxury SUV Service",
-    tagline: "Spacious Elegance for Every Occasion",
-    heroImage: "https://images.unsplash.com/photo-1606148695344-b6ed50bb3f5d?q=80&w=2070&auto=format&fit=crop",
-    overviewText: "Our Luxury SUV Service offers unparalleled space and presence. Ideal for groups, families, or those who prefer a commanding view of the road without compromising on luxury.",
-    overviewImage: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?q=80&w=2070&auto=format&fit=crop",
-    highlights: [
-      { title: "Spacious Cabin", description: "Ample legroom and luggage space for up to 6 passengers." },
-      { title: "Executive Presence", description: "Make an entrance with our fleet of premium SUVs." },
-      { title: "All-Weather Capability", description: "Safe and reliable transport regardless of road conditions." },
-      { title: "Premium Entertainment", description: "High-end sound systems and rear-seat entertainment options." },
-    ],
-    showcase: [
-      "https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?q=80&w=2070&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1605898835373-023bbba1d261?q=80&w=2070&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1614002882260-449e6f33887d?q=80&w=2070&auto=format&fit=crop",
-    ],
-  },
+    "luxury-suv": {
+      title: "Luxury SUV Service",
+      tagline: "Spacious Elegance for Every Occasion",
+      heroImage: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?q=80&w=2070&auto=format&fit=crop",
+      overviewText: "Our Luxury SUV Service offers unparalleled space and presence. Ideal for groups, families, or those who prefer a commanding view of the road without compromising on luxury.",
+      overviewImage: "https://images.unsplash.com/photo-1594741300266-3d778d91795c?q=80&w=2070&auto=format&fit=crop",
+      highlights: [
+        { title: "Spacious Cabin", description: "Ample legroom and luggage space for up to 6 passengers." },
+        { title: "Executive Presence", description: "Make an entrance with our fleet of premium SUVs." },
+        { title: "All-Weather Capability", description: "Safe and reliable transport regardless of road conditions." },
+        { title: "Premium Entertainment", description: "High-end sound systems and rear-seat entertainment options." },
+      ],
+      showcase: [
+        "https://images.unsplash.com/photo-1631215442566-2374ef090a98?q=80&w=2070&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?q=80&w=2070&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1635336043954-c9b2f671b565?q=80&w=2070&auto=format&fit=crop",
+      ],
+    },
 };
 
 const ServiceDetails = () => {

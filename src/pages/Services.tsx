@@ -57,12 +57,12 @@ const sections = {
       }
     ]
   },
-  suv: {
-    title: "Luxury SUV Services",
-    subtitle: "Commanding Presence",
-    description: "Spacious sophistication for groups or those who simply demand more. Our SUV fleet combines powerful performance with an expansive, luxury interior.",
-    image: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?q=80&w=2070&auto=format&fit=crop",
-    amenities: [
+    suv: {
+      title: "Luxury SUV Services",
+      subtitle: "Commanding Presence",
+      description: "Spacious sophistication for groups or those who simply demand more. Our SUV fleet combines powerful performance with an expansive, luxury interior.",
+      image: "https://images.unsplash.com/photo-1594741300266-3d778d91795c?q=80&w=2070&auto=format&fit=crop",
+      amenities: [
       { icon: Shield, label: "Privacy Partition" },
       { icon: Users, label: "Up to 6 Guests" },
       { icon: Briefcase, label: "4-5 Large Bags" },
