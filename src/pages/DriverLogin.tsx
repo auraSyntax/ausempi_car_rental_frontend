@@ -146,14 +146,17 @@ export default function DriverLogin() {
                       </button>
                     </div>
                   </div>
-                  <div className="flex items-center justify-end">
-                    <Button 
-                      variant="link" 
-                      className="text-xs text-primary/70 hover:text-primary p-0 h-auto font-normal tracking-wide"
-                    >
-                      Forgot Password?
-                    </Button>
-                  </div>
+                    <div className="flex items-center justify-end">
+                      <Button 
+                        variant="link" 
+                        className="text-xs text-primary/70 hover:text-primary p-0 h-auto font-normal tracking-wide"
+                        asChild
+                      >
+                        <Link to="/forgot-password">
+                          Forgot Password?
+                        </Link>
+                      </Button>
+                    </div>
                 </CardContent>
                 <CardFooter className="flex flex-col gap-4 pb-8">
                   <Button 
