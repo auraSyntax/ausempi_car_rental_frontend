@@ -83,27 +83,34 @@ const Navbar = () => {
 
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center gap-8 xl:gap-10">
-              {navLinks.map((link) => (
-                <motion.div
-                  key={link.name}
-                  whileHover={{ y: -2 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <Link
-                    to={link.href}
-                    className={`relative text-sm uppercase tracking-[0.15em] transition-colors duration-300 group ${
-                      link.isSecondary
-                        ? "text-muted-foreground/70 hover:text-muted-foreground"
-                        : "text-muted-foreground hover:text-primary"
-                    }`}
+              {navLinks.map((link) => {
+                const isActive = location.pathname === link.href;
+                return (
+                  <motion.div
+                    key={link.name}
+                    whileHover={{ y: -2 }}
+                    transition={{ duration: 0.2 }}
                   >
-                    {link.name}
-                    {!link.isSecondary && (
-                      <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-primary transition-all duration-300 group-hover:w-full" />
-                    )}
-                  </Link>
-                </motion.div>
-              ))}
+                    <Link
+                      to={link.href}
+                      className={`relative text-sm uppercase tracking-[0.15em] transition-all duration-300 group ${
+                        isActive
+                          ? "text-primary font-medium"
+                          : link.isSecondary
+                          ? "text-muted-foreground/70 hover:text-muted-foreground"
+                          : "text-muted-foreground hover:text-primary"
+                      }`}
+                    >
+                      {link.name}
+                      {!link.isSecondary && (
+                        <span className={`absolute -bottom-1 left-0 h-[1px] bg-primary transition-all duration-300 ${
+                          isActive ? "w-full" : "w-0 group-hover:w-full"
+                        }`} />
+                      )}
+                    </Link>
+                  </motion.div>
+                );
+              })}
             </div>
 
           {/* CTA Button */}
@@ -177,27 +184,32 @@ const Navbar = () => {
               transition={{ duration: 0.3, ease: "easeOut" }}
               className="fixed inset-x-0 top-20 bottom-0 lg:hidden overflow-y-auto"
             >
-                <div className="container-luxury py-12 flex flex-col gap-2 min-h-full">
-                  {navLinks.map((link, index) => (
-                    <motion.div
-                      key={link.name}
-                      initial={{ opacity: 0, x: -30 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.3, delay: index * 0.08 }}
-                    >
-                      <Link
-                        to={link.href}
-                        className={`block text-2xl font-display py-4 border-b border-border/30 transition-colors duration-300 ${
-                          link.isSecondary
-                            ? "text-muted-foreground/60"
-                            : "text-foreground hover:text-primary"
-                        }`}
-                        onClick={() => setIsMobileMenuOpen(false)}
-                      >
-                        {link.name}
-                      </Link>
-                    </motion.div>
-                  ))}
+                  <div className="container-luxury py-12 flex flex-col gap-2 min-h-full">
+                    {navLinks.map((link, index) => {
+                      const isActive = location.pathname === link.href;
+                      return (
+                        <motion.div
+                          key={link.name}
+                          initial={{ opacity: 0, x: -30 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.3, delay: index * 0.08 }}
+                        >
+                          <Link
+                            to={link.href}
+                            className={`block text-2xl font-display py-4 border-b border-border/30 transition-colors duration-300 ${
+                              isActive
+                                ? "text-primary font-bold"
+                                : link.isSecondary
+                                ? "text-muted-foreground/60"
+                                : "text-foreground hover:text-primary"
+                            }`}
+                            onClick={() => setIsMobileMenuOpen(false)}
+                          >
+                            {link.name}
+                          </Link>
+                        </motion.div>
+                      );
+                    })}
 
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}

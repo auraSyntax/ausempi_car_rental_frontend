@@ -15,6 +15,7 @@ import NotFound from "./pages/NotFound";
 import DriverLogin from "./pages/DriverLogin";
 import ForgotPassword from "./pages/ForgotPassword";
 import { CookieConsent } from "./components/common/CookieConsent";
+import { PageLoader } from "./components/common/PageLoader";
 
 const queryClient = new QueryClient();
 
@@ -24,7 +25,8 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-            <Routes>
+        <PageLoader />
+        <Routes>
                   <Route path="/" element={<Index />} />
                   <Route path="/about" element={<AboutPage />} />
                     <Route path="/services" element={<ServicesPage />} />
