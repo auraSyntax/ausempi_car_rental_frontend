@@ -53,44 +53,69 @@ const Contact = () => {
       <Navbar />
       
       {/* Hero Section – Premium Brand Reveal */}
-      <section className="relative min-h-[60vh] flex items-center justify-center pt-32 pb-20 overflow-hidden">
-        {/* Background Image with Dark Overlay */}
-        <div className="absolute inset-0 z-0">
-          <img 
+      <section className="relative min-h-[70vh] flex items-center justify-center pt-32 pb-24 overflow-hidden">
+        {/* Background Image with Cinematic Ken Burns Effect */}
+        <div className="absolute inset-0 z-0 overflow-hidden">
+          <motion.img 
+            initial={{ scale: 1.1 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 15, repeat: Infinity, repeatType: "reverse", ease: "linear" }}
             src="https://images.unsplash.com/photo-1511407397940-d57f68e8118a?q=80&w=2000&auto=format&fit=crop" 
             alt="Luxury Car Interior" 
-            className="w-full h-full object-cover scale-105"
+            className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/70 to-background" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/60 to-background" />
+          <div className="absolute inset-0 bg-gradient-to-r from-background/40 via-transparent to-background/40" />
         </div>
 
         <div className="container-luxury relative z-10 text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="max-w-4xl mx-auto"
+            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+            className="max-w-5xl mx-auto"
           >
-            <span className="inline-block text-primary text-xs md:text-sm uppercase tracking-[0.5em] font-semibold mb-6 px-4 py-1 border border-primary/20 bg-primary/5 rounded-full backdrop-blur-md">
-              Concierge & Support
-            </span>
-            <h1 className="font-display text-5xl md:text-8xl font-bold text-foreground mb-8 leading-tight">
-              Let Us Elevate <br />
-              Your <span className="text-gradient-gold">Experience</span>
+            <motion.span 
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.2, duration: 0.8 }}
+              className="inline-flex items-center gap-2 text-primary text-[10px] md:text-xs uppercase tracking-[0.6em] font-bold mb-8 px-6 py-2 border border-primary/30 bg-primary/10 rounded-full backdrop-blur-xl shadow-[0_0_20px_rgba(212,175,55,0.1)]"
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+              Concierge & Excellence
+            </motion.span>
+            
+            <h1 className="font-display text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-foreground mb-8 leading-[1.1] text-balance">
+              Elevate Your <br className="hidden md:block" />
+              <span className="text-gradient-gold italic">Luxury Journey</span>
             </h1>
-            <p className="text-lg md:text-xl text-muted-foreground font-light max-w-2xl mx-auto leading-relaxed">
-              At AUXEMPI, we believe in seamless communication and personalized care. Our team is standing by to ensure your journey is nothing short of perfection.
-            </p>
+            
+            <motion.p 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.4, duration: 0.8 }}
+              className="text-base md:text-xl text-muted-foreground/80 font-light max-w-3xl mx-auto leading-relaxed text-balance"
+            >
+              Experience unparalleled sophistication with AUXEMPI. Our dedicated concierge team is available 24/7 to orchestrate every detail of your premium travel requirements.
+            </motion.p>
           </motion.div>
         </div>
         
-        {/* Subtle Animated Scroll Indicator */}
+        {/* Minimalist Luxury Scroll Indicator */}
         <motion.div 
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 hidden md:block"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1, duration: 1 }}
+          className="absolute bottom-12 left-1/2 -translate-x-1/2 z-10 hidden md:flex flex-col items-center gap-4"
         >
-          <div className="w-px h-16 bg-gradient-to-b from-primary to-transparent" />
+          <span className="text-[10px] uppercase tracking-[0.4em] text-primary/60 font-medium">Scroll to Explore</span>
+          <div className="w-px h-12 bg-gradient-to-b from-primary via-primary/50 to-transparent relative overflow-hidden">
+            <motion.div 
+              animate={{ y: [0, 48, 0] }}
+              transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute top-0 left-0 w-full h-1/3 bg-white/40"
+            />
+          </div>
         </motion.div>
       </section>
 
