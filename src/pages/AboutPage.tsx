@@ -375,11 +375,11 @@ const AboutPage = () => {
               <FadeInSection key={item.title} delay={idx * 0.2}>
                 <div className="group relative overflow-hidden rounded-sm">
                   <div className="relative aspect-[16/9] overflow-hidden">
-                    <img 
-                      src={item.image} 
-                      alt={item.title} 
-                      className="w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-110" 
-                    />
+                      <img 
+                        src={item.image} 
+                        alt={item.title} 
+                        className="w-full h-full object-cover transition-transform duration-[2000ms] group-hover:scale-110" 
+                      />
                     <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-700" />
                   </div>
                   
@@ -467,13 +467,13 @@ const AboutPage = () => {
                 <div className={`relative overflow-hidden group h-full ${
                   idx % 2 === 1 ? 'lg:translate-y-24' : ''
                 }`}>
-                  <div className="aspect-[3/4] overflow-hidden bg-charcoal relative">
-                    <img 
-                      src={img} 
-                      className="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-110" 
-                      alt={`Gallery ${idx + 1}`} 
-                      loading="lazy"
-                    />
+                    <div className="aspect-[3/4] overflow-hidden bg-charcoal relative">
+                      <img 
+                        src={img} 
+                        className="w-full h-full object-cover transition-transform duration-[1500ms] group-hover:scale-110" 
+                        alt={`Gallery ${idx + 1}`} 
+                        loading="lazy"
+                      />
                     <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-all duration-700 flex flex-col items-center justify-center p-8 text-center">
                       <div className="w-16 h-16 rounded-full border border-white/20 flex items-center justify-center text-white mb-6 translate-y-8 group-hover:translate-y-0 transition-all duration-700">
                         <Crown size={24} className="text-primary" />
