@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Mail, Phone, MapPin, Clock, Send } from "lucide-react";
+import { Mail, Phone, MapPin, Clock, Send, Globe, MessageSquare, Linkedin, Instagram, Twitter } from "lucide-react";
 import MainLayout from "@/layouts/MainLayout";
 import { Navbar, Footer, ReserveCTA } from "@/components/sections";
 import { Button } from "@/components/ui/button";
@@ -18,192 +18,315 @@ const Contact = () => {
   const contactInfo = [
     {
       icon: MapPin,
-      label: "Business Address",
+      label: "Global Headquarters",
       value: "123 Luxury Way, Suite 500, London, UK",
+      description: "Visit our central office in Mayfair."
     },
     {
       icon: Phone,
-      label: "Phone Number",
+      label: "Direct Concierge",
       value: "+44 (0) 20 7946 0000",
+      description: "Available 24/7 for immediate assistance."
     },
     {
       icon: Mail,
-      label: "Email Address",
+      label: "Email Inquiries",
       value: "concierge@auxempi.com",
+      description: "General inquiries and corporate accounts."
     },
     {
       icon: Clock,
-      label: "Business Hours",
-      value: "Available 24/7 for Reservations",
+      label: "Operational Hours",
+      value: "Always Open (24/7)",
+      description: "Our fleet and staff operate around the clock."
     },
+  ];
+
+  const socialLinks = [
+    { icon: Linkedin, label: "LinkedIn", href: "#" },
+    { icon: Instagram, label: "Instagram", href: "#" },
+    { icon: Twitter, label: "Twitter", href: "#" },
   ];
 
   return (
     <MainLayout>
       <Navbar />
       
-      {/* 1. Hero / Page Header */}
-      <section className="relative pt-32 pb-16 md:pt-48 md:pb-24 overflow-hidden">
-        <div className="container-luxury relative z-10">
+      {/* Hero Section – Premium Brand Reveal */}
+      <section className="relative min-h-[60vh] flex items-center justify-center pt-32 pb-20 overflow-hidden">
+        {/* Background Image with Dark Overlay */}
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="https://images.unsplash.com/photo-1511407397940-d57f68e8118a?q=80&w=2000&auto=format&fit=crop" 
+            alt="Luxury Car Interior" 
+            className="w-full h-full object-cover scale-105"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/70 to-background" />
+        </div>
+
+        <div className="container-luxury relative z-10 text-center">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="max-w-3xl"
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="max-w-4xl mx-auto"
           >
-            <span className="text-primary text-sm uppercase tracking-[0.4em] font-medium mb-4 block">
-              Get In Touch
+            <span className="inline-block text-primary text-xs md:text-sm uppercase tracking-[0.5em] font-semibold mb-6 px-4 py-1 border border-primary/20 bg-primary/5 rounded-full backdrop-blur-md">
+              Concierge & Support
             </span>
-            <h1 className="font-display text-5xl md:text-7xl font-bold text-foreground mb-6">
-              Contact <span className="text-gradient-gold">Us</span>
+            <h1 className="font-display text-5xl md:text-8xl font-bold text-foreground mb-8 leading-tight">
+              Let Us Elevate <br />
+              Your <span className="text-gradient-gold">Experience</span>
             </h1>
-            <p className="text-xl text-muted-foreground font-light leading-relaxed">
-              We are dedicated to providing the highest level of service. Whether you have a question about our fleet or need a custom travel solution, our team is here to assist your journey.
+            <p className="text-lg md:text-xl text-muted-foreground font-light max-w-2xl mx-auto leading-relaxed">
+              At AUXEMPI, we believe in seamless communication and personalized care. Our team is standing by to ensure your journey is nothing short of perfection.
             </p>
-            <div className="luxury-divider mt-8" />
           </motion.div>
         </div>
+        
+        {/* Subtle Animated Scroll Indicator */}
+        <motion.div 
+          animate={{ y: [0, 10, 0] }}
+          transition={{ duration: 2, repeat: Infinity }}
+          className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 hidden md:block"
+        >
+          <div className="w-px h-16 bg-gradient-to-b from-primary to-transparent" />
+        </motion.div>
       </section>
 
-      {/* 2. Main Contact Section (Split Layout) */}
-      <section className="bg-background pb-24 md:pb-32 lg:pb-40">
+      {/* Main Content Section */}
+      <section className="relative py-24 md:py-40 bg-background overflow-hidden">
+        {/* Decorative Elements */}
+        <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-primary/5 rounded-full blur-[120px] -mr-32 -mt-32" />
+        <div className="absolute bottom-0 left-0 w-1/4 h-1/4 bg-primary/5 rounded-full blur-[100px] -ml-32 -mb-32" />
+
         <div className="container-luxury">
-          <div className="grid lg:grid-cols-2 gap-16 lg:gap-32 items-start">
+          <div className="grid lg:grid-cols-12 gap-16 lg:gap-24 items-start">
             
-            {/* LEFT SIDE – Contact Form */}
+            {/* LEFT: Contact Information & Branding */}
+            <div className="lg:col-span-5 space-y-16">
+              <motion.div
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8 }}
+              >
+                <h2 className="font-display text-4xl font-bold text-foreground mb-6">Contact Information</h2>
+                <p className="text-muted-foreground text-lg leading-relaxed mb-12">
+                  Whether you're planning a corporate event or a private transfer, our specialists are here to assist with every detail.
+                </p>
+
+                <div className="grid sm:grid-cols-1 gap-8">
+                  {contactInfo.map((item, idx) => (
+                    <motion.div 
+                      key={idx} 
+                      whileHover={{ x: 10 }}
+                      className="group flex gap-6 items-start p-6 rounded-xl border border-border/10 bg-white/[0.02] hover:bg-white/[0.04] transition-all duration-300"
+                    >
+                      <div className="flex-shrink-0 w-14 h-14 bg-primary/10 rounded-lg flex items-center justify-center border border-primary/20 group-hover:border-primary/50 group-hover:bg-primary/20 transition-all duration-300">
+                        <item.icon className="text-primary" size={26} />
+                      </div>
+                      <div className="space-y-1">
+                        <h3 className="text-xs uppercase tracking-[0.2em] font-bold text-primary mb-1">{item.label}</h3>
+                        <p className="text-foreground text-lg font-medium">{item.value}</p>
+                        <p className="text-muted-foreground text-sm font-light">{item.description}</p>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+
+              {/* Social Connect */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="pt-8 border-t border-border/30"
+              >
+                <h3 className="text-sm uppercase tracking-widest font-bold text-foreground mb-6">Follow Our Journey</h3>
+                <div className="flex gap-4">
+                  {socialLinks.map((social, idx) => (
+                    <a 
+                      key={idx}
+                      href={social.href}
+                      className="w-12 h-12 rounded-full border border-border/30 flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary transition-all duration-300"
+                      aria-label={social.label}
+                    >
+                      <social.icon size={20} />
+                    </a>
+                  ))}
+                </div>
+              </motion.div>
+            </div>
+
+            {/* RIGHT: Premium Contact Form */}
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="bg-charcoal/30 p-8 md:p-12 rounded-sm border border-border/20 backdrop-blur-sm"
+              className="lg:col-span-7"
             >
-              <h2 className="font-display text-3xl font-bold text-foreground mb-8">Send a Message</h2>
-              <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <Label htmlFor="name" className="text-xs uppercase tracking-widest text-muted-foreground">Full Name</Label>
-                    <Input 
-                      id="name" 
-                      placeholder="John Doe" 
-                      className="bg-background/50 border-border/50 focus:border-primary transition-colors h-12" 
-                    />
+              <div className="relative group">
+                {/* Animated Glowing Border Effect */}
+                <div className="absolute -inset-1 bg-gradient-to-r from-primary/50 via-primary/20 to-primary/50 rounded-2xl blur opacity-20 group-hover:opacity-40 transition duration-1000 group-hover:duration-200" />
+                
+                <div className="relative bg-charcoal/40 backdrop-blur-xl p-8 md:p-14 rounded-2xl border border-white/10 shadow-2xl">
+                  <div className="mb-12">
+                    <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4">Send an Inquiry</h2>
+                    <p className="text-muted-foreground">Complete the form below and a concierge member will reach out shortly.</p>
                   </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="email" className="text-xs uppercase tracking-widest text-muted-foreground">Email Address</Label>
-                    <Input 
-                      id="email" 
-                      type="email" 
-                      placeholder="john@example.com" 
-                      className="bg-background/50 border-border/50 focus:border-primary transition-colors h-12" 
-                    />
-                  </div>
-                </div>
 
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <Label htmlFor="phone" className="text-xs uppercase tracking-widest text-muted-foreground">Phone Number</Label>
-                    <Input 
-                      id="phone" 
-                      placeholder="+1 (555) 000-0000" 
-                      className="bg-background/50 border-border/50 focus:border-primary transition-colors h-12" 
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="subject" className="text-xs uppercase tracking-widest text-muted-foreground">Subject (Optional)</Label>
-                    <Select>
-                      <SelectTrigger className="bg-background/50 border-border/50 focus:border-primary transition-colors h-12">
-                        <SelectValue placeholder="Select a topic" />
-                      </SelectTrigger>
-                      <SelectContent className="bg-charcoal border-border text-foreground">
-                        <SelectItem value="general">General Inquiry</SelectItem>
-                        <SelectItem value="booking">Booking Question</SelectItem>
-                        <SelectItem value="corporate">Corporate Accounts</SelectItem>
-                        <SelectItem value="fleet">Fleet Information</SelectItem>
-                        <SelectItem value="other">Other</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="message" className="text-xs uppercase tracking-widest text-muted-foreground">Message</Label>
-                  <Textarea 
-                    id="message" 
-                    placeholder="How can we assist you today?" 
-                    className="min-h-[150px] bg-background/50 border-border/50 focus:border-primary transition-colors resize-none" 
-                  />
-                </div>
-
-                <Button variant="gold-cta" size="xl" className="w-full group">
-                  Send Message
-                  <Send className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
-                </Button>
-              </form>
-            </motion.div>
-
-            {/* RIGHT SIDE – Contact Details */}
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-              className="lg:pt-12"
-            >
-              <div className="mb-12">
-                <h2 className="font-display text-3xl font-bold text-foreground mb-6">Concierge Services</h2>
-                <p className="text-muted-foreground leading-relaxed text-lg">
-                  Our dedicated concierge team is available around the clock to handle your requests. Whether you require immediate assistance or are planning a future journey, we ensure every detail is handled with precision.
-                </p>
-              </div>
-
-              <div className="grid sm:grid-cols-2 gap-10">
-                {contactInfo.map((item, idx) => (
-                  <div key={idx} className="space-y-4">
-                    <div className="w-12 h-12 bg-primary/10 rounded-sm flex items-center justify-center border border-primary/20">
-                      <item.icon className="text-primary" size={24} />
+                  <form className="space-y-8" onSubmit={(e) => e.preventDefault()}>
+                    <div className="grid md:grid-cols-2 gap-8">
+                      <div className="space-y-3">
+                        <Label htmlFor="name" className="text-xs uppercase tracking-[0.2em] font-semibold text-muted-foreground ml-1">Full Name</Label>
+                        <Input 
+                          id="name" 
+                          placeholder="Ex: Alexander Pierce" 
+                          className="bg-white/[0.03] border-border/30 focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all duration-300 h-14 rounded-lg px-5 text-lg" 
+                        />
+                      </div>
+                      <div className="space-y-3">
+                        <Label htmlFor="email" className="text-xs uppercase tracking-[0.2em] font-semibold text-muted-foreground ml-1">Email Address</Label>
+                        <Input 
+                          id="email" 
+                          type="email" 
+                          placeholder="pierce@prestige.com" 
+                          className="bg-white/[0.03] border-border/30 focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all duration-300 h-14 rounded-lg px-5 text-lg" 
+                        />
+                      </div>
                     </div>
-                    <div>
-                      <h3 className="text-xs uppercase tracking-[0.2em] font-bold text-foreground mb-2">{item.label}</h3>
-                      <p className="text-muted-foreground leading-relaxed">{item.value}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
 
-              <div className="mt-16 p-8 border border-primary/20 bg-primary/5 rounded-sm">
-                <h3 className="font-display text-xl font-bold text-foreground mb-4">Response Time Guarantee</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed italic">
-                  "At AUXEMPI, we value your time. Our team guarantees a response to all email inquiries within 60 minutes during business operations."
-                </p>
+                    <div className="grid md:grid-cols-2 gap-8">
+                      <div className="space-y-3">
+                        <Label htmlFor="phone" className="text-xs uppercase tracking-[0.2em] font-semibold text-muted-foreground ml-1">Phone Number</Label>
+                        <Input 
+                          id="phone" 
+                          placeholder="+44 7700 900000" 
+                          className="bg-white/[0.03] border-border/30 focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all duration-300 h-14 rounded-lg px-5 text-lg" 
+                        />
+                      </div>
+                      <div className="space-y-3">
+                        <Label htmlFor="subject" className="text-xs uppercase tracking-[0.2em] font-semibold text-muted-foreground ml-1">Inquiry Type</Label>
+                        <Select>
+                          <SelectTrigger className="bg-white/[0.03] border-border/30 focus:border-primary transition-all duration-300 h-14 rounded-lg px-5 text-lg">
+                            <SelectValue placeholder="Select service" />
+                          </SelectTrigger>
+                          <SelectContent className="bg-charcoal border-border text-foreground">
+                            <SelectItem value="general">General Inquiries</SelectItem>
+                            <SelectItem value="airport">Airport Transfers</SelectItem>
+                            <SelectItem value="events">Chauffeur Service for Events</SelectItem>
+                            <SelectItem value="corporate">Corporate Accounts</SelectItem>
+                            <SelectItem value="other">Special Requests</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+
+                    <div className="space-y-3">
+                      <Label htmlFor="message" className="text-xs uppercase tracking-[0.2em] font-semibold text-muted-foreground ml-1">Your Message</Label>
+                      <Textarea 
+                        id="message" 
+                        placeholder="Please describe your requirements..." 
+                        className="min-h-[180px] bg-white/[0.03] border-border/30 focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all duration-300 rounded-xl px-5 py-4 text-lg resize-none" 
+                      />
+                    </div>
+
+                    <Button variant="gold-cta" size="xl" className="w-full h-16 text-lg font-bold tracking-widest uppercase group relative overflow-hidden">
+                      <span className="relative z-10 flex items-center justify-center">
+                        Send Message
+                        <Send className="ml-3 w-5 h-5 transition-transform duration-500 group-hover:translate-x-2 group-hover:-translate-y-2" />
+                      </span>
+                      {/* Button Shine Effect */}
+                      <div className="absolute top-0 -inset-full h-full w-1/2 z-5 block transform -skew-x-12 bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:animate-shimmer" />
+                    </Button>
+                  </form>
+                </div>
               </div>
             </motion.div>
-
           </div>
         </div>
       </section>
 
-      {/* 3. Map Section */}
-      <section className="bg-background pb-24 md:pb-32">
+      {/* Map Section with Luxury Overlay */}
+      <section className="bg-background py-24 md:pb-40">
         <div className="container-luxury">
+          <div className="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <h2 className="font-display text-4xl font-bold text-foreground mb-4">Our Presence</h2>
+              <p className="text-muted-foreground text-lg max-w-xl">
+                Strategically located in the heart of London to serve our elite clientele across the city and beyond.
+              </p>
+            </motion.div>
+            <Button variant="luxury-outline" className="group">
+              <MapPin className="mr-2 w-4 h-4 text-primary" />
+              Get Directions
+            </Button>
+          </div>
+
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 1 }}
-            className="w-full h-[450px] bg-charcoal/50 rounded-sm border border-border/30 overflow-hidden relative grayscale"
+            className="w-full h-[600px] rounded-2xl border border-white/10 overflow-hidden relative shadow-2xl group"
           >
-            {/* Google Maps Embed Placeholder - Using a stylized luxury placeholder */}
-            <div className="absolute inset-0 flex items-center justify-center bg-[url('https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?q=80&w=2033&auto=format&fit=crop')] bg-cover bg-center opacity-40">
-              <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px]" />
-              <div className="relative z-10 text-center p-8">
-                <MapPin className="text-primary mx-auto mb-4" size={48} />
-                <h3 className="font-display text-2xl font-bold text-foreground mb-2">Our London Headquarters</h3>
-                <p className="text-muted-foreground mb-6">123 Luxury Way, Suite 500, London</p>
-                <Button variant="luxury-outline" size="sm">
-                  Open in Google Maps
-                </Button>
+            {/* Styled Map Interface */}
+            <div className="absolute inset-0 z-0">
+              <img 
+                src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?q=80&w=2000&auto=format&fit=crop" 
+                alt="Map Background" 
+                className="w-full h-full object-cover transition-transform duration-10000 group-hover:scale-110"
+              />
+              <div className="absolute inset-0 bg-black/60 backdrop-blur-[1px] group-hover:backdrop-blur-0 transition-all duration-700" />
+            </div>
+
+            {/* Map Info Overlay */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 text-center">
+              <motion.div
+                animate={{ scale: [1, 1.1, 1] }}
+                transition={{ duration: 3, repeat: Infinity }}
+                className="relative inline-block"
+              >
+                <div className="absolute -inset-4 bg-primary/20 rounded-full blur-xl" />
+                <div className="relative w-16 h-16 bg-background border-2 border-primary rounded-full flex items-center justify-center shadow-gold">
+                  <MapPin className="text-primary" size={32} />
+                </div>
+              </motion.div>
+              <div className="mt-6 p-6 bg-charcoal/80 backdrop-blur-md rounded-xl border border-white/10 shadow-2xl max-w-xs mx-auto">
+                <h3 className="font-display text-xl font-bold text-foreground mb-1">AUXEMPI London</h3>
+                <p className="text-muted-foreground text-sm mb-4">123 Luxury Way, Mayfair</p>
+                <div className="flex items-center justify-center gap-2 text-primary text-xs font-bold tracking-widest uppercase">
+                  <Globe size={14} />
+                  Serving Worldwide
+                </div>
               </div>
+            </div>
+
+            {/* Map Details Panel (Desktop Only) */}
+            <div className="absolute bottom-10 left-10 z-10 hidden lg:block bg-background/80 backdrop-blur-xl p-8 rounded-xl border border-white/10 max-w-sm">
+              <h4 className="text-xs uppercase tracking-[0.3em] font-bold text-primary mb-4">Quick Facts</h4>
+              <ul className="space-y-4">
+                <li className="flex items-start gap-3">
+                  <MessageSquare size={18} className="text-primary mt-1" />
+                  <p className="text-sm text-foreground">Multilingual staff fluent in 12 languages.</p>
+                </li>
+                <li className="flex items-start gap-3">
+                  <Clock size={18} className="text-primary mt-1" />
+                  <p className="text-sm text-foreground">Immediate fleet deployment within 30 minutes.</p>
+                </li>
+                <li className="flex items-start gap-3">
+                  <Globe size={18} className="text-primary mt-1" />
+                  <p className="text-sm text-foreground">Direct access to London's private jet terminals.</p>
+                </li>
+              </ul>
             </div>
           </motion.div>
         </div>
