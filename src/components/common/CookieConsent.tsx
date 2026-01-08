@@ -66,83 +66,93 @@ export const CookieConsent = () => {
     <>
       <AnimatePresence>
         {isVisible && !showPreferences && (
-          <motion.div
-            initial={{ y: 100, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: 100, opacity: 0 }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed bottom-0 left-0 right-0 p-4 md:p-8 z-[40] pointer-events-none"
-          >
-          <div className="container-luxury max-w-7xl mx-auto flex justify-center md:justify-end">
-            <div className="pointer-events-auto w-full md:max-w-lg bg-charcoal-light/80 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl overflow-hidden relative group">
-              {/* Subtle gold accent line at top */}
-              <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-primary/50 to-transparent opacity-50" />
-              
-              <div className="p-6 md:p-8">
-                <div className="flex items-start gap-4 mb-6">
-                  <div className="relative">
-                    <div className="absolute inset-0 bg-primary/20 blur-lg rounded-full animate-pulse" />
-                    <div className="relative p-3 bg-charcoal border border-primary/20 rounded-xl">
-                      <Cookie className="w-5 h-5 text-primary" />
+            <motion.div
+              initial={{ y: 50, opacity: 0, scale: 0.95 }}
+              animate={{ y: 0, opacity: 1, scale: 1 }}
+              exit={{ y: 50, opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              className="fixed bottom-6 right-6 md:bottom-10 md:right-10 z-[100] w-[calc(100vw-3rem)] md:w-full md:max-w-lg pointer-events-auto"
+            >
+              <div className="bg-charcoal/90 backdrop-blur-2xl border border-white/10 rounded-[2rem] shadow-[0_32px_64px_-16px_rgba(0,0,0,0.6)] overflow-hidden relative group ring-1 ring-white/5">
+                {/* Premium Glow Effect */}
+                <div className="absolute -top-24 -right-24 w-48 h-48 bg-primary/10 blur-[100px] rounded-full group-hover:bg-primary/20 transition-colors duration-700" />
+                
+                <div className="p-7 md:p-10 relative">
+                  <div className="flex items-start gap-5 mb-8">
+                    <div className="relative shrink-0">
+                      <div className="absolute inset-0 bg-primary/20 blur-xl rounded-full" />
+                      <div className="relative p-4 bg-charcoal-light border border-white/10 rounded-2xl group-hover:border-primary/30 transition-colors duration-500">
+                        <Cookie className="w-6 h-6 text-primary" />
+                      </div>
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-2xl font-display text-white mb-3 leading-tight tracking-tight">
+                        Premium <span className="text-primary">Experience</span>
+                      </h3>
+                      <p className="text-[0.95rem] text-white/50 font-body leading-relaxed">
+                        To provide the elite service you expect, we use cookies to personalize your journey.
+                      </p>
                     </div>
                   </div>
-                  <div className="flex-1">
-                    <h3 className="text-xl font-display text-white mb-2 leading-tight">
-                      Experience Tailored <span className="text-primary">Luxury</span>
-                    </h3>
-                    <p className="text-sm text-white/60 font-body leading-relaxed">
-                      We use cookies to curate a personalized experience for you. By accepting, you agree to our use of analytics and marketing tools.
-                    </p>
-                  </div>
-                </div>
 
-                <div className="flex flex-col sm:flex-row gap-3">
-                  <Button 
-                    onClick={handleAcceptAll}
-                    className="flex-1 bg-primary hover:bg-primary/90 text-black font-semibold tracking-wider h-12 rounded-xl transition-all duration-300 shadow-lg shadow-primary/10 group overflow-hidden relative"
-                  >
-                    <span className="relative z-10">ACCEPT ALL</span>
-                    <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
-                  </Button>
-                  <div className="flex gap-2 sm:flex-1">
+                  <div className="flex flex-col gap-3">
                     <Button 
-                      variant="outline"
-                      onClick={handleRejectNonEssential}
-                      className="flex-1 border-white/10 hover:bg-white/5 text-white/80 text-[10px] md:text-xs font-medium uppercase tracking-[0.2em] h-12 rounded-xl transition-all duration-300"
+                      onClick={handleAcceptAll}
+                      className="w-full bg-primary hover:bg-primary/90 text-black font-bold tracking-[0.15em] h-14 rounded-2xl transition-all duration-500 shadow-lg shadow-primary/5 group/btn overflow-hidden relative text-sm"
                     >
-                      ESSENTIAL
+                      <span className="relative z-10">ACCEPT ALL COOKIES</span>
+                      <div className="absolute inset-0 bg-white/20 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-500" />
                     </Button>
-                    <Button 
-                      variant="ghost"
-                      onClick={() => setShowPreferences(true)}
-                      className="flex-1 hover:bg-white/5 text-white/40 hover:text-white text-[10px] md:text-xs font-medium uppercase tracking-[0.2em] h-12 rounded-xl transition-all duration-300"
-                    >
-                      MANAGE
-                    </Button>
+                    
+                    <div className="grid grid-cols-2 gap-3">
+                      <Button 
+                        variant="outline"
+                        onClick={handleRejectNonEssential}
+                        className="border-white/10 hover:bg-white/5 hover:border-white/20 text-white/70 text-[11px] font-bold uppercase tracking-[0.2em] h-14 rounded-2xl transition-all duration-300"
+                      >
+                        ESSENTIAL
+                      </Button>
+                      <Button 
+                        variant="outline"
+                        onClick={() => setShowPreferences(true)}
+                        className="border-white/10 hover:bg-white/5 hover:border-white/20 text-white/70 text-[11px] font-bold uppercase tracking-[0.2em] h-14 rounded-2xl transition-all duration-300"
+                      >
+                        PREFERENCES
+                      </Button>
+                    </div>
                   </div>
-                </div>
-                
-                <div className="mt-4 text-center">
-                  <Link 
-                    to="/cookies" 
-                    className="text-[10px] uppercase tracking-widest text-white/30 hover:text-primary transition-colors"
-                  >
-                    View Cookie Policy
-                  </Link>
+                  
+                  <div className="mt-8 flex items-center justify-between border-t border-white/5 pt-6">
+                    <Link 
+                      to="/cookies" 
+                      className="text-[10px] uppercase tracking-[0.25em] text-white/30 hover:text-primary transition-all duration-300 font-bold"
+                    >
+                      Cookie Policy
+                    </Link>
+                    <div className="flex items-center gap-2">
+                      <ShieldCheck className="w-3 h-3 text-white/20" />
+                      <span className="text-[10px] uppercase tracking-[0.1em] text-white/20 font-medium">Secured by Auxempi</span>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </motion.div>
+            </motion.div>
       )}
     </AnimatePresence>
 
     <Dialog open={showPreferences} onOpenChange={setShowPreferences}>
-      <DialogContent className="bg-charcoal border-white/10 text-white max-w-xl w-[95vw] sm:w-full max-h-[90vh] overflow-y-auto sm:rounded-3xl p-0 shadow-2xl custom-scrollbar">
+      <DialogContent className="bg-charcoal border-white/10 text-white max-w-xl w-[95vw] sm:w-full max-h-[90vh] overflow-y-auto sm:rounded-3xl p-0 shadow-2xl custom-scrollbar border-none ring-1 ring-white/10">
         <div className="relative">
           {/* Header background decoration */}
           <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-primary/10 to-transparent pointer-events-none" />
           
+          <button 
+            onClick={() => setShowPreferences(false)}
+            className="absolute top-6 right-6 p-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full transition-all duration-300 z-50 group"
+          >
+            <X className="w-5 h-5 text-white/40 group-hover:text-white" />
+          </button>
+
           <DialogHeader className="p-8 md:p-12 pb-6 relative">
             <DialogTitle className="text-3xl md:text-4xl font-display text-white mb-3">
               Cookie <span className="text-primary">Preferences</span>
@@ -215,21 +225,22 @@ export const CookieConsent = () => {
             </div>
           </div>
 
-          <div className="p-8 md:p-12 pt-0 flex flex-col sm:flex-row gap-4">
-            <Button 
-              onClick={() => savePreferences(preferences)}
-              className="flex-1 bg-primary hover:bg-primary/90 text-black font-bold tracking-[0.1em] h-14 rounded-xl transition-all duration-300 shadow-xl shadow-primary/20"
-            >
-              SAVE SETTINGS
-            </Button>
-            <Button 
-              variant="outline"
-              onClick={handleAcceptAll}
-              className="flex-1 border-white/10 hover:bg-white/5 text-white font-bold tracking-[0.1em] h-14 rounded-xl transition-all duration-300"
-            >
-              ACCEPT ALL
-            </Button>
-          </div>
+            <div className="p-8 md:p-12 pt-0 flex flex-col sm:flex-row gap-4 relative">
+              <Button 
+                onClick={() => savePreferences(preferences)}
+                className="flex-[2] bg-primary hover:bg-primary/90 text-black font-bold tracking-[0.15em] h-14 rounded-2xl transition-all duration-500 shadow-xl shadow-primary/10 relative overflow-hidden group/btn"
+              >
+                <span className="relative z-10">SAVE PREFERENCES</span>
+                <div className="absolute inset-0 bg-white/20 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-500" />
+              </Button>
+              <Button 
+                variant="outline"
+                onClick={handleAcceptAll}
+                className="flex-1 border-white/10 hover:bg-white/5 hover:border-white/20 text-white font-bold tracking-[0.15em] h-14 rounded-2xl transition-all duration-300"
+              >
+                ACCEPT ALL
+              </Button>
+            </div>
         </div>
       </DialogContent>
     </Dialog>
