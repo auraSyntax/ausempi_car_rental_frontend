@@ -16,18 +16,12 @@ import {
   ArrowRight,
   BatteryCharging,
   Wine,
-  Thermometer,
-  Check
+  Thermometer
 } from "lucide-react";
 import MainLayout from "@/layouts/MainLayout";
 import { Navbar, Footer } from "@/components/sections";
 import { Button } from "@/components/ui/button";
 import { EXTERNAL_LINKS } from "@/lib/constants";
-
-// Asset Imports
-import heroSedan from "@/assets/hero-sedan.jpg";
-import fleetSedan from "@/assets/fleet-sedan.jpg";
-import fleetSuv from "@/assets/fleet-suv.jpg";
 
 const sections = {
   hero: {
@@ -44,7 +38,7 @@ const sections = {
     title: "Luxury Sedan Services",
     subtitle: "Executive Excellence",
     description: "Refined elegance for the discerning professional. Our sedan services are designed for those who value understated luxury and absolute precision.",
-    image: "https://images.unsplash.com/photo-1563720223185-11003d516935?q=80&w=2070&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1617469767053-d3b508a0d182?q=80&w=2070&auto=format&fit=crop",
     amenities: [
       { icon: Wifi, label: "High-Speed WiFi" },
       { icon: BatteryCharging, label: "Device Charging" },
@@ -364,8 +358,10 @@ const ServicesPage = () => {
                       </li>
                     ))}
                   </ul>
-                  <Button variant="luxury-outline" className="w-full group/btn">
-                    Details <ArrowRight size={16} className="ml-2 transition-transform group-hover/btn:translate-x-1" />
+                  <Button variant="luxury-outline" className="w-full group/btn" asChild>
+                    <a href={EXTERNAL_LINKS.booking} target="_blank" rel="noopener noreferrer">
+                      Details <ArrowRight size={16} className="ml-2 transition-transform group-hover/btn:translate-x-1" />
+                    </a>
                   </Button>
                 </div>
               </FadeInSection>
