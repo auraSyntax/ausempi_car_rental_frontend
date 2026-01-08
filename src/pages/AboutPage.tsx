@@ -26,26 +26,26 @@ import fleetSedan from "@/assets/fleet-sedan.jpg";
 import fleetSuv from "@/assets/fleet-suv.jpg";
 
 const sections = {
-  hero: {
+    hero: {
     title: "About AUXEMPI",
     tagline: "The Pinnacle of Private Luxury",
     subtitle: "Redefining the art of elite transportation through precision, discretion, and an unwavering commitment to excellence.",
-    image: heroSedan
+    image: "https://images.unsplash.com/photo-1563720223185-11003d516935?q=80&w=2070&auto=format&fit=crop"
   },
-  story: {
+    story: {
     title: "Our Legacy of Excellence",
     content: [
       "AUXEMPI was founded on a singular premise: that luxury transportation should be an extension of one's lifestyle—seamless, sophisticated, and absolutely reliable.",
       "We recognized that for our discerning clientele, the journey is as significant as the destination. This realization led us to curate a fleet and a service philosophy that transcends the ordinary.",
       "Today, AUXEMPI stands as the premier choice for executives, global leaders, and private individuals who demand a bespoke travel experience defined by meticulous planning and executive care."
     ],
-    image: "https://images.unsplash.com/photo-1511406361295-0a5ff814c0ad?q=80&w=1974&auto=format&fit=crop"
+    image: "https://images.unsplash.com/photo-1600705722908-bab1e61c0b4d?q=80&w=2070&auto=format&fit=crop"
   },
   fleet: [
     {
       type: "Executive Sedans",
       description: "Sophisticated elegance for executive travel and intimate city transfers.",
-      image: fleetSedan,
+      image: "https://images.unsplash.com/photo-1563720223185-11003d516935?q=80&w=2070&auto=format&fit=crop",
       specs: [
         { icon: Users, label: "Up to 3 guests" },
         { icon: Briefcase, label: "2 luggage" },
@@ -57,7 +57,7 @@ const sections = {
     {
       type: "Luxury SUVs",
       description: "Commanding presence and generous space for group travel or extra luggage.",
-      image: fleetSuv,
+      image: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?q=80&w=2070&auto=format&fit=crop",
       specs: [
         { icon: Users, label: "Up to 6 guests" },
         { icon: Briefcase, label: "4 luggage" },

@@ -34,7 +34,7 @@ const sections = {
     title: "Our Services",
     tagline: "Luxury Tailored to Every Journey",
     subtitle: "Experience the ultimate in bespoke transportation, where every detail is meticulously curated for your comfort, privacy, and peace of mind.",
-    image: heroSedan
+    image: "https://images.unsplash.com/photo-1541443131876-44b03de101c5?q=80&w=2070&auto=format&fit=crop"
   },
   categories: {
     title: "The AUXEMPI Experience",
@@ -44,7 +44,7 @@ const sections = {
     title: "Luxury Sedan Services",
     subtitle: "Executive Excellence",
     description: "Refined elegance for the discerning professional. Our sedan services are designed for those who value understated luxury and absolute precision.",
-    image: fleetSedan,
+    image: "https://images.unsplash.com/photo-1563720223185-11003d516935?q=80&w=2070&auto=format&fit=crop",
     amenities: [
       { icon: Wifi, label: "High-Speed WiFi" },
       { icon: BatteryCharging, label: "Device Charging" },
@@ -67,7 +67,7 @@ const sections = {
     title: "Luxury SUV Services",
     subtitle: "Commanding Presence",
     description: "Spacious sophistication for groups or those who simply demand more. Our SUV fleet combines powerful performance with an expansive, luxury interior.",
-    image: fleetSuv,
+    image: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?q=80&w=2070&auto=format&fit=crop",
     amenities: [
       { icon: Shield, label: "Privacy Partition" },
       { icon: Users, label: "Up to 6 Guests" },
