@@ -39,7 +39,7 @@ const sections = {
       "We recognized that for our discerning clientele, the journey is as significant as the destination. This realization led us to curate a fleet and a service philosophy that transcends the ordinary.",
       "Today, AUXEMPI stands as the premier choice for executives, global leaders, and private individuals who demand a bespoke travel experience defined by meticulous planning and executive care."
     ],
-    image: "https://images.unsplash.com/photo-1551816230-ef5deaed4a26?q=80&w=2070&auto=format&fit=crop"
+      image: "https://images.unsplash.com/photo-1600706432502-77a0e2e3277c?q=80&w=2070&auto=format&fit=crop"
   },
   fleet: [
     {
