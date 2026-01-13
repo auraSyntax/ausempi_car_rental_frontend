@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { Users, Briefcase, Wifi, Snowflake, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { LazyImage } from "@/components/common";
 import fleetSedan from "@/assets/fleet-sedan.jpg";
 import fleetSuv from "@/assets/fleet-suv.jpg";
 
@@ -75,9 +76,8 @@ const Fleet = () => {
           {vehicles.map((vehicle, index) => (
             <div
               key={vehicle.name}
-              className={`grid lg:grid-cols-2 gap-12 lg:gap-24 items-center ${
-                index % 2 === 1 ? "lg:grid-flow-col-dense" : ""
-              }`}
+              className={`grid lg:grid-cols-2 gap-12 lg:gap-24 items-center ${index % 2 === 1 ? "lg:grid-flow-col-dense" : ""
+                }`}
             >
               {/* Image Section */}
               <motion.div
@@ -90,11 +90,11 @@ const Fleet = () => {
                 {/* Luxury Image Container */}
                 <div className="relative z-10 p-2 sm:p-3 border border-primary/20 bg-secondary/30 backdrop-blur-sm rounded-sm">
                   <div className="relative overflow-hidden aspect-[16/10] sm:aspect-[4/3]">
-                    <img
+                    <LazyImage
                       src={vehicle.image}
                       alt={vehicle.name}
-                      className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
-                      loading="lazy"
+                      containerClassName="w-full h-full"
+                      className="transition-transform duration-1000 group-hover:scale-110"
                     />
                     {/* Dark gradient overlay for text readability if needed */}
                     <div className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
@@ -102,18 +102,17 @@ const Fleet = () => {
                 </div>
 
                 {/* Background "Watermark" Number */}
-                <div 
-                  className={`absolute -top-16 hidden lg:block text-[15rem] font-bold text-primary/5 select-none pointer-events-none -z-0 font-display ${
-                    index % 2 === 0 ? "-left-12" : "-right-12"
-                  }`}
+                <div
+                  className={`absolute -top-16 hidden lg:block text-[15rem] font-bold text-primary/5 select-none pointer-events-none -z-0 font-display ${index % 2 === 0 ? "-left-12" : "-right-12"
+                    }`}
                 >
                   {vehicle.id}
                 </div>
 
                 {/* Floating Category Badge */}
                 <div className="absolute -top-4 -right-4 sm:top-8 sm:-right-8 z-20">
-                  <motion.div 
-                    initial={{ rotate: -5 }}
+                  <motion.div
+                    initial={{ rotate: 0 }}
                     whileHover={{ rotate: 0, scale: 1.05 }}
                     className="bg-primary px-6 py-2 shadow-xl border border-white/10"
                   >
@@ -125,7 +124,7 @@ const Fleet = () => {
               </motion.div>
 
               {/* Content Section */}
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, x: index % 2 === 0 ? 50 : -50 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -140,7 +139,7 @@ const Fleet = () => {
                 <h3 className="font-display text-4xl lg:text-5xl xl:text-6xl font-bold text-foreground mb-6 leading-tight">
                   {vehicle.name}
                 </h3>
-                
+
                 <p className="text-muted-foreground text-lg leading-relaxed mb-10 max-w-xl">
                   {vehicle.description}
                 </p>

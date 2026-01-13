@@ -17,12 +17,12 @@ const footerLinks = {
     { name: "Special Events", href: "/#services" },
     { name: "Hourly Charters", href: "/#services" },
   ],
-    legal: [
-      { name: "Privacy Policy", href: "/privacy" },
-      { name: "Terms of Service", href: "/terms" },
-      { name: "Cookie Policy", href: "/cookies" },
-      { name: "Driver Portal", href: "/driver-login" },
-    ],
+  legal: [
+    { name: "Privacy Policy", href: "/privacy" },
+    { name: "Terms of Service", href: "/terms" },
+    { name: "Cookie Policy", href: "/cookies" },
+    { name: "Driver Portal", href: "/driver-login" },
+  ],
 };
 
 const socialLinks = [
@@ -39,7 +39,7 @@ const Footer = () => {
     <footer className="bg-charcoal relative overflow-hidden">
       {/* Texture Overlay */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]" />
-      
+
       {/* Background Glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[400px] bg-primary/5 blur-[120px] rounded-full pointer-events-none" />
 
@@ -80,9 +80,9 @@ const Footer = () => {
                   >
                     <span className="relative z-10 flex items-center gap-3">
                       Secure Your Reservation
-                      <ArrowRight 
-                        size={22} 
-                        className="transition-transform duration-500 group-hover:translate-x-2" 
+                      <ArrowRight
+                        size={22}
+                        className="transition-transform duration-500 group-hover:translate-x-2"
                       />
                     </span>
                     <div className="absolute inset-0 bg-gradient-to-r from-primary/0 via-white/10 to-primary/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
@@ -263,7 +263,7 @@ const Footer = () => {
         {/* Divider */}
         <div className="relative h-px w-full overflow-hidden mb-12">
           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-border/50 to-transparent" />
-          <motion.div 
+          <motion.div
             className="absolute inset-0 bg-gradient-to-r from-transparent via-primary to-transparent opacity-30"
             initial={{ left: "-100%" }}
             whileInView={{ left: "100%" }}

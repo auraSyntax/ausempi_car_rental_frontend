@@ -1,46 +1,66 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
-import { 
-  Shield, 
-  Award, 
-  CheckCircle, 
-  Navigation,
-  Star,
-  Zap,
-  ChevronRight,
-  UserCheck,
-  Crown,
+import {
+  Shield,
+  Award,
   MapPin,
   Clock,
   Users,
   Briefcase,
   Wifi,
-  Snowflake
+  Snowflake,
+  ChevronRight,
+  UserCheck,
+  Crown,
+  Zap,
+  Globe,
+  Quote,
+  Star
 } from "lucide-react";
 import MainLayout from "@/layouts/MainLayout";
 import { Navbar, Footer, ReserveCTA } from "@/components/sections";
+import { LazyImage } from "@/components/common";
+
+const images = {
+  hero: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?q=80&w=2070&auto=format&fit=crop", // Professional chauffeur/car exterior
+  story: "https://plus.unsplash.com/premium_photo-1661281350976-59b9514e5364?q=80&w=2069&auto=format&fit=crop", // High-end meeting/interior
+  fleet: {
+    sedan: "https://images.unsplash.com/photo-1550355291-bbee04a92027?q=80&w=2072&auto=format&fit=crop", // Elegant sedan shot
+    suv: "https://images.unsplash.com/photo-1606148695344-b6ed50bb3f5d?q=80&w=2070&auto=format&fit=crop" // Large SUV
+  },
+  whyChoose: {
+    chauffeur: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=2069&auto=format&fit=crop", // Professional driver
+    amenities: "https://images.unsplash.com/photo-1632731557053-96b678cdb8b3?q=80&w=2070&auto=format&fit=crop" // Luxury car interior detail
+  },
+  gallery: [
+    "https://images.unsplash.com/photo-1506015507548-c89324aca43c?q=80&w=2070&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=2070&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1570733577533-33bc0255375c?q=80&w=2070&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1469334031218-e382a71b716b?q=80&w=2070&auto=format&fit=crop"
+  ]
+};
 
 const sections = {
-    hero: {
+  hero: {
     title: "About AUXEMPI",
     tagline: "The Pinnacle of Private Luxury",
     subtitle: "Redefining the art of elite transportation through precision, discretion, and an unwavering commitment to excellence.",
-    image: "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?q=80&w=2070&auto=format&fit=crop"
+    image: images.hero
   },
-    story: {
+  story: {
     title: "Our Legacy of Excellence",
     content: [
       "AUXEMPI was founded on a singular premise: that luxury transportation should be an extension of one's lifestyle—seamless, sophisticated, and absolutely reliable.",
       "We recognized that for our discerning clientele, the journey is as significant as the destination. This realization led us to curate a fleet and a service philosophy that transcends the ordinary.",
       "Today, AUXEMPI stands as the premier choice for executives, global leaders, and private individuals who demand a bespoke travel experience defined by meticulous planning and executive care."
     ],
-      image: "https://images.unsplash.com/photo-1617469767053-d3b508a0d84d?q=80&w=2070&auto=format&fit=crop"
+    image: images.story
   },
   fleet: [
     {
       type: "Executive Sedans",
       description: "Sophisticated elegance for executive travel and intimate city transfers.",
-      image: "https://images.unsplash.com/photo-1563720223185-11003d516935?q=80&w=2070&auto=format&fit=crop",
+      image: images.fleet.sedan,
       specs: [
         { icon: Users, label: "Up to 3 guests" },
         { icon: Briefcase, label: "2 luggage" },
@@ -52,7 +72,7 @@ const sections = {
     {
       type: "Luxury SUVs",
       description: "Commanding presence and generous space for group travel or extra luggage.",
-      image: "https://images.unsplash.com/photo-1606148695344-b6ed50bb3f5d?q=80&w=2070&auto=format&fit=crop",
+      image: images.fleet.suv,
       specs: [
         { icon: Users, label: "Up to 6 guests" },
         { icon: Briefcase, label: "4 luggage" },
@@ -83,31 +103,26 @@ const sections = {
     {
       title: "Elite Chauffeurs",
       description: "Beyond driving, our chauffeurs are masters of hospitality and local navigation.",
-      image: "https://images.unsplash.com/photo-1508974239320-0a029497e820?q=80&w=2070&auto=format&fit=crop"
+      image: images.whyChoose.chauffeur
     },
-        {
-          title: "Bespoke Comfort",
-          description: "In-vehicle amenities curated to your specific requirements and tastes.",
-          image: "https://images.unsplash.com/photo-1603584173870-7f1370257925?q=80&w=2070&auto=format&fit=crop"
-        }
-    ],
+    {
+      title: "Bespoke Comfort",
+      description: "In-vehicle amenities curated to your specific requirements and tastes.",
+      image: images.whyChoose.amenities
+    }
+  ],
   stats: [
     { value: "8", label: "Years of Service", suffix: "+" },
     { value: "15", label: "Rides Completed", suffix: "K+" },
     { value: "25", label: "Global Regions", suffix: "+" },
     { value: "99", label: "Client Satisfaction", suffix: ".9%" }
   ],
-    gallery: [
-      "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?q=80&w=2070&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1605898835373-023bbba1d261?q=80&w=2070&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1555215695-3004980ad54e?q=80&w=2070&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?q=80&w=2072&auto=format&fit=crop"
-    ]
-  };
+  gallery: images.gallery
+};
 
 const FadeInSection = ({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.3 });
+  const isInView = useInView(ref, { once: true, amount: 0.2 });
 
   return (
     <motion.div
@@ -127,105 +142,119 @@ const AboutPage = () => {
     target: heroRef,
     offset: ["start start", "end start"]
   });
-  
+
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
-  const opacity = useTransform(scrollYProgress, [0, 1], [1, 0]);
+  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   return (
     <MainLayout>
       <Navbar />
-      
+
       {/* 1. Hero Section (Refined) */}
-      <section ref={heroRef} className="relative h-screen flex items-center overflow-hidden">
-        <motion.div style={{ y }} className="absolute inset-0 z-0">
-          <img 
-            src={sections.hero.image} 
-            className="w-full h-full object-cover brightness-[0.3]" 
-            alt="Luxury Sedan Exterior" 
+      <section ref={heroRef} className="relative h-[90vh] flex items-center overflow-hidden">
+        <motion.div style={{ y, opacity }} className="absolute inset-0 z-0">
+          <LazyImage
+            src={sections.hero.image}
+            className="w-full h-full object-cover brightness-[0.3]"
+            alt="Luxury Sedan Exterior"
+            priority={true}
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-background" />
-          <div className="absolute inset-0 bg-black/20" />
         </motion.div>
-        
-        <div className="container-luxury relative z-10">
+
+        <div className="container-luxury relative z-10 px-6">
           <motion.div
-            style={{ opacity }}
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-            className="max-w-4xl"
+            className="max-w-5xl"
           >
-            <span className="inline-flex items-center gap-4 text-primary text-sm uppercase tracking-[0.6em] font-semibold mb-8">
-              <span className="w-16 h-px bg-primary" />
-              {sections.hero.tagline}
-            </span>
-            <h1 className="font-display text-6xl md:text-8xl lg:text-9xl font-bold text-white mb-10 leading-[0.9]">
+            <div className="flex items-center gap-4 mb-8">
+              <span className="w-12 h-px bg-primary" />
+              <span className="text-primary text-xs md:text-sm uppercase tracking-[0.4em] font-bold">
+                {sections.hero.tagline}
+              </span>
+            </div>
+
+            <h1 className="font-display text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold text-white mb-8 leading-[0.9] tracking-tight">
               About <br /> <span className="text-gradient-gold">AUXEMPI</span>
             </h1>
-            <p className="text-xl md:text-2xl text-white/70 font-light leading-relaxed max-w-2xl border-l border-primary/30 pl-8">
+
+            <p className="text-lg md:text-2xl text-white/80 font-light leading-relaxed max-w-3xl border-l-2 border-primary/40 pl-8 md:pl-10">
               {sections.hero.subtitle}
             </p>
           </motion.div>
         </div>
-        
-        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 animate-bounce opacity-40">
-          <span className="text-[10px] uppercase tracking-[0.5em] text-white">Scroll</span>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1, duration: 1 }}
+          className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 animate-bounce text-white/40"
+        >
+          <span className="text-[10px] uppercase tracking-[0.3em] font-medium">Scroll</span>
           <div className="w-px h-12 bg-gradient-to-b from-white to-transparent" />
-        </div>
+        </motion.div>
       </section>
 
       {/* 2. Brand Story Section (Editorial) */}
-      <section className="bg-background py-32 md:py-48 relative">
+      <section className="bg-background py-24 md:py-32 relative">
         <div className="absolute top-0 right-0 w-1/3 h-full bg-charcoal/5 pointer-events-none" />
         <div className="container-luxury relative z-10">
-          <div className="grid lg:grid-cols-2 gap-20 lg:gap-32 items-center">
+          <div className="grid lg:grid-cols-2 gap-16 lg:gap-32 items-center">
             <FadeInSection>
               <div className="relative">
                 <span className="text-primary text-xs uppercase tracking-[0.5em] font-bold mb-8 block">
                   Heritage & Vision
                 </span>
-                <h2 className="font-display text-4xl md:text-6xl font-bold text-foreground mb-12 leading-tight">
+                <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-10 leading-none">
                   {sections.story.title}
                 </h2>
-                <div className="space-y-8">
+                <div className="space-y-6">
                   {sections.story.content.map((p, i) => (
-                    <p key={i} className="text-muted-foreground text-lg md:text-xl font-light leading-relaxed">
+                    <p key={i} className="text-muted-foreground text-lg font-light leading-relaxed">
                       {p}
                     </p>
                   ))}
                 </div>
-                <div className="mt-12 flex items-center gap-8">
-                  <div className="flex -space-x-4">
-                    {[1, 2, 3].map((i) => (
-                      <div key={i} className="w-12 h-12 rounded-full border-2 border-background overflow-hidden">
-                        <img src={`https://i.pravatar.cc/150?u=${i}`} alt="Client" />
-                      </div>
-                    ))}
-                  </div>
-                  <div>
-                    <div className="flex text-primary mb-1">
-                      {[1, 2, 3, 4, 5].map((s) => <Star key={s} size={14} fill="currentColor" />)}
+                <div className="mt-12 pt-12 border-t border-border/40 flex items-center gap-8">
+                  <div className="flex flex-col">
+                    <div className="flex text-primary mb-2">
+                      {[1, 2, 3, 4, 5].map((s) => <Star key={s} size={16} fill="currentColor" />)}
                     </div>
-                    <p className="text-xs uppercase tracking-widest text-muted-foreground">Trusted by 5,000+ Executives</p>
+                    <p className="text-xs uppercase tracking-widest text-muted-foreground font-medium">TRUSTED BY 5,000+ EXECUTIVES</p>
+                  </div>
+                  <div className="h-10 w-px bg-border/40" />
+                  <div className="text-muted-foreground text-sm font-light italic">
+                    "Unrivaled precision."
                   </div>
                 </div>
               </div>
             </FadeInSection>
-            
-            <FadeInSection delay={0.2}>
-              <div className="relative aspect-[3/4] group">
-                <div className="absolute -inset-4 border border-primary/20 translate-x-8 translate-y-8 group-hover:translate-x-4 group-hover:translate-y-4 transition-transform duration-700" />
-                <div className="relative h-full overflow-hidden rounded-sm">
-                  <img 
-                    src={sections.story.image} 
-                    className="w-full h-full object-cover grayscale-[0.5] hover:grayscale-0 transition-all duration-1000" 
-                    alt="AUXEMPI Interior" 
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+
+            <FadeInSection delay={0.2} className="relative">
+              <div className="relative aspect-[3/4] md:aspect-[4/5] overflow-hidden rounded-sm group shadow-2xl">
+                <LazyImage
+                  src={sections.story.image}
+                  className="w-full h-full object-cover transition-all duration-1000 group-hover:scale-105"
+                  alt="AUXEMPI Interior"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60" />
+
+                <div className="absolute bottom-8 left-8 right-8 text-white">
+                  <Quote size={40} className="text-primary mb-4 opacity-80" />
+                  <p className="text-xl md:text-2xl font-display leading-tight mb-4">
+                    "Luxury is the absence of worry. It is the freedom of time and the comfort of silence."
+                  </p>
+                  <p className="text-sm uppercase tracking-widest text-primary font-bold">The AUXEMPI Promise</p>
                 </div>
-                <div className="absolute bottom-8 left-8 text-white opacity-0 group-hover:opacity-100 transition-all duration-700 translate-y-4 group-hover:translate-y-0">
-                  <p className="text-xs uppercase tracking-[0.3em] mb-2">Chauffeur Excellence</p>
-                  <p className="font-display text-2xl">Attention to Detail</p>
+              </div>
+
+              {/* Floating Badge */}
+              <div className="absolute -top-6 -right-6 md:top-8 md:-right-8 w-24 h-24 md:w-32 md:h-32 rounded-full border border-primary/20 bg-background/80 backdrop-blur-md flex items-center justify-center p-4 animate-[spin_10s_linear_infinite]">
+                <div className="text-center">
+                  <span className="block text-[8px] md:text-[10px] uppercase tracking-widest font-bold text-primary">Est.</span>
+                  <span className="block text-xl md:text-2xl font-bold font-display text-foreground">2018</span>
                 </div>
               </div>
             </FadeInSection>
@@ -233,122 +262,121 @@ const AboutPage = () => {
         </div>
       </section>
 
-        {/* 3. Luxury Fleet Representation */}
-        <section className="bg-charcoal py-32 md:py-48 overflow-hidden relative">
-          <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
-          <div className="container-luxury">
-            <div className="text-center mb-24">
-              <span className="text-primary text-xs uppercase tracking-[0.5em] font-bold block mb-6">The AUXEMPI Collection</span>
-              <h2 className="font-display text-5xl md:text-7xl font-bold text-white mb-8">Luxury Fleet</h2>
-              <p className="text-white/50 text-xl font-light max-w-2xl mx-auto">
-                Curated for performance, comfort, and ultimate discretion.
-              </p>
-            </div>
-  
-            <div className="grid lg:grid-cols-2 gap-16 lg:gap-24">
-              {sections.fleet.map((item, idx) => (
-                <FadeInSection key={item.type} delay={idx * 0.2}>
-                  <div className="group relative">
-                    <div className="aspect-[16/10] overflow-hidden rounded-sm mb-12 relative">
-                      <img 
-                        src={item.image} 
-                        alt={item.type} 
-                        className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" 
-                      />
-                      <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors" />
-                      <div className="absolute top-6 left-6">
-                        <span className="px-4 py-2 bg-primary/90 backdrop-blur-md text-black text-[10px] uppercase font-bold tracking-widest">
-                          {idx === 0 ? "Flagship Choice" : "Group Executive"}
-                        </span>
-                      </div>
+      {/* 3. Luxury Fleet Representation */}
+      <section className="bg-charcoal py-24 md:py-40 overflow-hidden relative">
+        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
+        <div className="container-luxury">
+          <div className="text-center mb-20">
+            <span className="text-primary text-xs uppercase tracking-[0.5em] font-bold block mb-6">The AUXEMPI Collection</span>
+            <h2 className="font-display text-4xl md:text-6xl font-bold text-white mb-6">Luxury Fleet</h2>
+            <p className="text-white/50 text-lg md:text-xl font-light max-w-2xl mx-auto">
+              Curated for performance, comfort, and ultimate discretion.
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20">
+            {sections.fleet.map((item, idx) => (
+              <FadeInSection key={item.type} delay={idx * 0.2}>
+                <div className="group relative bg-white/[0.02] border border-white/5 hover:border-primary/20 transition-all duration-500 rounded-sm overflow-hidden">
+                  <div className="aspect-[16/10] overflow-hidden relative border-b border-white/5">
+                    <LazyImage
+                      src={item.image}
+                      alt={item.type}
+                      className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-80" />
+                    <div className="absolute top-6 left-6 z-10">
+                      <span className="px-3 py-1 bg-black/60 backdrop-blur-md border border-white/10 text-white text-[9px] uppercase font-bold tracking-widest rounded-sm">
+                        {idx === 0 ? "Flagship Choice" : "Group Executive"}
+                      </span>
                     </div>
-                    
-                    <div className="space-y-10">
-                      <div>
-                        <h3 className="font-display text-4xl lg:text-5xl font-bold text-white mb-6 flex items-center gap-4">
-                          {item.type}
-                          <div className="h-px flex-1 bg-white/10" />
-                        </h3>
-                        <p className="text-white/60 text-lg font-light mb-10 leading-relaxed">{item.description}</p>
-                        
-                        <div className="grid grid-cols-2 gap-y-6 gap-x-8 mb-10">
-                          {item.specs.map((spec, sidx) => (
-                            <div key={sidx} className="flex items-center gap-4 text-white/40 group-hover:text-white/70 transition-colors">
-                              <div className="w-10 h-10 rounded-sm bg-white/5 flex items-center justify-center">
-                                <spec.icon size={18} className="text-primary" />
-                              </div>
-                              <span className="text-sm uppercase tracking-wider">{spec.label}</span>
-                            </div>
-                          ))}
-                        </div>
 
-                        <div className="flex flex-wrap gap-3">
-                          {item.features.map(f => (
-                            <span key={f} className="px-4 py-1.5 bg-white/5 border border-white/10 rounded-full text-[9px] uppercase tracking-[0.2em] text-white/30 whitespace-nowrap">
-                              {f}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-
-                      <button className="inline-flex items-center gap-6 text-primary group/btn">
-                        <span className="text-xs uppercase tracking-[0.4em] font-bold group-hover/btn:translate-x-2 transition-transform duration-500">Discover Details</span>
-                        <div className="h-12 w-12 rounded-full border border-primary/30 flex items-center justify-center group-hover/btn:bg-primary group-hover/btn:text-black transition-all duration-500">
-                          <ChevronRight size={20} />
-                        </div>
-                      </button>
+                    <div className="absolute bottom-6 left-6 z-10">
+                      <h3 className="font-display text-3xl font-bold text-white mb-1 group-hover:text-primary transition-colors">
+                        {item.type}
+                      </h3>
+                      <div className="h-0.5 w-12 bg-primary group-hover:w-24 transition-all duration-500" />
                     </div>
                   </div>
-                </FadeInSection>
-              ))}
-            </div>
+
+                  <div className="p-8 md:p-10">
+                    <p className="text-white/60 text-base font-light mb-8 leading-relaxed">{item.description}</p>
+
+                    <div className="grid grid-cols-2 gap-y-4 gap-x-6 mb-8">
+                      {item.specs.map((spec, sidx) => (
+                        <div key={sidx} className="flex items-center gap-3 text-white/50 group-hover:text-white/80 transition-colors">
+                          <spec.icon size={16} className="text-primary shrink-0" />
+                          <span className="text-xs uppercase tracking-wider font-medium">{spec.label}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="flex flex-wrap gap-2 pt-6 border-t border-white/10">
+                      {item.features.map(f => (
+                        <span key={f} className="px-3 py-1 bg-white/[0.05] rounded-full text-[9px] uppercase tracking-wider text-white/40">
+                          {f}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </FadeInSection>
+            ))}
           </div>
-          <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-        </section>
+
+          <div className="mt-16 text-center">
+            <a href="/fleet" className="inline-flex items-center gap-3 text-white text-xs uppercase tracking-[0.2em] font-bold group hover:text-primary transition-colors">
+              View Complete Fleet <ChevronRight size={16} className="transition-transform group-hover:translate-x-1" />
+            </a>
+          </div>
+        </div>
+      </section>
 
 
       {/* 4. Mission, Vision & Values (Clean Grid) */}
-      <section className="bg-background py-32 md:py-48 relative overflow-hidden">
-        <div className="absolute top-1/2 left-0 w-64 h-64 bg-primary/5 rounded-full blur-[120px] -translate-y-1/2 -translate-x-1/2" />
+      <section className="bg-background py-24 md:py-32 relative overflow-hidden">
+        <div className="absolute top-1/2 left-0 w-64 h-64 bg-primary/5 rounded-full blur-[120px] -translate-y-1/2 -translate-x-1/2 pointer-events-none" />
         <div className="container-luxury relative z-10">
-          <div className="grid lg:grid-cols-3 gap-20 lg:gap-32">
-            <div className="lg:col-span-1">
-              <div className="sticky top-32">
-                <span className="text-primary text-xs uppercase tracking-[0.5em] font-bold block mb-8">Our Core</span>
-                <h2 className="font-display text-5xl md:text-6xl font-bold text-foreground mb-10 leading-tight">Mission, <br />Vision & <br /><span className="text-gradient-gold">Values</span></h2>
-                <p className="text-muted-foreground text-xl font-light leading-relaxed mb-12">
+          <div className="grid lg:grid-cols-12 gap-12 lg:gap-20">
+            <div className="lg:col-span-4">
+              <div className="lg:sticky lg:top-32">
+                <span className="text-primary text-xs uppercase tracking-[0.5em] font-bold block mb-6">Our Core</span>
+                <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-8 leading-[1.1]">Mission, <br />Vision & <br /><span className="text-gradient-gold">Values</span></h2>
+                <p className="text-muted-foreground text-lg font-light leading-relaxed mb-10">
                   To be the world's most seamless and sophisticated private transportation partner, setting the benchmark for elite mobility.
                 </p>
-                <div className="flex items-center gap-6">
-                  <div className="w-12 h-px bg-primary" />
-                  <span className="text-[10px] uppercase tracking-[0.4em] font-bold text-muted-foreground">Since 2018</span>
+                <div className="flex items-center gap-6 p-6 bg-charcoal/5 rounded-sm border-l-2 border-primary">
+                  <div className="text-4xl font-display font-bold text-primary">5k+</div>
+                  <div className="text-xs uppercase tracking-wider text-muted-foreground font-medium">Successful<br />Journeys</div>
                 </div>
               </div>
             </div>
-            
-            <div className="lg:col-span-2 grid md:grid-cols-2 gap-10">
+
+            <div className="lg:col-span-8 grid md:grid-cols-2 gap-6">
               {sections.values.map((value, idx) => (
                 <FadeInSection key={value.title} delay={idx * 0.1}>
-                  <div className="group p-10 bg-charcoal/5 hover:bg-charcoal/10 transition-all duration-500 rounded-sm border border-transparent hover:border-primary/20 relative h-full">
+                  <div className="group p-8 md:p-10 bg-background border border-border/60 hover:border-primary/30 transition-all duration-300 rounded-lg shadow-sm hover:shadow-lg h-full relative overflow-hidden">
                     <div className="absolute top-0 left-0 w-1 h-0 bg-primary group-hover:h-full transition-all duration-700" />
-                    <div className="w-16 h-16 rounded-sm bg-white/5 flex items-center justify-center mb-10 group-hover:scale-110 transition-transform duration-500">
-                      <value.icon className="text-primary" size={32} />
+                    <div className="w-14 h-14 rounded-lg bg-primary/10 flex items-center justify-center mb-8 group-hover:bg-primary group-hover:text-black text-primary transition-all duration-500">
+                      <value.icon size={26} strokeWidth={1.5} />
                     </div>
-                    <h3 className="font-display text-3xl font-bold text-foreground mb-6">{value.title}</h3>
-                    <p className="text-muted-foreground text-lg leading-relaxed font-light">{value.text}</p>
+                    <h3 className="font-display text-2xl font-bold text-foreground mb-4">{value.title}</h3>
+                    <p className="text-muted-foreground text-base leading-relaxed font-light">{value.text}</p>
                   </div>
                 </FadeInSection>
               ))}
               <FadeInSection delay={0.3}>
-                <div className="group p-10 bg-primary/5 hover:bg-primary/10 transition-all duration-500 rounded-sm border border-primary/10 relative h-full overflow-hidden">
-                  <div className="absolute -right-8 -bottom-8 opacity-5 group-hover:opacity-10 transition-opacity duration-700">
-                    <Shield size={200} />
+                <div className="group p-8 md:p-10 bg-[#0A0A0A] text-white transition-all duration-300 rounded-lg h-full relative overflow-hidden flex flex-col justify-between">
+                  <div>
+                    <div className="w-14 h-14 rounded-lg bg-white/10 flex items-center justify-center mb-8">
+                      <Shield className="text-white" size={26} strokeWidth={1.5} />
+                    </div>
+                    <h3 className="font-display text-2xl font-bold mb-4">Safety First</h3>
+                    <p className="text-white/60 text-base leading-relaxed font-light">Rigorous vetting and advanced safety protocols for absolute peace of mind.</p>
                   </div>
-                  <div className="w-16 h-16 rounded-sm bg-primary/20 flex items-center justify-center mb-10">
-                    <Shield className="text-primary" size={32} />
+                  <div className="mt-8 pt-8 border-t border-white/10 flex items-center gap-2 text-xs uppercase tracking-widest opacity-60">
+                    <Award size={14} /> Certified Secure
                   </div>
-                  <h3 className="font-display text-3xl font-bold text-foreground mb-6">Safety First</h3>
-                  <p className="text-muted-foreground text-lg leading-relaxed font-light">Rigorous vetting and advanced safety protocols for absolute peace of mind.</p>
                 </div>
               </FadeInSection>
             </div>
@@ -356,79 +384,72 @@ const AboutPage = () => {
         </div>
       </section>
 
-      {/* 5. Why Choose AUXEMPI (Premium Grid) */}
-      <section className="bg-charcoal py-32 md:py-48 relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
+      {/* 5. Why Choose AUXEMPI (Premium Parallax) */}
+      <section className="bg-charcoal py-32 relative overflow-hidden">
         <div className="container-luxury relative z-10">
           <div className="text-center mb-24">
             <span className="text-primary text-xs uppercase tracking-[0.5em] font-bold block mb-6">Distinction</span>
-            <h2 className="font-display text-5xl md:text-7xl font-bold text-white mb-8">Why Choose <span className="text-gradient-gold">AUXEMPI</span></h2>
+            <h2 className="font-display text-4xl md:text-6xl font-bold text-white mb-6">Why Choose <span className="text-gradient-gold">AUXEMPI</span></h2>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-10 lg:gap-16">
+          <div className="grid lg:grid-cols-2 gap-8 md:gap-12">
             {sections.whyChoose.map((item, idx) => (
               <FadeInSection key={item.title} delay={idx * 0.2}>
-                <div className="group relative overflow-hidden rounded-sm">
-                  <div className="relative aspect-[16/9] overflow-hidden">
-                      <img 
-                        src={item.image} 
-                        alt={item.title} 
-                        className="w-full h-full object-cover transition-transform duration-[2000ms] group-hover:scale-110" 
-                      />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-700" />
-                  </div>
-                  
-                  <div className="absolute inset-0 p-10 lg:p-16 flex flex-col justify-end">
-                    <div className="overflow-hidden mb-4">
-                      <span className="text-[10px] uppercase tracking-[0.5em] text-primary font-bold block translate-y-full group-hover:translate-y-0 transition-transform duration-500">
-                        Excellence 0{idx + 1}
-                      </span>
-                    </div>
-                    <h3 className="font-display text-4xl lg:text-5xl font-bold text-white mb-6 group-hover:text-primary transition-colors duration-500">{item.title}</h3>
-                    <p className="text-white/60 text-lg font-light leading-relaxed max-w-md opacity-0 group-hover:opacity-100 translate-y-10 group-hover:translate-y-0 transition-all duration-700 delay-100">
+                <div className="group relative overflow-hidden rounded-lg aspect-[16/10] md:aspect-[16/9]">
+                  <LazyImage
+                    src={item.image}
+                    alt={item.title}
+                    className="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-110 grayscale-[0.3] group-hover:grayscale-0"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent group-hover:via-black/20 transition-all duration-500" />
+
+                  <div className="absolute inset-0 p-8 md:p-12 flex flex-col justify-end">
+                    <span className="text-[10px] uppercase tracking-[0.3em] text-primary font-bold mb-3 md:mb-4 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+                      Feature 0{idx + 1}
+                    </span>
+                    <h3 className="font-display text-3xl md:text-4xl font-bold text-white mb-4 group-hover:translate-y-0 transition-transform duration-500">{item.title}</h3>
+                    <p className="text-white/70 text-base md:text-lg font-light leading-relaxed max-w-md translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-100">
                       {item.description}
                     </p>
                   </div>
-                  
-                  <div className="absolute top-0 right-0 w-1/4 h-full bg-gradient-to-l from-black/40 to-transparent translate-x-full group-hover:translate-x-0 transition-transform duration-700" />
                 </div>
               </FadeInSection>
             ))}
           </div>
-          
-          <div className="mt-32 grid md:grid-cols-3 gap-12 lg:gap-20 border-t border-white/10 pt-32">
+
+          <div className="mt-20 md:mt-32 grid md:grid-cols-3 gap-8 border-t border-white/10 pt-16 md:pt-24">
             {[
-              { icon: MapPin, title: "Global Network", text: "Elite service available in 25+ major luxury hubs worldwide, from London to Dubai." },
+              { icon: Globe, title: "Global Network", text: "Elite service available in 25+ major luxury hubs worldwide, from London to Dubai." },
               { icon: Clock, title: "Precision Timing", text: "Our 15-minute early arrival policy ensures you are never kept waiting." },
               { icon: Shield, title: "Full Privacy", text: "Strict non-disclosure agreements and tinted privacy glass for absolute discretion." }
             ].map((feature, idx) => (
               <FadeInSection key={feature.title} delay={idx * 0.1}>
-                <div className="group">
-                  <div className="w-14 h-14 rounded-full border border-primary/20 flex items-center justify-center mb-8 group-hover:bg-primary group-hover:text-black transition-all duration-500">
-                    <feature.icon size={24} />
+                <div className="group hover:bg-white/5 p-6 rounded-lg transition-colors border border-transparent hover:border-white/5">
+                  <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center mb-6 text-primary group-hover:scale-110 transition-transform duration-300">
+                    <feature.icon size={22} />
                   </div>
-                  <h4 className="font-display text-2xl font-bold text-white mb-4 group-hover:text-primary transition-colors">{feature.title}</h4>
-                  <p className="text-white/40 text-lg font-light leading-relaxed">{feature.text}</p>
+                  <h4 className="font-display text-xl font-bold text-white mb-3 group-hover:text-primary transition-colors">{feature.title}</h4>
+                  <p className="text-white/50 text-sm font-light leading-relaxed">{feature.text}</p>
                 </div>
               </FadeInSection>
             ))}
           </div>
         </div>
-        <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/5 to-transparent" />
       </section>
 
       {/* 6. Experience & Trust (Counters) */}
-      <section className="bg-background py-32 md:py-48 border-y border-border/50">
+      <section className="bg-background py-24 md:py-32 border-y border-border/40">
         <div className="container-luxury">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
             {sections.stats.map((stat, idx) => (
               <FadeInSection key={stat.label} delay={idx * 0.1}>
-                <div className="text-center group">
-                  <div className="font-display text-6xl md:text-8xl font-bold text-foreground mb-4 tabular-nums relative inline-block">
-                    <span className="text-gradient-gold">{stat.value}</span>
-                    <span className="text-2xl md:text-3xl text-primary align-top mt-2 inline-block ml-1 opacity-50">{stat.suffix}</span>
+                <div className="text-center group cursor-default">
+                  <div className="font-display text-5xl md:text-7xl font-bold text-foreground mb-2 flex items-start justify-center">
+                    <span className="group-hover:text-primary transition-colors duration-500">{stat.value}</span>
+                    <span className="text-xl md:text-3xl text-primary mt-1 opacity-60">{stat.suffix}</span>
                   </div>
-                  <div className="text-muted-foreground uppercase tracking-[0.3em] text-[10px] font-bold group-hover:text-primary transition-colors duration-500">
+                  <div className="w-8 h-0.5 bg-border mx-auto mb-4 group-hover:w-16 group-hover:bg-primary transition-all duration-500" />
+                  <div className="text-muted-foreground uppercase tracking-[0.2em] text-[10px] md:text-xs font-bold">
                     {stat.label}
                   </div>
                 </div>
@@ -439,53 +460,43 @@ const AboutPage = () => {
       </section>
 
       {/* 7. Visual Lifestyle Gallery (Staggered) */}
-      <section className="bg-background py-32 md:py-48 overflow-hidden relative">
+      <section className="bg-background py-24 md:py-40 overflow-hidden relative">
         <div className="container-luxury">
-          <div className="flex flex-col md:flex-row justify-between items-end gap-12 mb-32">
+          <div className="flex flex-col md:flex-row justify-between items-end gap-8 mb-20 md:mb-28">
             <div className="max-w-2xl">
-              <span className="text-primary text-xs uppercase tracking-[0.5em] font-bold block mb-8">Visual Storytelling</span>
-              <h2 className="font-display text-5xl md:text-8xl font-bold text-foreground leading-[0.9]">
+              <span className="text-primary text-xs uppercase tracking-[0.5em] font-bold block mb-6">Visual Storytelling</span>
+              <h2 className="font-display text-4xl md:text-7xl font-bold text-foreground leading-[0.9]">
                 Capturing <br /> <span className="text-gradient-gold">The Essence</span>
               </h2>
             </div>
-            <div className="max-w-xs">
-              <p className="text-muted-foreground text-sm font-light leading-relaxed mb-8 italic">
-                "Luxury is not a destination, but a way of traveling. We capture the moments that define your journey."
+            <div className="max-w-xs md:text-right">
+              <p className="text-muted-foreground text-sm leading-relaxed mb-6 italic">
+                "Luxury is not a destination, but a way of traveling."
               </p>
-              <div className="w-24 h-px bg-primary/30" />
+              <div className="w-24 h-px bg-primary/30 md:ml-auto" />
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-10">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
             {sections.gallery.map((img, idx) => (
-              <FadeInSection key={idx} delay={idx * 0.15}>
-                <div className={`relative overflow-hidden group h-full ${
-                  idx % 2 === 1 ? 'lg:translate-y-24' : ''
-                }`}>
-                    <div className="aspect-[3/4] overflow-hidden bg-charcoal relative">
-                      <img 
-                        src={img} 
-                        className="w-full h-full object-cover transition-transform duration-[1500ms] group-hover:scale-110" 
-                        alt={`Gallery ${idx + 1}`} 
-                        loading="lazy"
-                      />
-                    <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-all duration-700 flex flex-col items-center justify-center p-8 text-center">
-                      <div className="w-16 h-16 rounded-full border border-white/20 flex items-center justify-center text-white mb-6 translate-y-8 group-hover:translate-y-0 transition-all duration-700">
-                        <Crown size={24} className="text-primary" />
-                      </div>
-                      <p className="text-white text-[10px] uppercase tracking-[0.4em] font-bold translate-y-4 group-hover:translate-y-0 transition-all duration-700 delay-100">AUXEMPI Lifestyle</p>
-                    </div>
-                  </div>
-                  <div className="mt-6 flex items-center justify-between opacity-40 group-hover:opacity-100 transition-opacity duration-500">
-                    <span className="text-[10px] uppercase tracking-widest font-medium">Capture 0{idx + 1}</span>
-                    <div className="h-px w-12 bg-primary/40" />
+              <FadeInSection key={idx} delay={idx * 0.15} className={idx % 2 === 1 ? 'md:translate-y-12' : ''}>
+                <div className="relative overflow-hidden group rounded-sm aspect-[3/4]">
+                  <LazyImage
+                    src={img}
+                    className="w-full h-full object-cover transition-transform duration-[1500ms] group-hover:scale-110 grayscale-[0.2] group-hover:grayscale-0"
+                    alt={`Gallery ${idx + 1}`}
+                  />
+                  <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center p-4 text-center">
+                    <span className="text-primary text-[9px] uppercase tracking-[0.3em] font-bold translate-y-4 group-hover:translate-y-0 transition-all duration-500">
+                      Lifestyle
+                    </span>
                   </div>
                 </div>
               </FadeInSection>
             ))}
           </div>
         </div>
-        
+
         {/* Decorative elements */}
         <div className="absolute top-0 right-0 w-1/2 h-full bg-charcoal/5 -skew-x-12 translate-x-1/2 pointer-events-none" />
       </section>

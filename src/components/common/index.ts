@@ -10,3 +10,4 @@ export {
   HoverScale,
   Parallax,
 } from "./Motion";
+export { LazyImage } from "./LazyImage";
