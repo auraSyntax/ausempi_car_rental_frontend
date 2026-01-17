@@ -15,7 +15,7 @@ const buttonVariants = cva(
         secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80 rounded-sm",
         ghost: "hover:bg-accent hover:text-accent-foreground rounded-sm",
         link: "text-primary underline-offset-4 hover:underline",
-        // AUXEMPI Luxury Variants
+        // AUSEMPI Luxury Variants
         luxury: "bg-primary text-primary-foreground hover:bg-gold-dark shadow-lg hover:shadow-xl hover:-translate-y-0.5 uppercase tracking-widest rounded-sm",
         "luxury-outline": "border-2 border-primary text-primary bg-transparent hover:bg-primary hover:text-primary-foreground uppercase tracking-widest rounded-sm",
         "luxury-ghost": "text-foreground hover:text-primary uppercase tracking-widest",
@@ -41,7 +41,7 @@ const buttonVariants = cva(
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
+  VariantProps<typeof buttonVariants> {
   asChild?: boolean;
 }
 

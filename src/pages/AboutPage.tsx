@@ -42,7 +42,7 @@ const images = {
 
 const sections = {
   hero: {
-    title: "About AUXEMPI",
+    title: "About AUSEMPI",
     tagline: "The Pinnacle of Private Luxury",
     subtitle: "Redefining the art of elite transportation through precision, discretion, and an unwavering commitment to excellence.",
     image: images.hero
@@ -50,9 +50,9 @@ const sections = {
   story: {
     title: "Our Legacy of Excellence",
     content: [
-      "AUXEMPI was founded on a singular premise: that luxury transportation should be an extension of one's lifestyle—seamless, sophisticated, and absolutely reliable.",
+      "AUSEMPI was founded on a singular premise: that luxury transportation should be an extension of one's lifestyle—seamless, sophisticated, and absolutely reliable.",
       "We recognized that for our discerning clientele, the journey is as significant as the destination. This realization led us to curate a fleet and a service philosophy that transcends the ordinary.",
-      "Today, AUXEMPI stands as the premier choice for executives, global leaders, and private individuals who demand a bespoke travel experience defined by meticulous planning and executive care."
+      "Today, AUSEMPI stands as the premier choice for executives, global leaders, and private individuals who demand a bespoke travel experience defined by meticulous planning and executive care."
     ],
     image: images.story
   },
@@ -177,7 +177,7 @@ const AboutPage = () => {
             </div>
 
             <h1 className="font-display text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold text-white mb-8 leading-[0.9] tracking-tight">
-              About <br /> <span className="text-gradient-gold">AUXEMPI</span>
+              About <br /> <span className="text-gradient-gold">AUSEMPI</span>
             </h1>
 
             <p className="text-lg md:text-2xl text-white/80 font-light leading-relaxed max-w-3xl border-l-2 border-primary/40 pl-8 md:pl-10">
@@ -237,7 +237,7 @@ const AboutPage = () => {
                 <LazyImage
                   src={sections.story.image}
                   className="w-full h-full object-cover transition-all duration-1000 group-hover:scale-105"
-                  alt="AUXEMPI Interior"
+                  alt="AUSEMPI Interior"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60" />
 
@@ -246,7 +246,7 @@ const AboutPage = () => {
                   <p className="text-xl md:text-2xl font-display leading-tight mb-4">
                     "Luxury is the absence of worry. It is the freedom of time and the comfort of silence."
                   </p>
-                  <p className="text-sm uppercase tracking-widest text-primary font-bold">The AUXEMPI Promise</p>
+                  <p className="text-sm uppercase tracking-widest text-primary font-bold">The AUSEMPI Promise</p>
                 </div>
               </div>
 
@@ -267,7 +267,7 @@ const AboutPage = () => {
         <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
         <div className="container-luxury">
           <div className="text-center mb-20">
-            <span className="text-primary text-xs uppercase tracking-[0.5em] font-bold block mb-6">The AUXEMPI Collection</span>
+            <span className="text-primary text-xs uppercase tracking-[0.5em] font-bold block mb-6">The AUSEMPI Collection</span>
             <h2 className="font-display text-4xl md:text-6xl font-bold text-white mb-6">Luxury Fleet</h2>
             <p className="text-white/50 text-lg md:text-xl font-light max-w-2xl mx-auto">
               Curated for performance, comfort, and ultimate discretion.
@@ -384,12 +384,12 @@ const AboutPage = () => {
         </div>
       </section>
 
-      {/* 5. Why Choose AUXEMPI (Premium Parallax) */}
+      {/* 5. Why Choose AUSEMPI (Premium Parallax) */}
       <section className="bg-charcoal py-32 relative overflow-hidden">
         <div className="container-luxury relative z-10">
           <div className="text-center mb-24">
             <span className="text-primary text-xs uppercase tracking-[0.5em] font-bold block mb-6">Distinction</span>
-            <h2 className="font-display text-4xl md:text-6xl font-bold text-white mb-6">Why Choose <span className="text-gradient-gold">AUXEMPI</span></h2>
+            <h2 className="font-display text-4xl md:text-6xl font-bold text-white mb-6">Why Choose <span className="text-gradient-gold">AUSEMPI</span></h2>
           </div>
 
           <div className="grid lg:grid-cols-2 gap-8 md:gap-12">

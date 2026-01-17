@@ -48,7 +48,7 @@ export default function DriverLogin() {
               <span className="text-gradient-gold">Every Journey.</span>
             </h2>
             <p className="text-muted-foreground text-lg max-w-md leading-relaxed">
-              Welcome to the Auxempi Driver Portal. Access your schedule, manage trips, and maintain the highest standards of service.
+              Welcome to the Ausempi Driver Portal. Access your schedule, manage trips, and maintain the highest standards of service.
             </p>
           </motion.div>
         </div>
@@ -109,7 +109,7 @@ export default function DriverLogin() {
                 </div>
                 <Input
                   id="employee-id"
-                  placeholder="AUX-0000"
+                  placeholder="AUS-0000"
                   value={employeeId}
                   onChange={(e) => setEmployeeId(e.target.value)}
                   className="pl-12 h-14 bg-white/[0.03] border-white/10 hover:border-primary/30 focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all duration-300 rounded-lg text-lg"
@@ -192,7 +192,7 @@ export default function DriverLogin() {
           {/* Mobile Footer */}
           <div className="mt-12 text-center lg:text-left">
             <p className="text-[10px] uppercase tracking-[0.2em] text-white/20">
-              Secured by Auxempi Guard &bull; v2.4.0
+              Secured by Ausempi Guard &bull; v2.4.0
             </p>
           </div>
         </div>

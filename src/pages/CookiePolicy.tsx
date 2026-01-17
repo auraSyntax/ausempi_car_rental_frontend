@@ -7,7 +7,7 @@ const CookiePolicy = () => {
   return (
     <MainLayout>
       <Navbar />
-      
+
       <main className="pt-32 pb-20">
         {/* Hero Section */}
         <section className="relative py-20 overflow-hidden">
@@ -79,7 +79,7 @@ const CookiePolicy = () => {
                 3. How We Use Cookies
               </h2>
               <p className="text-muted-foreground leading-relaxed text-lg">
-                AUXEMPI uses cookies to:
+                AUSEMPI uses cookies to:
               </p>
               <ul className="list-disc pl-6 space-y-4 text-muted-foreground">
                 <li>Remember your preferences and settings.</li>
@@ -127,13 +127,13 @@ const CookiePolicy = () => {
                 6. Contact Information
               </h2>
               <p className="text-muted-foreground leading-relaxed text-lg">
-                If you have any questions about our use of cookies, please contact us at <span className="text-primary font-medium">privacy@auxempi.com</span>.
+                If you have any questions about our use of cookies, please contact us at <span className="text-primary font-medium">privacy@ausempi.com</span>.
               </p>
             </div>
 
             <div className="pt-10 border-t border-white/10 text-center">
               <p className="text-muted-foreground text-sm italic">
-                Last Updated: January 2026. AUXEMPI reserves the right to update this policy to reflect changes in our practices or legal requirements.
+                Last Updated: January 2026. AUSEMPI reserves the right to update this policy to reflect changes in our practices or legal requirements.
               </p>
             </div>
           </motion.div>

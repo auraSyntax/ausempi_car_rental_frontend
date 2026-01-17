@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { 
-  Smartphone, Star, Apple, Play, Wifi, MapPin, 
+import {
+  Smartphone, Star, Apple, Play, Wifi, MapPin,
   CreditCard, Bell, ShieldCheck, Zap, Headphones,
   ChevronRight, Globe, Fingerprint
 } from "lucide-react";
@@ -9,27 +9,27 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 const appFeatures = [
-  { 
-    icon: MapPin, 
-    title: "Precision Tracking", 
+  {
+    icon: MapPin,
+    title: "Precision Tracking",
     description: "Real-time GPS tracking of your elite chauffeur with millisecond accuracy.",
     tag: "Live Data"
   },
-  { 
-    icon: Fingerprint, 
-    title: "Secure Access", 
+  {
+    icon: Fingerprint,
+    title: "Secure Access",
     description: "Biometric authentication and encrypted payment systems for absolute peace of mind.",
     tag: "Military Grade"
   },
-  { 
-    icon: Zap, 
-    title: "Instant Booking", 
+  {
+    icon: Zap,
+    title: "Instant Booking",
     description: "One-tap reservation system designed for the fast-paced executive lifestyle.",
     tag: "High Priority"
   },
-  { 
-    icon: Headphones, 
-    title: "24/7 Concierge", 
+  {
+    icon: Headphones,
+    title: "24/7 Concierge",
     description: "Direct line to our premium support team for bespoke travel requirements.",
     tag: "Priority Support"
   },
@@ -53,21 +53,21 @@ const AppDownload = () => {
       {/* Editorial Background Text */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 select-none pointer-events-none overflow-hidden w-full h-full flex items-center justify-center">
         <span className="text-[20vw] font-display font-black text-white/[0.02] whitespace-nowrap leading-none">
-          AUXEMPI EXPERIENCE
+          AUSEMPI EXPERIENCE
         </span>
       </div>
 
       {/* Luxury Background Accents */}
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
       <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
-      
+
       {/* Decorative Orbs */}
       <div className="absolute top-1/4 -left-20 w-96 h-96 bg-primary/5 blur-[120px] rounded-full" />
       <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-primary/5 blur-[120px] rounded-full" />
 
       <div className="container-luxury relative z-10">
         <div className="grid lg:grid-cols-2 gap-20 xl:gap-32 items-center">
-          
+
           {/* Visual Side: Enhanced Phone Mockup */}
           <div className="relative flex justify-center order-2 lg:order-1">
             <motion.div
@@ -78,13 +78,13 @@ const AppDownload = () => {
             >
               {/* Dynamic Glow Behind Phone */}
               <div className="absolute inset-0 bg-primary/10 blur-[100px] rounded-full transform scale-75 animate-pulse" />
-              
+
               {/* Main Phone Frame */}
               <div className="relative w-[300px] md:w-[340px]">
                 <div className="relative bg-[#1A1A1A] rounded-[3.5rem] p-3.5 shadow-[0_0_50px_rgba(0,0,0,0.5)] border border-white/10 overflow-hidden">
                   {/* Subtle Inner Bezel Reflect */}
                   <div className="absolute inset-0 bg-gradient-to-tr from-white/5 via-transparent to-white/5 pointer-events-none" />
-                  
+
                   {/* Screen Content */}
                   <div className="bg-[#0A0A0A] rounded-[2.8rem] overflow-hidden aspect-[9/19.5] relative flex flex-col">
                     {/* App Status Bar */}
@@ -115,10 +115,10 @@ const AppDownload = () => {
                           <Star size={12} className="text-primary fill-primary" />
                         </div>
                         <div className="w-full h-24 bg-gradient-to-b from-transparent to-white/5 rounded-xl mb-3 flex items-center justify-center">
-                           {/* Placeholder for car image in UI */}
-                           <div className="w-3/4 h-12 border-b border-primary/20 relative">
-                             <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-primary to-transparent" />
-                           </div>
+                          {/* Placeholder for car image in UI */}
+                          <div className="w-3/4 h-12 border-b border-primary/20 relative">
+                            <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-primary to-transparent" />
+                          </div>
                         </div>
                         <h5 className="text-xs font-semibold text-white mb-1">Rolls Royce Ghost</h5>
                         <p className="text-[9px] text-white/40">Signature Series • Mayfair, London</p>
@@ -136,7 +136,7 @@ const AppDownload = () => {
                       </div>
                     </div>
                   </div>
-                  
+
                   {/* Dynamic Notch */}
                   <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-7 bg-[#1A1A1A] rounded-b-2xl border-x border-b border-white/5" />
                 </div>
@@ -166,9 +166,9 @@ const AppDownload = () => {
                 >
                   <div className="flex items-center gap-3">
                     <div className="flex -space-x-2">
-                       {[1,2,3].map(i => (
-                         <div key={i} className="w-6 h-6 rounded-full border border-[#111] bg-charcoal" />
-                       ))}
+                      {[1, 2, 3].map(i => (
+                        <div key={i} className="w-6 h-6 rounded-full border border-[#111] bg-charcoal" />
+                      ))}
                     </div>
                     <div>
                       <div className="flex items-center gap-1 mb-0.5">
@@ -202,7 +202,7 @@ const AppDownload = () => {
                 <span className="italic text-transparent bg-clip-text bg-gradient-to-r from-primary via-primary-light to-primary">In Real-Time</span>
               </h2>
               <p className="text-white/50 text-lg max-w-xl leading-relaxed">
-                The AUXEMPI mobile application is more than just a booking tool—it's your personal digital concierge, designed for seamless global mobility.
+                The AUSEMPI mobile application is more than just a booking tool—it's your personal digital concierge, designed for seamless global mobility.
               </p>
             </motion.div>
 
@@ -246,16 +246,16 @@ const AppDownload = () => {
             >
               <div className="flex flex-wrap items-center gap-8">
                 <div className="flex flex-col gap-2">
-                   <div className="flex gap-1">
-                      {[1,2,3,4,5].map(i => <Star key={i} size={14} className="text-primary fill-primary" />)}
-                   </div>
-                   <p className="text-white font-bold text-xl">4.9 / 5.0</p>
-                   <p className="text-white/40 text-xs">App Store Excellence</p>
+                  <div className="flex gap-1">
+                    {[1, 2, 3, 4, 5].map(i => <Star key={i} size={14} className="text-primary fill-primary" />)}
+                  </div>
+                  <p className="text-white font-bold text-xl">4.9 / 5.0</p>
+                  <p className="text-white/40 text-xs">App Store Excellence</p>
                 </div>
                 <div className="h-12 w-px bg-white/10 hidden sm:block" />
                 <div className="flex flex-col gap-2">
-                   <p className="text-white font-bold text-xl">150K+</p>
-                   <p className="text-white/40 text-xs">Elite Active Members</p>
+                  <p className="text-white font-bold text-xl">150K+</p>
+                  <p className="text-white/40 text-xs">Elite Active Members</p>
                 </div>
               </div>
 
@@ -268,7 +268,7 @@ const AppDownload = () => {
                   </div>
                   <ChevronRight size={18} className="ml-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
                 </Button>
-                
+
                 <Button className="h-16 px-8 bg-transparent border border-white/20 hover:border-primary text-white rounded-2xl gap-4 group transition-all duration-500 hover:scale-[1.02]">
                   <Play size={24} className="fill-white" />
                   <div className="text-left">

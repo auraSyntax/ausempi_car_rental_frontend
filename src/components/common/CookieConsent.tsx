@@ -19,7 +19,7 @@ interface CookiePreferences {
   marketing: boolean;
 }
 
-const COOKIE_CONSENT_KEY = "auxempi_cookie_consent";
+const COOKIE_CONSENT_KEY = "ausempi_cookie_consent";
 
 export const CookieConsent = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -131,7 +131,7 @@ export const CookieConsent = () => {
                   </Link>
                   <div className="flex items-center gap-2">
                     <ShieldCheck className="w-3 h-3 text-white/20" />
-                    <span className="text-[10px] uppercase tracking-[0.1em] text-white/20 font-medium">Secured by Auxempi</span>
+                    <span className="text-[10px] uppercase tracking-[0.1em] text-white/20 font-medium">Secured by Ausempi</span>
                   </div>
                 </div>
               </div>

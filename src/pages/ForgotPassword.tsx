@@ -104,7 +104,7 @@ export default function ForgotPassword() {
                     </div>
                     <Input
                       id="email"
-                      placeholder="email@auxempi.com or AUX-0000"
+                      placeholder="email@ausempi.com or AUS-0000"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       className="pl-12 h-14 bg-white/[0.03] border-white/10 hover:border-primary/30 focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all duration-300 rounded-lg text-lg"
@@ -189,7 +189,7 @@ export default function ForgotPassword() {
           {/* Mobile Footer */}
           <div className="mt-12 text-center lg:text-left">
             <p className="text-[10px] uppercase tracking-[0.2em] text-white/20">
-              Secured by Auxempi Guard &bull; v2.4.0
+              Secured by Ausempi Guard &bull; v2.4.0
             </p>
           </div>
         </div>

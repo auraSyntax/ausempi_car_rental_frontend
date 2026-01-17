@@ -1,9 +1,9 @@
 import { useRef, useState, useEffect } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
-import { 
-  Quote, 
-  Star, 
+import {
+  Quote,
+  Star,
   ChevronLeft,
   ChevronRight,
   Shield,
@@ -19,14 +19,14 @@ const testimonials = [
     id: 1,
     name: "Jonathan Mitchell",
     role: "CEO, Mitchell Ventures",
-    content: "AUXEMPI redefines what luxury transportation means. Every detail, from the immaculate vehicles to the professional chauffeurs, speaks to their commitment to excellence.",
+    content: "AUSEMPI redefines what luxury transportation means. Every detail, from the immaculate vehicles to the professional chauffeurs, speaks to their commitment to excellence.",
     rating: 5,
   },
   {
     id: 2,
     name: "Sarah Chen",
     role: "Executive Director",
-    content: "For our corporate events, reliability is non-negotiable. AUXEMPI has never let us down. Their fleet coordination and attention to timing is impeccable.",
+    content: "For our corporate events, reliability is non-negotiable. AUSEMPI has never let us down. Their fleet coordination and attention to timing is impeccable.",
     rating: 5,
   },
   {
@@ -40,7 +40,7 @@ const testimonials = [
     id: 4,
     name: "Elena Rodriguez",
     role: "VP of Operations",
-    content: "We've used AUXEMPI for all our executive travel for three years. The consistency and quality of service has made them an indispensable partner.",
+    content: "We've used AUSEMPI for all our executive travel for three years. The consistency and quality of service has made them an indispensable partner.",
     rating: 5,
   },
 ];
@@ -106,11 +106,11 @@ const About = () => {
           >
             <span className="inline-flex items-center gap-3 text-primary text-xs uppercase tracking-[0.4em] font-medium mb-6">
               <span className="w-12 h-px bg-primary/60" />
-              About AUXEMPI
+              About AUSEMPI
             </span>
-            
+
             <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-[1.1] mb-8">
-              Elevating the Standard of 
+              Elevating the Standard of
               <span className="block text-gradient-gold">Private Travel</span>
             </h2>
 
@@ -135,8 +135,8 @@ const About = () => {
               whileHover={{ x: 5 }}
               transition={{ duration: 0.3 }}
             >
-              <Link 
-                to="/about" 
+              <Link
+                to="/about"
                 className="inline-flex items-center gap-2 text-primary font-medium tracking-[0.2em] uppercase text-xs group"
               >
                 Learn More About Our Vision
@@ -154,8 +154,8 @@ const About = () => {
           >
             {/* Main Image Frame */}
             <div className="aspect-[4/5] overflow-hidden rounded-sm relative z-10 shadow-2xl shadow-black/50">
-              <img 
-                src="https://images.unsplash.com/photo-1514316454349-750a7fd3da3a?q=80&w=2070&auto=format&fit=crop" 
+              <img
+                src="https://images.unsplash.com/photo-1514316454349-750a7fd3da3a?q=80&w=2070&auto=format&fit=crop"
                 alt="Luxury Vehicle Interior"
                 className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-1000"
               />
@@ -165,7 +165,7 @@ const About = () => {
             {/* Decorative Elements */}
             <div className="absolute -top-6 -right-6 w-32 h-32 border-t border-r border-primary/30 z-0" />
             <div className="absolute -bottom-6 -left-6 w-32 h-32 border-b border-l border-primary/30 z-0" />
-            
+
             {/* Floating Trust Card */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -260,11 +260,10 @@ const About = () => {
                   <button
                     key={index}
                     onClick={() => setActiveTestimonial(index)}
-                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                      index === activeTestimonial
+                    className={`w-2 h-2 rounded-full transition-all duration-300 ${index === activeTestimonial
                         ? "w-6 bg-primary"
                         : "bg-muted-foreground/30 hover:bg-muted-foreground/50"
-                    }`}
+                      }`}
                     aria-label={`Go to testimonial ${index + 1}`}
                   />
                 ))}

@@ -45,7 +45,7 @@ const Experience = () => {
       {/* Decorative Background Text */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full text-center pointer-events-none select-none overflow-hidden opacity-[0.02]">
         <span className="font-display text-[20vw] font-bold whitespace-nowrap leading-none">
-          AUXEMPI
+          AUSEMPI
         </span>
       </div>
 
@@ -65,7 +65,7 @@ const Experience = () => {
               Our Legacy of Excellence
             </span>
           </motion.div>
-          
+
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -75,21 +75,21 @@ const Experience = () => {
             Refining the Art of
             <span className="block text-gradient-gold"> Luxury Travel</span>
           </motion.h2>
-          
+
           <motion.div
             initial={{ scaleX: 0 }}
             animate={isInView ? { scaleX: 1 } : {}}
             transition={{ duration: 1, delay: 0.3 }}
             className="h-px w-24 bg-primary mx-auto mb-8"
           />
-          
+
           <motion.p
             initial={{ opacity: 0 }}
             animate={isInView ? { opacity: 1 } : {}}
             transition={{ duration: 0.8, delay: 0.4 }}
             className="text-muted-foreground text-lg max-w-2xl mx-auto leading-relaxed"
           >
-            We don't just move you from point A to B. We curate a seamless, 
+            We don't just move you from point A to B. We curate a seamless,
             sophisticated environment where every detail is meticulously managed.
           </motion.p>
         </div>
@@ -126,8 +126,8 @@ const Experience = () => {
               transition={{ duration: 0.6, delay: 0.6 + index * 0.1 }}
               className="group relative p-8 rounded-none bg-white/[0.02] border border-white/5 hover:bg-white/[0.04] hover:border-primary/30 transition-all duration-500"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
-              
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
               <div className="relative z-10">
                 <div className="w-14 h-14 rounded-xl bg-white/5 flex items-center justify-center mb-6 group-hover:bg-primary/20 group-hover:scale-110 transition-all duration-500">
                   <feature.icon

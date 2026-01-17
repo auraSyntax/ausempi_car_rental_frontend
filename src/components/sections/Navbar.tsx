@@ -75,7 +75,7 @@ const Navbar = () => {
               whileTap={{ scale: 0.98 }}
               className="text-2xl lg:text-3xl font-display font-bold tracking-[0.3em] text-gradient-gold group-hover:opacity-80 transition-opacity duration-300"
             >
-              AUXEMPI
+              AUSEMPI
             </motion.span>
           </Link>
 
@@ -174,7 +174,7 @@ const Navbar = () => {
                 {/* Logo - Matching Navbar */}
                 <Link to="/" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center group">
                   <span className="text-2xl font-display font-bold tracking-[0.3em] text-gradient-gold">
-                    AUXEMPI
+                    AUSEMPI
                   </span>
                 </Link>
 
@@ -241,7 +241,7 @@ const Navbar = () => {
                     </div>
                     <div>
                       <p className="text-xs uppercase tracking-widest text-primary mb-1">Email</p>
-                      <a href="mailto:concierge@auxempi.com" className="text-sm hover:text-white transition-colors">concierge@auxempi.com</a>
+                      <a href="mailto:concierge@ausempi.com" className="text-sm hover:text-white transition-colors">concierge@ausempi.com</a>
                     </div>
                   </motion.div>
                 </div>

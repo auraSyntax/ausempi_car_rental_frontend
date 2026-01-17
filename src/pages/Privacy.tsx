@@ -7,7 +7,7 @@ const Privacy = () => {
   return (
     <MainLayout>
       <Navbar />
-      
+
       <main className="pt-32 pb-20">
         {/* Hero Section */}
         <section className="relative py-20 overflow-hidden">
@@ -79,7 +79,7 @@ const Privacy = () => {
               <div className="bg-charcoal-light/50 p-8 border border-white/5 rounded-lg shadow-xl">
                 <p className="text-sm font-semibold text-primary uppercase tracking-widest mb-4">Confidentiality Commitment</p>
                 <p className="text-muted-foreground italic">
-                  "All third-party partners are vetted to ensure they maintain the same rigorous data protection standards as AUXEMPI. Your travel history and personal details remain strictly confidential."
+                  "All third-party partners are vetted to ensure they maintain the same rigorous data protection standards as AUSEMPI. Your travel history and personal details remain strictly confidential."
                 </p>
               </div>
             </div>
@@ -118,13 +118,13 @@ const Privacy = () => {
                 7. Contact Information
               </h2>
               <p className="text-muted-foreground leading-relaxed text-lg">
-                For any inquiries regarding this Privacy Policy or your personal data, please reach out to our dedicated support team at <span className="text-primary font-medium">privacy@auxempi.com</span>.
+                For any inquiries regarding this Privacy Policy or your personal data, please reach out to our dedicated support team at <span className="text-primary font-medium">privacy@ausempi.com</span>.
               </p>
             </div>
 
             <div className="pt-10 border-t border-white/10 text-center">
               <p className="text-muted-foreground text-sm italic">
-                Last Updated: January 2026. AUXEMPI reserves the right to update this policy to reflect changes in our practices or legal requirements.
+                Last Updated: January 2026. AUSEMPI reserves the right to update this policy to reflect changes in our practices or legal requirements.
               </p>
             </div>
           </motion.div>

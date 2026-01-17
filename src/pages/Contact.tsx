@@ -31,7 +31,7 @@ const Contact = () => {
     {
       icon: Mail,
       label: "Email Inquiries",
-      value: "concierge@auxempi.com",
+      value: "concierge@ausempi.com",
       description: "General inquiries and corporate accounts."
     },
     {
@@ -79,7 +79,7 @@ const Contact = () => {
               Your <span className="text-gradient-gold">Experience</span>
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground font-light max-w-2xl mx-auto leading-relaxed">
-              At AUXEMPI, we believe in seamless communication and personalized care. Our team is standing by to ensure your journey is nothing short of perfection.
+              At AUSEMPI, we believe in seamless communication and personalized care. Our team is standing by to ensure your journey is nothing short of perfection.
             </p>
           </motion.div>
         </div>
@@ -301,7 +301,7 @@ const Contact = () => {
                 </div>
               </motion.div>
               <div className="mt-6 p-6 bg-charcoal/80 backdrop-blur-md rounded-none border border-white/10 shadow-2xl max-w-xs mx-auto">
-                <h3 className="font-display text-xl font-bold text-foreground mb-1">AUXEMPI London</h3>
+                <h3 className="font-display text-xl font-bold text-foreground mb-1">AUSEMPI London</h3>
                 <p className="text-muted-foreground text-sm mb-4">123 Luxury Way, Mayfair</p>
                 <div className="flex items-center justify-center gap-2 text-primary text-xs font-bold tracking-widest uppercase">
                   <Globe size={14} />

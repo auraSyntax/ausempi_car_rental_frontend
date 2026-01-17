@@ -38,7 +38,7 @@ const sections = {
     image: images.hero
   },
   categories: {
-    title: "The AUXEMPI Experience",
+    title: "The AUSEMPI Experience",
     description: "We offer more than just a ride; we provide a sanctuary on wheels. Choose between our flagship sedans for executive elegance or our commanding SUVs for group prestige."
   },
   sedan: {
@@ -160,11 +160,11 @@ const ServicesPage = () => {
       <Navbar />
 
       {/* 1. Hero Section */}
-      <section ref={heroRef} className="relative h-[90vh] min-h-[600px] flex items-center justify-center overflow-hidden">
+      <section ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden">
         <motion.div style={{ y, opacity }} className="absolute inset-0 z-0">
           <LazyImage
             src={sections.hero.image}
-            className="w-full h-full object-cover brightness-[0.4]"
+            className="w-full h-screen object-cover brightness-[0.4]"
             alt="Luxury Transportation Hero"
             priority={true}
           />
@@ -429,7 +429,7 @@ const ServicesPage = () => {
           <FadeInSection>
             <h2 className="font-display text-5xl md:text-8xl font-bold text-white mb-8 tracking-tight">Experience <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-gold">True Luxury</span></h2>
             <p className="text-white/70 text-xl font-light max-w-2xl mx-auto mb-16 leading-relaxed">
-              Our chauffeurs are standing by. Book your AUXEMPI journey today and redefine your standard of travel.
+              Our chauffeurs are standing by. Book your AUSEMPI journey today and redefine your standard of travel.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
               <Button size="xl" className="h-16 px-12 text-lg tracking-widest uppercase bg-primary hover:bg-white hover:text-black font-bold group min-w-[240px] shadow-[0_0_30px_rgba(212,175,55,0.3)] transition-all duration-300" asChild>

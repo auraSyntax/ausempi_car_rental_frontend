@@ -1,4 +1,4 @@
-// Type definitions for AUXEMPI application
+// Type definitions for AUSEMPI application
 
 // ============================================
 // Navigation Types

@@ -9,7 +9,7 @@ export const PageLoader = () => {
   useEffect(() => {
     // Show loader on route change
     setIsLoading(true);
-    
+
     // Smooth transition time
     const timer = setTimeout(() => {
       setIsLoading(false);
@@ -50,7 +50,7 @@ export const PageLoader = () => {
               transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
               className="absolute inset-0 w-24 h-24 rounded-full border-l-2 border-r-2 border-primary/30 scale-75"
             />
-            
+
             {/* Logo Text Reveal */}
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
@@ -59,7 +59,7 @@ export const PageLoader = () => {
               className="absolute inset-0 flex items-center justify-center"
             >
               <span className="text-[10px] font-display font-bold tracking-[0.4em] text-primary">
-                AUXEMPI
+                AUSEMPI
               </span>
             </motion.div>
           </div>

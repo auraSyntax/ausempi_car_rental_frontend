@@ -7,7 +7,7 @@ import { NavConfig, ContactInfo, ThemeConfig } from "@/types";
 // ============================================
 
 export const BRAND = {
-  name: "AUXEMPI",
+  name: "AUSEMPI",
   tagline: "Exclusive Transportation",
   description: "Premium luxury sedan and SUV transportation services",
 } as const;
@@ -33,7 +33,7 @@ export const NAV_CONFIG: NavConfig = {
 
 export const CONTACT: ContactInfo = {
   phone: "+1 (888) 555-0123",
-  email: "concierge@auxempi.com",
+  email: "concierge@ausempi.com",
   address: "Available in major metropolitan areas",
 };
 
@@ -45,10 +45,10 @@ export const EXTERNAL_LINKS = {
   booking: "https://allriders.com",
   appStore: "#", // Replace with actual App Store link
   playStore: "#", // Replace with actual Play Store link
-  instagram: "https://instagram.com/auxempi",
-  twitter: "https://twitter.com/auxempi",
-  linkedin: "https://linkedin.com/company/auxempi",
-  facebook: "https://facebook.com/auxempi",
+  instagram: "https://instagram.com/ausempi",
+  twitter: "https://twitter.com/ausempi",
+  linkedin: "https://linkedin.com/company/ausempi",
+  facebook: "https://facebook.com/ausempi",
 } as const;
 
 // ============================================
@@ -98,11 +98,11 @@ export const ANIMATION = {
 // ============================================
 
 export const SEO = {
-  defaultTitle: "AUXEMPI | Premium Luxury Transportation",
-  titleTemplate: "%s | AUXEMPI",
+  defaultTitle: "AUSEMPI | Premium Luxury Transportation",
+  titleTemplate: "%s | AUSEMPI",
   defaultDescription:
-    "Experience unparalleled luxury with AUXEMPI's premium sedan and SUV fleet. Professional chauffeurs, impeccable service, and exclusive transportation.",
-  siteUrl: "https://auxempi.com",
+    "Experience unparalleled luxury with AUSEMPI's premium sedan and SUV fleet. Professional chauffeurs, impeccable service, and exclusive transportation.",
+  siteUrl: "https://ausempi.com",
   keywords: [
     "luxury transportation",
     "private car service",

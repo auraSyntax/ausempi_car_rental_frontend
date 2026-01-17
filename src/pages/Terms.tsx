@@ -7,7 +7,7 @@ const Terms = () => {
   return (
     <MainLayout>
       <Navbar />
-      
+
       <main className="pt-32 pb-20">
         {/* Hero Section */}
         <section className="relative py-20 overflow-hidden">
@@ -23,7 +23,7 @@ const Terms = () => {
               </h1>
               <div className="luxury-divider mx-auto mb-8" />
               <p className="text-muted-foreground max-w-2xl mx-auto text-lg font-body">
-                Please read these terms carefully before using the AUXEMPI luxury transportation services.
+                Please read these terms carefully before using the AUSEMPI luxury transportation services.
               </p>
             </motion.div>
           </div>
@@ -42,7 +42,7 @@ const Terms = () => {
                 1. Acceptance of Terms
               </h2>
               <p className="text-muted-foreground leading-relaxed text-lg">
-                By accessing and using the AUXEMPI website and services, you agree to be bound by these Terms and Conditions. If you do not agree with any part of these terms, you must not use our services.
+                By accessing and using the AUSEMPI website and services, you agree to be bound by these Terms and Conditions. If you do not agree with any part of these terms, you must not use our services.
               </p>
             </div>
 
@@ -51,7 +51,7 @@ const Terms = () => {
                 2. Service Provision
               </h2>
               <p className="text-muted-foreground leading-relaxed text-lg">
-                AUXEMPI provides premium transportation services including executive chauffeurs, airport transfers, and bespoke travel solutions. While we strive for perfection, we reserve the right to modify or discontinue any service at our discretion.
+                AUSEMPI provides premium transportation services including executive chauffeurs, airport transfers, and bespoke travel solutions. While we strive for perfection, we reserve the right to modify or discontinue any service at our discretion.
               </p>
               <ul className="list-disc pl-6 space-y-4 text-muted-foreground">
                 <li>Vehicle types are subject to availability and may be substituted with a comparable or higher class vehicle.</li>
@@ -98,7 +98,7 @@ const Terms = () => {
                 5. Liability & Insurance
               </h2>
               <p className="text-muted-foreground leading-relaxed text-lg">
-                AUXEMPI maintains comprehensive commercial insurance for all vehicles and passengers. Our liability is limited to the extent provided by our insurance coverage.
+                AUSEMPI maintains comprehensive commercial insurance for all vehicles and passengers. Our liability is limited to the extent provided by our insurance coverage.
               </p>
               <p className="text-muted-foreground leading-relaxed text-lg">
                 We are not responsible for personal belongings left in the vehicles, though we will make every effort to assist in their recovery.
@@ -116,7 +116,7 @@ const Terms = () => {
 
             <div className="pt-10 border-t border-white/10 text-center">
               <p className="text-muted-foreground text-sm italic">
-                Last Updated: January 2026. AUXEMPI reserves the right to update these terms at any time.
+                Last Updated: January 2026. AUSEMPI reserves the right to update these terms at any time.
               </p>
             </div>
           </motion.div>
