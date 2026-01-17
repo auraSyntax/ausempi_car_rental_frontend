@@ -13,6 +13,9 @@ import {
   ArrowRight
 } from "lucide-react";
 
+import aboutImg from "@/assets/about-img.avif";
+import { LazyImage } from "../common";
+
 // Testimonials
 const testimonials = [
   {
@@ -111,10 +114,10 @@ const About = () => {
 
             <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-[1.1] mb-8">
               Elevating the Standard of
-              <span className="block text-gradient-gold">Private Travel</span>
+              <span className="block italic text-gradient-gold">Private Travel</span>
             </h2>
 
-            <p className="text-lg text-muted-foreground leading-relaxed mb-10">
+            <p className="text-base sm:text-lg text-muted-foreground leading-relaxed mb-10">
               We don't just provide a ride; we deliver an experience defined by precision, luxury, and an unwavering commitment to your journey's excellence. Every mile is a testament to our dedication to superior service.
             </p>
 
@@ -122,10 +125,10 @@ const About = () => {
             <div className="space-y-8 mb-12">
               {highlights.map((item, idx) => (
                 <div key={idx} className="flex gap-6 group">
-                  <div className="flex-shrink-0 w-px h-12 bg-primary/20 group-hover:bg-primary transition-colors duration-500" />
+                  <div className="flex-shrink-0 w-[2px] h-12 bg-primary/20 group-hover:bg-primary transition-colors duration-500" />
                   <div>
-                    <h4 className="text-foreground font-semibold uppercase tracking-wider text-sm mb-2">{item.title}</h4>
-                    <p className="text-muted-foreground text-sm leading-relaxed max-w-sm">{item.description}</p>
+                    <h4 className="text-foreground font-semibold uppercase tracking-wider text-sm sm:text-base mb-3 group-hover:text-primary transition-colors duration-500">{item.title}</h4>
+                    <p className="text-muted-foreground text-[0.9rem] sm:text-[0.95rem] leading-relaxed max-w-sm">{item.description}</p>
                   </div>
                 </div>
               ))}
@@ -154,10 +157,11 @@ const About = () => {
           >
             {/* Main Image Frame */}
             <div className="aspect-[4/5] overflow-hidden rounded-sm relative z-10 shadow-2xl shadow-black/50">
-              <img
-                src="https://images.unsplash.com/photo-1514316454349-750a7fd3da3a?q=80&w=2070&auto=format&fit=crop"
-                alt="Luxury Vehicle Interior"
-                className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-1000"
+              <LazyImage
+                src={aboutImg}
+                alt="About AUSEMPI"
+                containerClassName="w-full h-full"
+                className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
             </div>
@@ -190,7 +194,7 @@ const About = () => {
       {/* Testimonials */}
       <div className="bg-charcoal py-20 md:py-28 lg:py-36 relative overflow-hidden">
         {/* Decorative Quote */}
-        <div className="absolute top-12 left-12 opacity-5">
+        <div className="absolute top-12 left-1/2 -translate-x-1/2 sm:left-12 sm:translate-x-0 opacity-5">
           <Quote size={200} className="text-primary" />
         </div>
 
@@ -201,11 +205,11 @@ const About = () => {
             transition={{ duration: 0.8 }}
             className="text-center mb-12"
           >
-            <span className="text-primary text-xs uppercase tracking-[0.4em] font-medium">
+            <span className="text-primary text-xs sm:text-sm uppercase tracking-[0.4em] font-medium">
               Client Testimonials
             </span>
-            <h3 className="font-display text-3xl md:text-4xl font-bold text-foreground mt-4">
-              Words of <span className="text-gradient-gold">Trust</span>
+            <h3 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mt-4">
+              Words of <span className="text-gradient-gold">&nbsp;Trust</span>
             </h3>
           </motion.div>
 
@@ -261,8 +265,8 @@ const About = () => {
                     key={index}
                     onClick={() => setActiveTestimonial(index)}
                     className={`w-2 h-2 rounded-full transition-all duration-300 ${index === activeTestimonial
-                        ? "w-6 bg-primary"
-                        : "bg-muted-foreground/30 hover:bg-muted-foreground/50"
+                      ? "w-6 bg-primary"
+                      : "bg-muted-foreground/30 hover:bg-muted-foreground/50"
                       }`}
                     aria-label={`Go to testimonial ${index + 1}`}
                   />
@@ -300,7 +304,7 @@ const About = () => {
               <div className="w-10 h-10 rounded-sm bg-secondary/50 flex items-center justify-center group-hover:bg-primary/10 transition-colors duration-300">
                 <badge.icon size={18} className="text-primary" />
               </div>
-              <span className="text-sm uppercase tracking-wider font-medium">
+              <span className="text-[0.85rem] sm:text-sm uppercase tracking-wider font-medium">
                 {badge.label}
               </span>
             </motion.div>

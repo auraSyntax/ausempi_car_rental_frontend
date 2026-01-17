@@ -5,6 +5,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { EXTERNAL_LINKS } from "@/lib/constants";
+import logo from "@/assets/ausempi-logo.png";
 
 const navLinks = [
   { name: "Home", href: "/" },
@@ -70,13 +71,13 @@ const Navbar = () => {
             to="/"
             className="flex items-center group"
           >
-            <motion.span
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className="text-2xl lg:text-3xl font-display font-bold tracking-[0.3em] text-gradient-gold group-hover:opacity-80 transition-opacity duration-300"
-            >
-              AUSEMPI
-            </motion.span>
+            <motion.img
+              src={logo}
+              alt="AUSEMPI"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="h-12 lg:h-14 w-auto object-contain"
+            />
           </Link>
 
           {/* Desktop Navigation */}
@@ -172,15 +173,17 @@ const Navbar = () => {
               {/* Internal Header for Close Button Alignment */}
               <div className="container-luxury h-20 lg:h-24 flex items-center justify-between shrink-0">
                 {/* Logo - Matching Navbar */}
-                <Link to="/" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center group">
-                  <span className="text-2xl font-display font-bold tracking-[0.3em] text-gradient-gold">
-                    AUSEMPI
-                  </span>
+                <Link to="/" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center group focus:outline-none active:outline-none">
+                  <img
+                    src={logo}
+                    alt="AUSEMPI"
+                    className="h-12 w-auto object-contain"
+                  />
                 </Link>
 
                 {/* Close Button */}
                 <motion.button
-                  className="text-foreground p-2"
+                  className="text-foreground p-2 focus:outline-none active:outline-none"
                   onClick={() => setIsMobileMenuOpen(false)}
                   whileTap={{ scale: 0.9 }}
                 >
@@ -206,7 +209,7 @@ const Navbar = () => {
                           <Link
                             to={link.href}
                             onClick={() => setIsMobileMenuOpen(false)}
-                            className={`block w-full font-display text-3xl md:text-4xl py-2 transition-all duration-300 ${isActive ? "text-primary" : "text-foreground hover:text-primary/70"
+                            className={`block w-full font-display text-2xl md:text-3xl py-2 transition-all duration-300 focus:outline-none active:outline-none ${isActive ? "text-primary" : "text-foreground hover:text-primary/70"
                               }`}
                           >
                             {link.name}
@@ -221,9 +224,9 @@ const Navbar = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.4 }}
-                    className="w-full max-w-sm mt-4"
+                    className="w-full max-w-xs mt-4"
                   >
-                    <Button variant="luxury" size="xl" className="w-full glow-gold h-14 text-base sm:text-lg" asChild>
+                    <Button variant="luxury" size="xl" className="w-full glow-gold h-14 text-base sm:text-lg focus:outline-none active:outline-none" asChild>
                       <a href={EXTERNAL_LINKS.booking} target="_blank" rel="noopener noreferrer">Reserve Now</a>
                     </Button>
                   </motion.div>

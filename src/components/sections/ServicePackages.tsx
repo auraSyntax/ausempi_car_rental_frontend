@@ -1,22 +1,29 @@
 import { useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { motion, useInView } from "framer-motion";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { 
-  Plane, 
-  Building2, 
-  Route, 
-  Check, 
-  Crown, 
+import {
+  Plane,
+  Building2,
+  Route,
+  Check,
+  Crown,
   Star,
   ArrowRight
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { EXTERNAL_LINKS } from "@/lib/constants";
+import { LazyImage } from "@/components/common";
 
 // Assets
-import sedanImg from "@/assets/fleet-sedan.jpg";
-import suvImg from "@/assets/fleet-suv.jpg";
+import sedanImg from "@/assets/comparison-sedan.avif";
+import suvImg from "@/assets/comparison-suv.avif";
+
+import corporateEvents from "@/assets/corporate-events.avif";
+import airportTransfers from "@/assets/airport-transfers.avif";
+import longDistance from "@/assets/long-distance.avif";
+
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -59,22 +66,25 @@ const specialPackages = [
     id: "airport",
     icon: Plane,
     title: "Airport Transfers",
-    description: "Seamless arrivals and departures with real-time flight monitoring and meet & greet.",
+    description: "Seamless arrivals and departures with real-time flight monitoring, meet & greet service, and luggage assistance.",
     features: ["Flight tracking", "Meet at arrivals", "Luggage assistance"],
+    image: airportTransfers,
   },
   {
     id: "corporate",
     icon: Building2,
     title: "Corporate Events",
-    description: "Reliable fleet management for conferences, meetings, and executive travel.",
+    description: "Reliable fleet management for conferences, roadshows, and executive meetings with dedicated support.",
     features: ["Multi-vehicle coordination", "Dedicated account manager", "Priority booking"],
+    image: corporateEvents,
   },
   {
     id: "longdistance",
     icon: Route,
     title: "Long-Distance",
-    description: "Comfortable intercity travel with scheduled stops and premium amenities.",
-    features: ["Flexible stops", "Extended comfort features", "Competitive rates"],
+    description: "Comfortable city-to-city travel offering a relaxed alternative to flights for regional journeys.",
+    features: ["Flexible stops", "Extended comfort features", "Competitive flat rates"],
+    image: longDistance,
   },
 ];
 
@@ -141,12 +151,12 @@ const ServicePackages = () => {
             Service Packages
             <span className="w-8 md:w-12 h-px bg-primary/60" />
           </motion.div>
-          <h2 className="header-animate font-display text-4xl md:text-5xl lg:text-7xl font-bold text-foreground mt-4 mb-8">
+          <h2 className="header-animate font-display text-4xl sm:text-5xl lg:text-7xl font-bold text-foreground mt-4 mb-8">
             Tailored to
             <span className="text-gradient-gold"> Your Needs</span>
           </h2>
-          <p className="header-animate text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
-            From executive sedan service to fleet management, we offer flexible packages 
+          <p className="header-animate text-muted-foreground text-base sm:text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
+            From executive sedan service to fleet management, we offer flexible packages
             designed around your unique requirements.
           </p>
         </div>
@@ -159,11 +169,10 @@ const ServicePackages = () => {
               initial={{ opacity: 0, y: 40 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.2 + index * 0.2 }}
-              className={`group relative p-8 lg:p-12 rounded-none border transition-all duration-700 ${
-                tier.highlighted
-                  ? "border-primary/40 bg-primary/[0.03] shadow-[0_0_50px_-12px_rgba(212,175,55,0.15)]"
-                  : "border-white/5 bg-white/[0.02]"
-              }`}
+              className={`group relative p-8 lg:p-12 rounded-none border transition-all duration-700 ${tier.highlighted
+                ? "border-primary/40 bg-primary/[0.03] shadow-[0_0_50px_-12px_rgba(212,175,55,0.15)]"
+                : "border-white/5 bg-white/[0.02]"
+                }`}
             >
               {/* Highlighted Badge */}
               {tier.highlighted && (
@@ -175,15 +184,13 @@ const ServicePackages = () => {
               )}
 
               {/* Icon & Title */}
-              <div className="flex flex-col items-center text-center mb-8">
-                <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-6 transition-transform duration-500 group-hover:scale-110 ${
-                  tier.highlighted ? "bg-primary/20 shadow-[0_0_30px_-5px_rgba(212,175,55,0.3)]" : "bg-white/5"
-                }`}>
+              <div className="flex flex-col items-center text-center mb-6 sm:mb-8">
+                <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-6 transition-transform duration-500 group-hover:scale-110 ${tier.highlighted ? "bg-primary/20 shadow-[0_0_30px_-5px_rgba(212,175,55,0.3)]" : "bg-white/5"
+                  }`}>
                   <tier.icon size={32} className={tier.highlighted ? "text-primary" : "text-muted-foreground"} />
                 </div>
-                <h3 className={`font-display text-3xl md:text-4xl font-bold mb-2 ${
-                  tier.highlighted ? "text-gradient-gold" : "text-foreground"
-                }`}>
+                <h3 className={`font-display text-3xl md:text-4xl font-bold mb-2 ${tier.highlighted ? "text-gradient-gold" : "text-foreground"
+                  }`}>
                   {tier.name}
                 </h3>
                 <p className="text-sm uppercase tracking-[0.2em] text-primary/80 font-medium">
@@ -192,17 +199,16 @@ const ServicePackages = () => {
               </div>
 
               {/* Description */}
-              <p className="text-muted-foreground text-center text-base leading-relaxed mb-10">
+              <p className="text-muted-foreground text-center text-base sm:text-lg md:text-base lg:text-base leading-relaxed mb-8 sm:mb-10 sm:max-w-xs mx-auto">
                 {tier.description}
               </p>
 
               {/* Features */}
-              <ul className="space-y-4 mb-12">
+              <ul className="space-y-4 mb-12 md:min-h-[225px]">
                 {tier.features.map((feature) => (
-                  <li key={feature} className="flex items-center gap-4 text-base">
-                    <div className={`shrink-0 w-6 h-6 rounded-full flex items-center justify-center ${
-                      tier.highlighted ? "bg-primary/20 text-primary" : "bg-white/10 text-muted-foreground"
-                    }`}>
+                  <li key={feature} className="flex items-center gap-4 text-[0.9rem] sm:text-base">
+                    <div className={`shrink-0 w-6 h-6 rounded-full flex items-center justify-center ${tier.highlighted ? "bg-primary/20 text-primary" : "bg-white/10 text-muted-foreground"
+                      }`}>
                       <Check size={14} />
                     </div>
                     <span className="text-foreground/90">{feature}</span>
@@ -214,14 +220,13 @@ const ServicePackages = () => {
               <Button
                 variant={tier.highlighted ? "luxury" : "luxury-outline"}
                 size="lg"
-                className={`w-full h-14 text-base tracking-widest uppercase transition-all duration-300 ${
-                  tier.highlighted ? "hover:shadow-[0_0_30px_-5px_rgba(212,175,55,0.4)]" : ""
-                }`}
+                className={`w-full h-12 sm:h-14 text-sm sm:text-base tracking-widest uppercase transition-all duration-300 ${tier.highlighted ? "hover:shadow-[0_0_30px_-5px_rgba(212,175,55,0.4)]" : ""
+                  }`}
                 asChild
               >
-                <a href={EXTERNAL_LINKS.booking} target="_blank" rel="noopener noreferrer">
+                <Link to={EXTERNAL_LINKS.booking} target="_blank" rel="noopener noreferrer">
                   Book {tier.name}
-                </a>
+                </Link>
               </Button>
             </motion.div>
           ))}
@@ -230,7 +235,7 @@ const ServicePackages = () => {
         {/* Comparison Section with Images */}
         <div className="mb-24 lg:mb-32">
           <div className="text-center mb-12 lg:mb-16">
-            <h3 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4">
+            <h3 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4">
               Select Your <span className="text-primary">Vessel</span>
             </h3>
             <div className="w-24 h-px bg-gradient-to-r from-transparent via-primary to-transparent mx-auto" />
@@ -245,33 +250,45 @@ const ServicePackages = () => {
               transition={{ duration: 0.8 }}
               className="group relative overflow-hidden rounded-none bg-white/[0.02] border border-white/5"
             >
-              <div className="aspect-[16/10] overflow-hidden">
-                <img 
-                  src={sedanImg} 
-                  alt="Premium Sedan" 
+              <div className="aspect-[3/2] overflow-hidden">
+                <img
+                  src={sedanImg}
+                  alt="Premium Sedan"
+                  className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                />
+
+                <LazyImage
+                  src={sedanImg}
+                  alt="Premium Sedan"
+                  containerClassName="w-full h-full"
                   className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-transparent to-transparent opacity-60" />
               </div>
-              <div className="p-8 lg:p-10 relative">
+              <div className="p-7 sm:p-10 relative">
                 <div className="flex justify-between items-center mb-8">
-                  <h4 className="font-display text-3xl font-bold text-foreground">Premium Sedan</h4>
+                  <h4 className="font-display text-xl sm:text-3xl font-bold text-foreground">Premium Sedan</h4>
                   <span className="text-primary font-bold text-xl">$95<span className="text-xs text-muted-foreground font-normal ml-1">Starting</span></span>
                 </div>
-                
+
                 <div className="space-y-4">
                   {comparisonFeatures.map((row) => (
                     <div key={row.feature} className="flex justify-between items-center py-3 border-b border-white/5 last:border-0">
-                      <span className="text-muted-foreground text-sm uppercase tracking-wider">{row.feature}</span>
-                      <span className="text-foreground font-medium">{row.sedan}</span>
+                      <span className="text-muted-foreground text-[0.85rem] sm:text-sm uppercase tracking-wider">{row.feature}</span>
+                      <span className="text-foreground font-medium text-[0.9rem] sm:text-base">{row.sedan}</span>
                     </div>
                   ))}
                 </div>
-                
-                <Button variant="luxury-outline" className="w-full mt-8 group" asChild>
-                  <a href={EXTERNAL_LINKS.booking} className="flex items-center justify-center gap-2">
+
+                <Button variant="luxury-outline" className="w-full mt-8 h-12 sm:h-14 text-sm sm:text-base" asChild>
+                  <Link
+                    to={EXTERNAL_LINKS.booking}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-2"
+                  >
                     Book Sedan <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
-                  </a>
+                  </Link>
                 </Button>
               </div>
             </motion.div>
@@ -284,10 +301,10 @@ const ServicePackages = () => {
               transition={{ duration: 0.8 }}
               className="group relative overflow-hidden rounded-none bg-primary/[0.03] border border-primary/20 shadow-[0_0_50px_-12px_rgba(212,175,55,0.1)]"
             >
-              <div className="aspect-[16/10] overflow-hidden">
-                <img 
-                  src={suvImg} 
-                  alt="Luxury SUV" 
+              <div className="aspect-[3/2] overflow-hidden">
+                <img
+                  src={suvImg}
+                  alt="Luxury SUV"
                   className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-transparent to-transparent opacity-60" />
@@ -295,25 +312,30 @@ const ServicePackages = () => {
                   Groups Choice
                 </div>
               </div>
-              <div className="p-8 lg:p-10 relative">
+              <div className="p-7 sm:p-10 relative">
                 <div className="flex justify-between items-center mb-8">
-                  <h4 className="font-display text-3xl font-bold text-gradient-gold">Luxury SUV</h4>
+                  <h4 className="font-display text-xl sm:text-3xl  font-bold text-gradient-gold">Luxury SUV</h4>
                   <span className="text-primary font-bold text-xl">$145<span className="text-xs text-muted-foreground font-normal ml-1">Starting</span></span>
                 </div>
-                
+
                 <div className="space-y-4">
                   {comparisonFeatures.map((row) => (
                     <div key={row.feature} className="flex justify-between items-center py-3 border-b border-white/5 last:border-0">
-                      <span className="text-muted-foreground text-sm uppercase tracking-wider">{row.feature}</span>
-                      <span className="text-foreground font-medium">{row.suv}</span>
+                      <span className="text-muted-foreground text-[0.85rem] sm:text-sm uppercase tracking-wider">{row.feature}</span>
+                      <span className="text-foreground font-medium text-[0.9rem] sm:text-base">{row.suv}</span>
                     </div>
                   ))}
                 </div>
-                
-                <Button variant="luxury" className="w-full mt-8 group glow-gold" asChild>
-                  <a href={EXTERNAL_LINKS.booking} className="flex items-center justify-center gap-2">
+
+                <Button variant="luxury" className="w-full mt-8 group glow-gold h-12 sm:h-14 text-sm sm:text-base" asChild>
+                  <Link
+                    to={EXTERNAL_LINKS.booking}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-2"
+                  >
                     Book SUV <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
-                  </a>
+                  </Link>
                 </Button>
               </div>
             </motion.div>
@@ -323,15 +345,15 @@ const ServicePackages = () => {
         {/* Special Packages Grid */}
         <div className="relative">
           <div className="text-center mb-12 lg:mb-16">
-            <h3 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4">
+            <h3 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-6">
               Premium <span className="text-primary">Experiences</span>
             </h3>
-            <p className="text-muted-foreground max-w-xl mx-auto">
+            <p className="text-muted-foreground max-w-xl mx-auto text-base sm:text-lg">
               Specialized services tailored for specific travel requirements.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
+          <div className="grid lg:grid-cols-3 gap-6 lg:gap-8">
             {specialPackages.map((pkg, index) => (
               <motion.div
                 key={pkg.id}
@@ -339,25 +361,44 @@ const ServicePackages = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.1 * index }}
-                className="group p-8 rounded-none border border-white/5 bg-white/[0.01] hover:border-primary/30 hover:bg-primary/[0.02] transition-all duration-500"
+                className="group relative h-[550px] sm:h-[750px] lg:h-[550px] overflow-hidden rounded-sm border border-white/10 hover:border-primary/50 transition-all duration-500"
               >
-                <div className="w-14 h-14 rounded-xl bg-white/5 flex items-center justify-center mb-6 group-hover:bg-primary/20 group-hover:scale-110 transition-all duration-500">
-                  <pkg.icon size={28} className="text-primary" />
+                {/* Background Image */}
+                <div className="absolute inset-0 z-0">
+                  <LazyImage
+                    src={pkg.image}
+                    alt={pkg.title}
+                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                    containerClassName="w-full h-full"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/20 opacity-90 transition-opacity duration-500 group-hover:opacity-80" />
                 </div>
-                <h4 className="font-display text-2xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors">
-                  {pkg.title}
-                </h4>
-                <p className="text-muted-foreground text-sm leading-relaxed mb-6">
-                  {pkg.description}
-                </p>
-                <ul className="space-y-3">
-                  {pkg.features.map((feature) => (
-                    <li key={feature} className="flex items-center gap-3 text-sm text-muted-foreground">
-                      <div className="w-1.5 h-1.5 rounded-full bg-primary/40" />
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
+
+                {/* Content Overlay */}
+                <div className="relative z-10 p-7 sm:p-8 h-full flex flex-col justify-end">
+                  <div className="transform transition-transform duration-500 group-hover:-translate-y-2">
+                    <div className="w-14 h-14 rounded-xl bg-white/10 backdrop-blur-md flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-black text-white transition-all duration-500">
+                      <pkg.icon size={28} />
+                    </div>
+
+                    <h4 className="font-display text-2xl sm:text-3xl font-bold text-white mb-4">
+                      {pkg.title}
+                    </h4>
+
+                    <p className="text-white/70 text-[0.95rem] sm:text-lg lg:text-base leading-relaxed mb-8 lg:max-w-sm">
+                      {pkg.description}
+                    </p>
+
+                    <ul className="space-y-3 border-t border-white/20 pt-6">
+                      {pkg.features.map((feature) => (
+                        <li key={feature} className="flex items-center gap-3 text-sm sm:text-base lg:text-[0.9rem] text-white/80">
+                          <div className="w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_8px_rgba(212,175,55,0.6)]" />
+                          {feature}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
               </motion.div>
             ))}
           </div>

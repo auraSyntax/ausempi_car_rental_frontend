@@ -3,6 +3,7 @@ import { motion, useInView } from "framer-motion";
 import { ArrowRight, Clock, Shield, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { EXTERNAL_LINKS } from "@/lib/constants";
+import { Link } from "react-router-dom";
 
 const highlights = [
   { icon: Clock, text: "Available 24/7" },
@@ -38,7 +39,7 @@ const ReserveCTA = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-primary text-sm uppercase tracking-[0.4em] font-medium"
+            className="text-primary text-xs sm:text-sm uppercase tracking-[0.4em] font-medium"
           >
             Begin Your Journey
           </motion.span>
@@ -48,7 +49,7 @@ const ReserveCTA = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mt-6 mb-6"
+            className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mt-6 mb-6"
           >
             Experience
             <span className="text-gradient-gold"> Distinction</span>
@@ -65,7 +66,7 @@ const ReserveCTA = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-muted-foreground text-lg md:text-xl leading-relaxed mb-10"
+            className="text-muted-foreground text-base sm:text-lg md:text-xl leading-relaxed mb-10"
           >
             Reserve your premium transportation experience today. 
             Where every journey becomes an unforgettable moment.
@@ -87,7 +88,7 @@ const ReserveCTA = () => {
                 className="flex items-center gap-2 text-muted-foreground"
               >
                 <item.icon size={18} className="text-primary" />
-                <span className="text-sm uppercase tracking-wider">{item.text}</span>
+                <span className="text-xs base:text-sm uppercase tracking-wider">{item.text}</span>
               </motion.div>
             ))}
           </motion.div>
@@ -106,11 +107,11 @@ const ReserveCTA = () => {
               <Button
                 variant="gold-cta"
                 size="xl"
-                className="group"
+                className="group text-sm sm:text-base h-12 sm:h-14"
                 asChild
               >
-                <a
-                  href={EXTERNAL_LINKS.booking}
+                <Link
+                  to={EXTERNAL_LINKS.booking}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -119,7 +120,7 @@ const ReserveCTA = () => {
                     size={20} 
                     className="ml-2 transition-transform duration-300 group-hover:translate-x-1" 
                   />
-                </a>
+                </Link>
               </Button>
             </motion.div>
           </motion.div>

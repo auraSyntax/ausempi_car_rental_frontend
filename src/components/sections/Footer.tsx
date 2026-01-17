@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, Instagram, Twitter, Linkedin, Facebook, ArrowUpRight, ArrowRight } from "lucide-react";
 import { BRAND, CONTACT, EXTERNAL_LINKS } from "@/lib/constants";
 import { Button } from "@/components/ui/button";
+import startDustBg from "@/assets/stardust-bg.png";
 
 const footerLinks = {
   navigation: [
@@ -38,7 +39,9 @@ const Footer = () => {
   return (
     <footer className="bg-charcoal relative overflow-hidden">
       {/* Texture Overlay */}
-      <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]" />
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none"
+        style={{ backgroundImage: `url(${startDustBg})` }}
+      />
 
       {/* Background Glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[400px] bg-primary/5 blur-[120px] rounded-full pointer-events-none" />
@@ -56,9 +59,9 @@ const Footer = () => {
             >
               <div className="text-center lg:text-left max-w-2xl">
                 <h3 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4 leading-tight">
-                  Elevate Your <span className="text-gradient-gold italic">Journey</span> Beyond Limits
+                  Elevate Your <span className="text-gradient-gold">Journey</span> Beyond Limits
                 </h3>
-                <p className="text-muted-foreground text-lg md:text-xl font-light">
+                <p className="text-muted-foreground text-base sm:text-lg md:text-xl font-light">
                   Experience the pinnacle of luxury transportation. Your elite chauffeur is just a click away.
                 </p>
               </div>
@@ -70,11 +73,11 @@ const Footer = () => {
                 <Button
                   variant="gold-cta"
                   size="xl"
-                  className="group px-10 py-8 text-lg rounded-none border border-primary/30 relative overflow-hidden"
+                  className="group px-5 sm:px-10 py-5 sm:py-7 text-sm sm:text-base rounded-none border border-primary/30 relative overflow-hidden"
                   asChild
                 >
-                  <a
-                    href={EXTERNAL_LINKS.booking}
+                  <Link
+                    to={EXTERNAL_LINKS.booking}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -86,7 +89,7 @@ const Footer = () => {
                       />
                     </span>
                     <div className="absolute inset-0 bg-gradient-to-r from-primary/0 via-white/10 to-primary/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-                  </a>
+                  </Link>
                 </Button>
               </motion.div>
             </motion.div>

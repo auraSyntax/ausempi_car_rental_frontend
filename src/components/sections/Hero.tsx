@@ -1,11 +1,14 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { gsap } from "gsap";
 import { ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { EXTERNAL_LINKS } from "@/lib/constants";
 import { LazyImage } from "@/components/common";
-import heroImage from "@/assets/hero-sedan.jpg";
+import heroImageLandscape from "@/assets/hero_img_landscape.avif";
+import heroImagePortrait from "@/assets/hero_img_portrait.avif";
+import noiseBg from "@/assets/noise-bg.svg";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
   const heroRef = useRef<HTMLElement>(null);
@@ -13,9 +16,28 @@ const Hero = () => {
   const sublineRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
 
+  const [heroImage, setHeroImage] = useState(heroImageLandscape);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 1024) {
+        setHeroImage(heroImagePortrait);
+      } else {
+        setHeroImage(heroImageLandscape);
+      }
+    };
+
+    // Initial check
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   // Parallax effect on scroll - Optimized range
   const { scrollY } = useScroll();
   const backgroundY = useTransform(scrollY, [0, 800], [0, 150]); // Reduced movement/jitter
+  const backgroundScale = useTransform(scrollY, [0, 800], [1.05, 1.15]); // Smooth zoom effect
   const contentY = useTransform(scrollY, [0, 500], [0, 50]); // Subtle content shift
   const opacity = useTransform(scrollY, [0, 400], [1, 0]);
 
@@ -89,23 +111,25 @@ const Hero = () => {
         className="absolute inset-0 z-0"
         style={{ y: backgroundY }}
       >
-        <div className="relative w-full h-[115%] -top-[7.5%]"> {/* Offset to prevent white gaps on parallax */}
+        <motion.div style={{ scale: backgroundScale }} className="relative w-full h-[115%] -top-[7.5%]"> {/* Offset to prevent white gaps on parallax */}
           <LazyImage
             src={heroImage}
             alt="Luxury black sedan on city street at night"
-            className="w-full h-full object-cover object-center scale-105 will-change-transform" // hardware accel
+            className="w-full h-full object-cover object-right sm:object-center will-change-transform" // hardware accel
             containerClassName="w-full h-full"
-            loading="eager" // Hero image should load immediately
+            priority={true} // Hero image should load immediately
           />
-        </div>
+        </motion.div>
 
         {/* Optimized Gradients - Reduced count for performance */}
-        <div className="absolute inset-0 bg-black/40" /> {/* Base darken */}
+        <div className="absolute inset-0 bg-black/20" /> {/* Base darken */}
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-r from-background/80 via-transparent to-background/80 lg:via-background/20" />
+        <div className="absolute inset-0 bg-gradient-to-r from-background/50 via-transparent to-background/60 lg:via-background/20" />
 
         {/* Cinematic Noise/Grain Overlay */}
-        <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')] bg-repeat" />
+        <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-repeat"
+          style={{ backgroundImage: `url(${noiseBg})` }}
+        />
 
         {/* Gold accent overlay */}
         <div className="absolute inset-0 bg-gradient-to-tr from-primary/10 via-transparent to-transparent mix-blend-overlay opacity-50" />
@@ -113,7 +137,7 @@ const Hero = () => {
 
       {/* Content Container */}
       <motion.div
-        className="relative container-luxury text-center z-10 pt-20 px-4 md:px-8 w-full"
+        className="relative container-luxury text-center z-10  px-4 md:px-8 w-full"
         style={{ y: contentY, opacity }}
       >
         {/* Pre-headline Badge */}
@@ -134,7 +158,7 @@ const Hero = () => {
         {/* Main Headline - Responsive Text Sizing */}
         <h1
           ref={headlineRef}
-          className="font-display text-6xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-[6.5rem] font-bold text-foreground mb-6 md:mb-8 leading-[1.1] sm:leading-[1.05] tracking-tight relative"
+          className="font-display text-5xl sm:text-7xl lg:text-8xl xl:text-[6rem] font-bold text-foreground mb-6 md:mb-8 leading-[1.1] sm:leading-[1.05] tracking-tight relative"
         >
           <span className="hero-word inline-block origin-bottom">The</span>{" "}
           <span className="hero-word inline-block origin-bottom italic font-serif text-primary">Art</span>{" "}
@@ -147,44 +171,44 @@ const Hero = () => {
         {/* Subline */}
         <p
           ref={sublineRef}
-          className="text-base sm:text-lg md:text-xl text-muted-foreground/90 max-w-2xl mx-auto mb-10 md:mb-14 font-light leading-relaxed px-4 md:px-0"
+          className="text-base sm:text-lg md:text-xl text-muted-foreground/90 max-w-2xl mx-auto mb-10 md:mb-12 font-light leading-relaxed px-4 md:px-0"
         >
           Experience the pinnacle of urban mobility.
-          <span className="hidden sm:inline"> Meticulously crafted journeys for those who demand excellence.</span>
+          <span className="inline"> Meticulously crafted journeys for those who demand excellence.</span>
         </p>
 
         {/* CTAs */}
         <div
           ref={ctaRef}
-          className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center items-center w-full max-w-md mx-auto sm:max-w-none"
+          className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center items-center w-full max-w-xs mx-auto sm:max-w-none"
         >
           <Button
             variant="gold-cta"
             size="xl"
-            className="w-full sm:w-auto min-w-[200px] h-14 text-sm md:text-base tracking-[0.2em] shadow-[0_0_40px_-10px_rgba(212,175,55,0.4)]"
+            className="w-full sm:w-auto min-w-[200px] h-12 md:h-14 text-sm md:text-base tracking-[0.2em] shadow-[0_0_40px_-10px_rgba(212,175,55,0.4)]"
             asChild
           >
-            <a
-              href={EXTERNAL_LINKS.booking}
+            <Link
+              to={EXTERNAL_LINKS?.booking}
               target="_blank"
               rel="noopener noreferrer"
             >
               Reserve Now
-            </a>
+            </Link>
           </Button>
 
           <Button
             variant="hero-outline"
             size="xl"
-            className="w-full sm:w-auto min-w-[200px] h-14 text-sm md:text-base tracking-[0.2em] backdrop-blur-sm hover:bg-white/10 border-white/20"
+            className="w-full sm:w-auto min-w-[200px] h-12 md:h-14 text-sm md:text-base tracking-[0.2em] backdrop-blur-sm hover:bg-white/10 border-white/20"
             asChild
           >
-            <a href="#fleet">View Fleet</a>
+            <Link to="#fleet">View Fleet</Link>
           </Button>
         </div>
 
         {/* Trust Stats - Optimized Layout */}
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.2, duration: 0.8 }}
@@ -204,7 +228,7 @@ const Hero = () => {
               </span>
             </div>
           ))}
-        </motion.div>
+        </motion.div> */}
       </motion.div>
 
       {/* Scroll Indicator */}

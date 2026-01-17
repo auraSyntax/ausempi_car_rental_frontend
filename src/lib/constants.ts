@@ -24,7 +24,7 @@ export const NAV_CONFIG: NavConfig = {
     { name: "App", href: "#app" },
   ],
   ctaText: "Reserve Now",
-  ctaHref: "https://allriders.com",
+  ctaHref: "https://dispatch.allrideapps.net/booking-form/a5505496-b82d-4635-a504-1897c41a8673",
 };
 
 // ============================================
@@ -42,7 +42,7 @@ export const CONTACT: ContactInfo = {
 // ============================================
 
 export const EXTERNAL_LINKS = {
-  booking: "https://allriders.com",
+  booking: "https://dispatch.allrideapps.net/booking-form/a5505496-b82d-4635-a504-1897c41a8673",
   appStore: "#", // Replace with actual App Store link
   playStore: "#", // Replace with actual Play Store link
   instagram: "https://instagram.com/ausempi",

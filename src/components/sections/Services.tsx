@@ -2,53 +2,16 @@ import { useRef, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Wifi, BatteryCharging, Wine, Thermometer, Shield, Clock, Crown, Star, ArrowRight, MousePointer2, Briefcase } from "lucide-react";
+import { Crown, ArrowRight, MousePointer2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LazyImage } from "@/components/common";
-import fleetSuv from "@/assets/fleet-suv.jpg";
+import { homeServices } from "@/data/service";
+import { Link } from "react-router-dom";
+import { EXTERNAL_LINKS } from "@/lib";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const services = [
-  {
-    id: "sedan",
-    title: "Luxury Sedan",
-    subtitle: "Executive Excellence",
-    description: "Experience the pinnacle of executive travel. Our premium sedans offer a sanctuary of calm and sophistication, designed for the discerning professional who values time and tranquility.",
-    image: "https://images.unsplash.com/photo-1621135802920-133df287f89c?q=80&w=2070&auto=format&fit=crop",
-    index: "01",
-    tiers: [
-      { name: "Premium", icon: Briefcase, features: ["Professional chauffeur", "Complimentary water", "Phone charging"] },
-      { name: "Luxury", icon: Crown, features: ["Elite chauffeur", "Premium refreshments", "Dedicated concierge"], highlighted: true },
-    ],
-    amenities: [
-      { icon: Wifi, label: "High-Speed WiFi" },
-      { icon: BatteryCharging, label: "Device Charging" },
-      { icon: Wine, label: "Refreshments" },
-      { icon: Thermometer, label: "Climate Control" },
-    ],
-  },
-  {
-    id: "suv",
-    title: "Luxury SUV",
-    subtitle: "Commanding Presence",
-    description: "Uncompromising space meets unparalleled luxury. Our flagship SUVs provide a commanding perspective and abundant room, making every group journey an occasion of shared prestige.",
-    image: fleetSuv,
-    index: "02",
-    tiers: [
-      { name: "Premium", icon: Star, features: ["Up to 5 guests", "Luggage capacity", "Airport meet & greet"] },
-      { name: "Luxury", icon: Crown, features: ["Up to 6 guests", "Expanded cargo", "VIP handling"], highlighted: true },
-    ],
-    amenities: [
-      { icon: Shield, label: "Privacy Partition" },
-      { icon: BatteryCharging, label: "Multiple Ports" },
-      { icon: Clock, label: "Flexible Timing" },
-      { icon: Thermometer, label: "Dual Climate" },
-    ],
-  },
-];
-
-const ServiceCard = ({ service, index }: { service: typeof services[0]; index: number }) => {
+const ServiceCard = ({ service, index }: { service: typeof homeServices[0]; index: number }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(cardRef, { once: true, margin: "-10%" });
@@ -105,13 +68,13 @@ const ServiceCard = ({ service, index }: { service: typeof services[0]; index: n
               src={service.image}
               alt={service.title}
               containerClassName="w-full h-full"
-              className="object-cover object-center brightness-[0.85] transition-all duration-700 hover:scale-105"
+              className="object-cover object-center brightness-[0.75] transition-all duration-700 hover:scale-105"
             />
           </div>
           {/* Gradient Overlays */}
           <div className={`absolute inset-0 z-20 pointer-events-none ${isReversed
-              ? "bg-gradient-to-b lg:bg-gradient-to-l from-background via-transparent to-transparent opacity-80"
-              : "bg-gradient-to-b lg:bg-gradient-to-r from-background via-transparent to-transparent opacity-80"
+            ? "bg-gradient-to-b lg:bg-gradient-to-l from-background via-transparent to-transparent opacity-80"
+            : "bg-gradient-to-b lg:bg-gradient-to-r from-background via-transparent to-transparent opacity-80"
             }`} />
           {/* Mobile bottom fade */}
           <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent lg:hidden z-20" />
@@ -146,7 +109,7 @@ const ServiceCard = ({ service, index }: { service: typeof services[0]; index: n
         >
           <div className="flex items-center gap-4 mb-6 lg:hidden">
             <span className="w-8 h-px bg-primary" />
-            <span className="text-primary text-xs uppercase tracking-[0.2em] font-bold">{service.subtitle}</span>
+            <span className="text-primary text-[11px] uppercase tracking-[0.2em] font-bold">{service.subtitle}</span>
           </div>
 
           <h3 className="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-foreground mb-6 lg:mb-8 leading-[1.05]">
@@ -154,7 +117,7 @@ const ServiceCard = ({ service, index }: { service: typeof services[0]; index: n
             <span className="block text-gradient-gold italic">{service.title.split(' ')[1]}</span>
           </h3>
 
-          <p className="text-muted-foreground text-lg lg:text-xl leading-relaxed mb-10 max-w-xl font-light">
+          <p className="text-muted-foreground text-base sm:text-lg md:text-xl leading-relaxed mb-10 max-w-xl font-light">
             {service.description}
           </p>
         </motion.div>
@@ -169,26 +132,26 @@ const ServiceCard = ({ service, index }: { service: typeof services[0]; index: n
               transition={{ duration: 0.5, delay: 0.4 + i * 0.1 }}
               whileHover={{ scale: 1.02 }}
               className={`relative p-6 rounded-none transition-all duration-300 group ${tier.highlighted
-                  ? "bg-gradient-to-br from-primary/10 to-transparent border border-primary/20"
-                  : "bg-white/[0.02] border border-white/5 hover:border-white/10"
+                ? "bg-gradient-to-br from-primary/10 to-transparent border border-primary/20"
+                : "bg-white/[0.02] border border-white/5 hover:border-white/10"
                 }`}
             >
               <div className="flex items-start justify-between mb-4">
-                <div className={`w-10 h-10 flex items-center justify-center rounded-none ${tier.highlighted ? "bg-primary text-black" : "bg-white/5 text-white group-hover:bg-primary/20 group-hover:text-primary transition-colors"
+                <div className={`w-12 h-12 flex items-center justify-center rounded-none ${tier.highlighted ? "bg-primary text-black" : "bg-white/5 text-white group-hover:bg-primary/20 group-hover:text-primary transition-colors"
                   }`}>
                   <tier.icon size={18} />
                 </div>
-                {tier.highlighted && <Crown size={18} className="text-primary animate-pulse" />}
+                {tier.highlighted && <Crown size={24} className="text-primary animate-pulse" />}
               </div>
 
-              <h4 className={`text-sm font-bold uppercase tracking-widest mb-3 ${tier.highlighted ? "text-primary" : "text-foreground"
+              <h4 className={`text-xl lg:text-2xl font-bold uppercase tracking-widest mb-4 ${tier.highlighted ? "text-primary" : "text-foreground"
                 }`}>
                 {tier.name}
               </h4>
 
               <ul className="space-y-2.5">
                 {tier.features.map((feature) => (
-                  <li key={feature} className="text-xs text-muted-foreground flex items-center gap-2">
+                  <li key={feature} className="text-sm lg:text-base text-muted-foreground flex items-center gap-2">
                     <div className={`w-1 h-1 rounded-full ${tier.highlighted ? "bg-primary" : "bg-white/30"}`} />
                     {feature}
                   </li>
@@ -209,7 +172,7 @@ const ServiceCard = ({ service, index }: { service: typeof services[0]; index: n
               className="flex items-center gap-3 text-muted-foreground/80"
             >
               <amenity.icon size={16} className="text-primary/70" />
-              <span className="text-[10px] uppercase tracking-widest font-medium">{amenity.label}</span>
+              <span className="text-[11px] uppercase tracking-widest font-medium">{amenity.label}</span>
             </motion.div>
           ))}
         </div>
@@ -221,10 +184,15 @@ const ServiceCard = ({ service, index }: { service: typeof services[0]; index: n
           transition={{ duration: 0.6, delay: 0.8 }}
         >
           <Button variant="luxury-outline" className="h-14 px-8 group w-full sm:w-auto" asChild>
-            <a href="#booking" className="flex items-center justify-center gap-3">
+            <Link
+              to={EXTERNAL_LINKS?.booking}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-3"
+            >
               <span>Reserve {service.title}</span>
               <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
-            </a>
+            </Link>
           </Button>
         </motion.div>
       </div>
@@ -283,12 +251,11 @@ const Services = () => {
           </div>
         </div>
 
-        <h2 className="header-animate font-display text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-bold text-foreground mb-8 tracking-tight leading-[0.9]">
-          Bespoke <br />
-          <span className="text-gradient-gold italic pr-2">Journeys</span>
+        <h2 className="header-animate font-display text-5xl md:text-6xl lg:text-8xl font-bold text-foreground mb-8 lg:mb-14 tracking-tight leading-[0.9]">
+          Bespoke <span className="text-gradient-gold">Journeys</span>
         </h2>
 
-        <p className="header-animate text-muted-foreground text-lg md:text-2xl max-w-3xl mx-auto leading-relaxed font-light mb-12 lg:mb-16">
+        <p className="header-animate text-muted-foreground text-base sm:text-lg md:text-xl max-w-3xl mx-auto leading-relaxed font-light mb-12 lg:mb-16">
           Redefining the standards of luxury transportation with a fleet that commands respect
           and a service that anticipates every desire.
         </p>
@@ -300,8 +267,12 @@ const Services = () => {
 
       {/* Full-width Service Cards */}
       <div className="space-y-0 relative z-10 w-full">
-        {services.map((service, index) => (
-          <ServiceCard key={service.id} service={service} index={index} />
+        {homeServices.map((service, index) => (
+          <ServiceCard
+            key={service.id}
+            service={service}
+            index={index}
+          />
         ))}
       </div>
 
@@ -320,7 +291,13 @@ const Services = () => {
             Ready to Elevate Your Travel?
           </h4>
           <Button variant="gold-cta" size="xl" className="h-14 lg:h-16 px-8 lg:px-12 text-xs lg:text-sm tracking-[0.3em] uppercase font-bold shadow-[0_0_40px_rgba(212,175,55,0.2)]" asChild>
-            <a href="#contact">Book Your Signature Ride</a>
+            <Link
+              to={EXTERNAL_LINKS?.booking}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Book Your Signature Ride
+            </Link>
           </Button>
         </motion.div>
       </div>

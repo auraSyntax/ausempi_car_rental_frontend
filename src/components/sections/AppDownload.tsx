@@ -3,10 +3,15 @@ import { motion, useInView } from "framer-motion";
 import {
   Smartphone, Star, Apple, Play, Wifi, MapPin,
   CreditCard, Bell, ShieldCheck, Zap, Headphones,
-  ChevronRight, Globe, Fingerprint
+  ChevronRight, Globe, Fingerprint,
+  User
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { Link } from "react-router-dom";
+import { EXTERNAL_LINKS } from "@/lib";
+import { BiLogoPlayStore } from "react-icons/bi";
+import { SiAppstore } from "react-icons/si";
 
 const appFeatures = [
   {
@@ -51,9 +56,9 @@ const AppDownload = () => {
       className="section-padding bg-[#050505] relative overflow-hidden"
     >
       {/* Editorial Background Text */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 select-none pointer-events-none overflow-hidden w-full h-full flex items-center justify-center">
+      <div className="hidden lg:flex absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 select-none pointer-events-none overflow-hidden w-full h-full flex items-center justify-center">
         <span className="text-[20vw] font-display font-black text-white/[0.02] whitespace-nowrap leading-none">
-          AUSEMPI EXPERIENCE
+          AUSEMPI
         </span>
       </div>
 
@@ -81,12 +86,12 @@ const AppDownload = () => {
 
               {/* Main Phone Frame */}
               <div className="relative w-[300px] md:w-[340px]">
-                <div className="relative bg-[#1A1A1A] rounded-[3.5rem] p-3.5 shadow-[0_0_50px_rgba(0,0,0,0.5)] border border-white/10 overflow-hidden">
+                <div className="relative bg-[#1A1A1A] rounded-[3rem] sm:rounded-[3.5rem] p-3.5 shadow-[0_0_50px_rgba(0,0,0,0.5)] border border-white/10 overflow-hidden">
                   {/* Subtle Inner Bezel Reflect */}
                   <div className="absolute inset-0 bg-gradient-to-tr from-white/5 via-transparent to-white/5 pointer-events-none" />
 
                   {/* Screen Content */}
-                  <div className="bg-[#0A0A0A] rounded-[2.8rem] overflow-hidden aspect-[9/19.5] relative flex flex-col">
+                  <div className="bg-[#0A0A0A] rounded-[2.3rem] sm:rounded-[2.8rem] overflow-hidden aspect-[9/19.5] relative flex flex-col">
                     {/* App Status Bar */}
                     <div className="flex justify-between items-center px-8 pt-6 pb-2">
                       <span className="text-[10px] text-white/40 font-medium">9:41</span>
@@ -167,7 +172,9 @@ const AppDownload = () => {
                   <div className="flex items-center gap-3">
                     <div className="flex -space-x-2">
                       {[1, 2, 3].map(i => (
-                        <div key={i} className="w-6 h-6 rounded-full border border-[#111] bg-charcoal" />
+                        <div key={i} className="w-6 h-6 rounded-full border border-[#111] bg-charcoal flex items-center justify-center" >
+                          <User size={12} className="text-primary fill-primary" />
+                        </div>
                       ))}
                     </div>
                     <div>
@@ -193,21 +200,21 @@ const AppDownload = () => {
             >
               <div className="inline-flex items-center gap-3 mb-6">
                 <div className="h-px w-8 bg-primary" />
-                <span className="text-primary text-xs uppercase tracking-[0.5em] font-bold">
+                <span className="text-primary text-xs sm:text-sm uppercase tracking-[0.5em] font-bold">
                   The Mobile Suite
                 </span>
               </div>
-              <h2 className="font-display text-4xl md:text-6xl font-black text-white leading-[1.1] mb-8">
+              <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-[1.1] mb-8">
                 Luxury Managed <br />
-                <span className="italic text-transparent bg-clip-text bg-gradient-to-r from-primary via-primary-light to-primary">In Real-Time</span>
+                <span className="block italic text-gradient-gold">In Real-Time</span>
               </h2>
-              <p className="text-white/50 text-lg max-w-xl leading-relaxed">
+              <p className="text-white/50 text-base sm:text-lg md:text-xl leading-relaxed">
                 The AUSEMPI mobile application is more than just a booking tool—it's your personal digital concierge, designed for seamless global mobility.
               </p>
             </motion.div>
 
             {/* Premium Features List */}
-            <div className="grid sm:grid-cols-2 gap-6 mb-16">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-6 mb-16">
               {appFeatures.map((feature, index) => (
                 <motion.div
                   key={feature.title}
@@ -226,10 +233,10 @@ const AppDownload = () => {
                         {feature.tag}
                       </span>
                     </div>
-                    <h4 className="text-white font-bold mb-2 group-hover:text-primary transition-colors">
+                    <h4 className="text-white font-bold mb-2 group-hover:text-primary transition-colors text-xl sm:text-2xl">
                       {feature.title}
                     </h4>
-                    <p className="text-white/40 text-xs leading-relaxed">
+                    <p className="text-white/40 text-sm leading-relaxed">
                       {feature.description}
                     </p>
                   </div>
@@ -242,9 +249,9 @@ const AppDownload = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.7 }}
-              className="space-y-10"
+              className="space-y-10 flex flex-col justify-center items-center lg:block"
             >
-              <div className="flex flex-wrap items-center gap-8">
+              <div className="flex flex-wrap items-center justify-between sm:justify-start gap-8">
                 <div className="flex flex-col gap-2">
                   <div className="flex gap-1">
                     {[1, 2, 3, 4, 5].map(i => <Star key={i} size={14} className="text-primary fill-primary" />)}
@@ -259,23 +266,27 @@ const AppDownload = () => {
                 </div>
               </div>
 
-              <div className="flex flex-wrap gap-4">
-                <Button className="h-16 px-8 bg-white text-black hover:bg-white/90 rounded-2xl gap-4 group transition-all duration-500 hover:scale-[1.02]">
-                  <Apple size={28} className="fill-black" />
-                  <div className="text-left">
-                    <p className="text-[10px] uppercase font-bold opacity-60 leading-none mb-1">Download on the</p>
-                    <p className="text-lg font-bold leading-none">App Store</p>
-                  </div>
-                  <ChevronRight size={18} className="ml-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+              <div className="flex flex-wrap justify-center lg:justify-start gap-4">
+                <Button className="min-w-[250px] sm:min-w-auto h-14 sm:h-16 px-6 lg:px-5 xl:px-8 bg-white text-black hover:bg-white/90 rounded-2xl gap-4 group transition-all duration-500 hover:scale-[1.02]">
+                  <Link to={EXTERNAL_LINKS.appStore} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4">
+                    <SiAppstore className="fill-black !w-6 !h-6" />
+                    <div className="text-left">
+                      <p className="text-[9px] sm:text-[10px] uppercase font-bold opacity-60 leading-none mb-1">Download on the</p>
+                      <p className="text-[0.95rem] sm:text-base lg:text-base xl:text-lg font-bold leading-none">App Store</p>
+                    </div>
+                    <ChevronRight size={18} className="ml-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                  </Link>
                 </Button>
 
-                <Button className="h-16 px-8 bg-transparent border border-white/20 hover:border-primary text-white rounded-2xl gap-4 group transition-all duration-500 hover:scale-[1.02]">
-                  <Play size={24} className="fill-white" />
-                  <div className="text-left">
-                    <p className="text-[10px] uppercase font-bold opacity-60 leading-none mb-1">Get it on</p>
-                    <p className="text-lg font-bold leading-none">Google Play</p>
-                  </div>
-                  <ChevronRight size={18} className="ml-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                <Button className="min-w-[250px] sm:min-w-auto h-14 sm:h-16 px-6 lg:px-5 xl:px-8 bg-transparent border border-white/20 hover:border-primary text-white rounded-2xl gap-4 group transition-all duration-500 hover:scale-[1.02]">
+                  <Link to={EXTERNAL_LINKS.playStore} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4">
+                    <BiLogoPlayStore className="fill-white !w-6 !h-6" />
+                    <div className="text-left">
+                      <p className="text-[9px] sm:text-[10px] uppercase font-bold opacity-60 leading-none mb-1">Get it on</p>
+                      <p className="text-[0.95rem] sm:text-base lg:text-base xl:text-lg font-bold leading-none">Google Play</p>
+                    </div>
+                    <ChevronRight size={18} className="ml-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                  </Link>
                 </Button>
 
                 {/* Premium QR Code Frame */}
