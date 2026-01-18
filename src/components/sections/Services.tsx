@@ -20,21 +20,23 @@ const ServiceCard = ({ service, index }: { service: typeof homeServices[0]; inde
   useEffect(() => {
     if (!cardRef.current || !imageRef.current) return;
 
-    // Parallax effect for the image
-    const ctx = gsap.context(() => {
+    const mm = gsap.matchMedia();
+
+    // Desktop Parallax Only
+    mm.add("(min-width: 1024px)", () => {
       gsap.to(imageRef.current, {
-        yPercent: -15, // Reduced for smoother feel
+        yPercent: -15,
         ease: "none",
         scrollTrigger: {
           trigger: cardRef.current,
           start: "top bottom",
           end: "bottom top",
-          scrub: 1, // Smoother scrub
+          scrub: 1,
         },
       });
     }, cardRef);
 
-    return () => ctx.revert();
+    return () => mm.revert();
   }, []);
 
   return (
@@ -68,7 +70,7 @@ const ServiceCard = ({ service, index }: { service: typeof homeServices[0]; inde
               src={service.image}
               alt={service.title}
               containerClassName="w-full h-full"
-              className="object-cover object-center brightness-[0.75] transition-all duration-700 hover:scale-105"
+              className="object-cover object-center brightness-[0.75] transition-all duration-700 lg:hover:scale-105"
             />
           </div>
           {/* Gradient Overlays */}

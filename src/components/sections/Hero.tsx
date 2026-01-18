@@ -1,6 +1,8 @@
+
 import { useEffect, useRef, useState } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { EXTERNAL_LINKS } from "@/lib/constants";
@@ -10,8 +12,13 @@ import heroImagePortrait from "@/assets/hero_img_portrait.avif";
 import noiseBg from "@/assets/noise-bg.svg";
 import { Link } from "react-router-dom";
 
+gsap.registerPlugin(ScrollTrigger);
+
 const Hero = () => {
   const heroRef = useRef<HTMLElement>(null);
+  const backgroundRef = useRef<HTMLDivElement>(null);
+  const bgImageRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const sublineRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
@@ -19,31 +26,33 @@ const Hero = () => {
   const [heroImage, setHeroImage] = useState(heroImageLandscape);
 
   useEffect(() => {
+    let timeoutId: NodeJS.Timeout;
+
     const handleResize = () => {
-      if (window.innerWidth < 1024) {
-        setHeroImage(heroImagePortrait);
-      } else {
-        setHeroImage(heroImageLandscape);
-      }
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        if (window.innerWidth < 1024) {
+          setHeroImage(heroImagePortrait);
+        } else {
+          setHeroImage(heroImageLandscape);
+        }
+      }, 100);
     };
 
     // Initial check
     handleResize();
 
     window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      clearTimeout(timeoutId);
+    };
   }, []);
 
-  // Parallax effect on scroll - Optimized range
-  const { scrollY } = useScroll();
-  const backgroundY = useTransform(scrollY, [0, 800], [0, 150]); // Reduced movement/jitter
-  const backgroundScale = useTransform(scrollY, [0, 800], [1.05, 1.15]); // Smooth zoom effect
-  const contentY = useTransform(scrollY, [0, 500], [0, 50]); // Subtle content shift
-  const opacity = useTransform(scrollY, [0, 400], [1, 0]);
-
   useEffect(() => {
+    // 1. Entrance Animations (Run once on mount)
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ delay: 0.1 }); // Faster start
+      const tl = gsap.timeline({ delay: 0.1 });
 
       // Animate headline with safer selector
       if (headlineRef.current) {
@@ -65,6 +74,7 @@ const Hero = () => {
               duration: 1.0,
               ease: "power3.out",
               stagger: 0.1,
+              clearProps: "all"
             }
           );
         }
@@ -75,7 +85,7 @@ const Hero = () => {
         tl.fromTo(
           sublineRef.current,
           { opacity: 0, y: 20 },
-          { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" },
+          { opacity: 1, y: 0, duration: 0.8, ease: "power2.out", clearProps: "all" },
           "-=0.6"
         );
       }
@@ -92,13 +102,60 @@ const Hero = () => {
             duration: 0.6,
             ease: "back.out(1.5)",
             stagger: 0.1,
+            clearProps: "all"
           },
           "-=0.4"
         );
       }
     }, heroRef);
 
-    return () => ctx.revert();
+    // 2. Parallax & Scroll Effects (Responsive)
+    const mm = gsap.matchMedia();
+
+    mm.add("(min-width: 1024px)", () => {
+      const scrollTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: heroRef.current,
+          start: "top top",
+          end: "bottom top",
+          scrub: 0,
+          invalidateOnRefresh: true,
+        }
+      });
+
+      // Background Parallax
+      if (backgroundRef.current) {
+        scrollTl.to(backgroundRef.current, {
+          y: 150,
+          ease: "none",
+          force3D: true
+        }, 0);
+      }
+
+      // Image Scale (Zoom effect)
+      if (bgImageRef.current) {
+        scrollTl.to(bgImageRef.current, {
+          scale: 1.1,
+          ease: "none",
+          force3D: true
+        }, 0);
+      }
+
+      // Content Fade & Parallax
+      if (contentRef.current) {
+        scrollTl.to(contentRef.current, {
+          y: 50,
+          opacity: 0,
+          ease: "none",
+          force3D: true
+        }, 0);
+      }
+    }, heroRef);
+
+    return () => {
+      ctx.revert();
+      mm.revert();
+    };
   }, []);
 
   return (
@@ -106,39 +163,44 @@ const Hero = () => {
       ref={heroRef}
       className="relative min-h-[100dvh] flex items-center justify-center overflow-hidden"
     >
-      {/* Background Image with Parallax & Optimization */}
-      <motion.div
-        className="absolute inset-0 z-0"
-        style={{ y: backgroundY }}
+      {/* Background Container for Parallax */}
+      <div
+        ref={backgroundRef}
+        className="absolute inset-0 z-0 will-change-transform"
       >
-        <motion.div style={{ scale: backgroundScale }} className="relative w-full h-[115%] -top-[7.5%]"> {/* Offset to prevent white gaps on parallax */}
+        {/* Scalable Image Container */}
+        <div
+          ref={bgImageRef}
+          className="relative w-full h-[115%] -top-[7.5%] will-change-transform"
+        >
           <LazyImage
             src={heroImage}
             alt="Luxury black sedan on city street at night"
-            className="w-full h-full object-cover object-right sm:object-center will-change-transform" // hardware accel
+            className="w-full h-full object-cover object-right sm:object-center"
             containerClassName="w-full h-full"
-            priority={true} // Hero image should load immediately
+            priority={true}
           />
-        </motion.div>
+        </div>
 
-        {/* Optimized Gradients - Reduced count for performance */}
-        <div className="absolute inset-0 bg-black/20" /> {/* Base darken */}
+        {/* Optimized Overlays - Consolidated */}
+        <div className="absolute inset-0 bg-black/20" />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-r from-background/50 via-transparent to-background/60 lg:via-background/20" />
 
-        {/* Cinematic Noise/Grain Overlay */}
-        <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-repeat"
+        {/* Noise Texture - Static transform to avoid jitter */}
+        <div
+          className="absolute inset-0 opacity-[0.03] pointer-events-none bg-repeat mix-blend-overlay"
           style={{ backgroundImage: `url(${noiseBg})` }}
         />
 
-        {/* Gold accent overlay */}
-        <div className="absolute inset-0 bg-gradient-to-tr from-primary/10 via-transparent to-transparent mix-blend-overlay opacity-50" />
-      </motion.div>
+        {/* Gold Accent - Hardware Accelerated */}
+        <div className="absolute inset-0 bg-gradient-to-tr from-primary/10 via-transparent to-transparent opacity-50 translate-z-0" />
+      </div>
 
       {/* Content Container */}
-      <motion.div
-        className="relative container-luxury text-center z-10  px-4 md:px-8 w-full"
-        style={{ y: contentY, opacity }}
+      <div
+        ref={contentRef}
+        className="relative container-luxury text-center z-10 px-4 md:px-8 w-full will-change-transform"
       >
         {/* Pre-headline Badge */}
         <motion.div
@@ -155,7 +217,7 @@ const Hero = () => {
           </div>
         </motion.div>
 
-        {/* Main Headline - Responsive Text Sizing */}
+        {/* Main Headline */}
         <h1
           ref={headlineRef}
           className="font-display text-5xl sm:text-7xl lg:text-8xl xl:text-[6rem] font-bold text-foreground mb-6 md:mb-8 leading-[1.1] sm:leading-[1.05] tracking-tight relative"
@@ -206,30 +268,7 @@ const Hero = () => {
             <Link to="#fleet">View Fleet</Link>
           </Button>
         </div>
-
-        {/* Trust Stats - Optimized Layout */}
-        {/* <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.2, duration: 0.8 }}
-          className="mt-16 hidden sm:flex items-center justify-center gap-8 md:gap-16"
-        >
-          {[
-            { label: "Elite Drivers", value: "500+" },
-            { label: "Global Cities", value: "40+" },
-            { label: "Client Satisfaction", value: "99%" },
-          ].map((stat, i) => (
-            <div key={i} className="text-center group cursor-default">
-              <span className="block text-2xl md:text-3xl font-display font-bold text-white/90 group-hover:text-primary transition-colors duration-300">
-                {stat.value}
-              </span>
-              <span className="text-[10px] md:text-xs uppercase tracking-widest text-muted-foreground/60 group-hover:text-primary/70 transition-colors duration-300">
-                {stat.label}
-              </span>
-            </div>
-          ))}
-        </motion.div> */}
-      </motion.div>
+      </div>
 
       {/* Scroll Indicator */}
       <motion.div

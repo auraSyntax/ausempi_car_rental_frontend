@@ -193,7 +193,7 @@ const Navbar = () => {
 
               {/* Scrollable Menu Content */}
               <div className="flex-1 overflow-y-auto">
-                <div className="container-luxury py-8 flex flex-col items-center justify-center min-h-full gap-8">
+                <div className="container-luxury py-7 sm:py-8 flex flex-col items-center justify-center min-h-full gap-8">
                   {/* Links */}
                   <div className="flex flex-col items-center gap-6 w-full">
                     {navLinks.map((link, index) => {
@@ -209,7 +209,7 @@ const Navbar = () => {
                           <Link
                             to={link.href}
                             onClick={() => setIsMobileMenuOpen(false)}
-                            className={`block w-full font-display text-2xl md:text-3xl py-2 transition-all duration-300 focus:outline-none active:outline-none ${isActive ? "text-primary" : "text-foreground hover:text-primary/70"
+                            className={`block w-full font-display text-xl sm:text-2xl md:text-3xl py-1.5 sm:py-2 transition-all duration-300 focus:outline-none active:outline-none ${isActive ? "text-primary" : "text-foreground hover:text-primary/70"
                               }`}
                           >
                             {link.name}
@@ -226,7 +226,7 @@ const Navbar = () => {
                     transition={{ duration: 0.5, delay: 0.4 }}
                     className="w-full max-w-xs mt-4"
                   >
-                    <Button variant="luxury" size="xl" className="w-full glow-gold h-14 text-base sm:text-lg focus:outline-none active:outline-none" asChild>
+                    <Button variant="luxury" size="xl" className="w-full glow-gold h-12 sm:h-14 text-sm sm:text-base sm:text-lg focus:outline-none active:outline-none" asChild>
                       <a href={EXTERNAL_LINKS.booking} target="_blank" rel="noopener noreferrer">Reserve Now</a>
                     </Button>
                   </motion.div>

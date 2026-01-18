@@ -7,6 +7,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { LazyImage } from "@/components/common";
 
+import driverLoginImg from "@/assets/driver-login.avif";
+
 export default function DriverLogin() {
   const [showPassword, setShowPassword] = useState(false);
   const [employeeId, setEmployeeId] = useState("");
@@ -28,9 +30,10 @@ export default function DriverLogin() {
       <div className="hidden lg:flex lg:w-1/2 relative bg-black">
         <div className="absolute inset-0 z-0">
           <LazyImage
-            src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?q=80&w=2070&auto=format&fit=crop"
+            src={driverLoginImg}
             alt="Luxury Driver"
-            className="w-full h-full object-cover opacity-60"
+            className="w-full h-full object-cover object-left opacity-60"
+            containerClassName="h-full"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
           <div className="absolute inset-0 bg-gradient-to-r from-black/20 to-transparent" />
@@ -190,9 +193,9 @@ export default function DriverLogin() {
           </motion.form>
 
           {/* Mobile Footer */}
-          <div className="mt-12 text-center lg:text-left">
+          <div className="mt-12 text-center">
             <p className="text-[10px] uppercase tracking-[0.2em] text-white/20">
-              Secured by Ausempi Guard &bull; v2.4.0
+              Secured by Ausempi Guard
             </p>
           </div>
         </div>

@@ -21,26 +21,25 @@ import { Button } from "@/components/ui/button";
 import { LazyImage } from "@/components/common";
 import { EXTERNAL_LINKS } from "@/lib/constants";
 import { Link } from "react-router-dom";
+import heroBgImg from "@/assets/services-hero-bg.avif";
+
+// High-quality luxury transport images from Unsplash
+import sedanImg from "@/assets/comparison-sedan.avif";
+import suvImg from "@/assets/comparison-suv.avif";
+
+import airPortTransferImg from "@/assets/service-airport-transfers.avif";
+import executiveTravelImg from "@/assets/service-executive-travel.avif";
+import interCityCustomImg from "@/assets/service-intercity-custom.avif";
+import specialEventsImg from "@/assets/service-special-events.avif";
 
 // High-quality luxury transport images from Unsplash
 const images = {
-  hero: "https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?q=80&w=2070&auto=format&fit=crop", // Driver's perspective/Luxury interior
-  sedan: "https://images.unsplash.com/photo-1563720223185-11003d516935?q=80&w=2070&auto=format&fit=crop", // Mercedes S-Class or similar
-  suv: "https://images.unsplash.com/photo-1609520505218-7421dad18218?q=80&w=2070&auto=format&fit=crop", // Luxury SUV (Escalade/Range Rover style)
+  sedan: sedanImg,
+  suv: suvImg,
   cta: "https://images.unsplash.com/photo-1617788138017-80ad40651399?q=80&w=2070&auto=format&fit=crop" // Abstract luxury car detail
 };
 
 const sections = {
-  hero: {
-    title: "Our Services",
-    tagline: "Luxury Tailored to Every Journey",
-    subtitle: "Experience the ultimate in bespoke transportation, where every detail is meticulously curated for your comfort, privacy, and peace of mind.",
-    image: images.hero
-  },
-  categories: {
-    title: "The AUSEMPI Experience",
-    description: "We offer more than just a ride; we provide a sanctuary on wheels. Choose between our flagship sedans for executive elegance or our commanding SUVs for group prestige."
-  },
   sedan: {
     id: "luxury-sedan",
     title: "Luxury Sedan Services",
@@ -99,31 +98,35 @@ const sections = {
   specialPackages: [
     {
       id: "airport",
+      image: airPortTransferImg,
       icon: Plane,
       title: "Airport Transfers",
-      description: "Stress-free arrivals and departures with real-time flight tracking and curbside meet & greet.",
-      features: ["Punctuality guaranteed", "Flight monitoring", "Curbside pickup"]
+      description: "Experience the epitome of stress-free travel with our dedicated airport transfer service. We continuously monitor your flight status to ensure your chauffeur is ready the moment you land, offering seamless curbside meet & greet and luggage assistance.",
+      features: ["Real-time flight monitoring", "Curbside meet & greet", "Luggage assistance", "60 mins complimentary wait time"]
     },
     {
       id: "corporate",
+      image: executiveTravelImg,
       icon: Building2,
       title: "Executive Travel",
-      description: "Dedicated transportation for high-profile meetings, corporate events, and roadshows.",
-      features: ["Account management", "Multi-car coordination", "Monthly billing"]
+      description: "Elevate your business mobility with comprehensive transportation solutions designed for the corporate world. From high-profile roadshows to daily executive commutes, we provide a mobile office environment with privacy and reliability.",
+      features: ["Dedicated account management", "Multi-vehicle coordination", "Confidentiality agreements", "Detailed monthly billing"]
     },
     {
       id: "longdistance",
+      image: interCityCustomImg,
       icon: Route,
       title: "Intercity & Custom",
-      description: "Comfortable long-distance travel with flexible itineraries and luxury-first amenities.",
-      features: ["Flexible stops", "Refreshments included", "Fixed rates"]
+      description: "Bypass the airport hassle and travel on your own schedule. Our long-distance service offers door-to-door luxury between cities, allowing you to work or relax in complete comfort with flexible stops and bespoke itineraries.",
+      features: ["Door-to-door service", "Flexible itinerary & stops", "Flat-rate pricing", "Premium refreshments included"]
     },
     {
       id: "events",
+      image: specialEventsImg,
       icon: Wine,
       title: "Special Events",
-      description: "Make a grand entrance at weddings, galas, and VIP parties with our pristine fleet.",
-      features: ["Red carpet service", "Decorations available", "Hourly charter"]
+      description: "Arrive in style and make a lasting impression. Whether it's a wedding, gala, red carpet event, or a VIP party, our pristine fleet and immaculately attired chauffeurs ensure your entrance is nothing short of spectacular.",
+      features: ["Red carpet arrival service", "Vehicle decoration options", "Hourly charter availability", "On-site coordination"]
     }
   ]
 };
@@ -160,50 +163,68 @@ const ServicesPage = () => {
       <Navbar />
 
       {/* 1. Hero Section */}
-      <section ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        <motion.div style={{ y, opacity }} className="absolute inset-0 z-0">
+      <section ref={heroRef} className="relative min-h-[100dvh] flex items-center justify-center overflow-hidden pt-20">
+        <motion.div style={{ y, opacity }} className="absolute inset-0 z-0 h-full">
           <LazyImage
-            src={sections.hero.image}
-            className="w-full h-screen object-cover brightness-[0.4]"
+            src={heroBgImg}
+            className="w-full h-full object-cover object-center object-top brightness-[0.9] pt-40 lg:pt-0"
             alt="Luxury Transportation Hero"
+            containerClassName="h-full"
             priority={true}
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-background" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-black/20" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-transparent via-black/20 to-black/60" />
         </motion.div>
 
-        <div className="container-luxury relative z-10 text-center px-4">
+        <div className="container-luxury relative z-10 text-center px-4 md:px-6">
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-            className="max-w-5xl mx-auto"
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="max-w-4xl mx-auto"
           >
-            <div className="inline-flex items-center justify-center gap-3 md:gap-4 mb-8">
-              <div className="h-px w-8 md:w-16 bg-primary/60" />
-              <span className="text-primary text-xs md:text-sm uppercase tracking-[0.4em] font-semibold text-center">
-                {sections.hero.tagline}
+            <div className="inline-flex items-center justify-center gap-3 md:gap-6 mb-6 md:mb-8">
+              <div className="h-px w-8 md:w-16 bg-primary/80" />
+              <span className="text-primary/90 text-[11px] md:text-sm uppercase tracking-[0.3em] font-medium text-center">
+                Luxury Tailored to Every Journey
               </span>
-              <div className="h-px w-8 md:w-16 bg-primary/60" />
+              <div className="h-px w-8 md:w-16 bg-primary/80" />
             </div>
 
-            <h1 className="font-display text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-bold text-white mb-8 leading-[0.9] tracking-tight">
+            <h1 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white mb-6 md:mb-8 leading-[1.1] tracking-tight">
               Our <span className="text-gradient-gold italic pr-2">Services</span>
             </h1>
 
-            <p className="text-lg md:text-2xl text-white/80 font-light leading-relaxed max-w-3xl mx-auto">
-              {sections.hero.subtitle}
+            <p className="text-base sm:text-lg md:text-xl text-white/80 font-light leading-relaxed max-w-2xl mx-auto mb-12">
+              Experience the ultimate in bespoke transportation, where every detail is meticulously curated for your comfort, privacy, and peace of mind.
             </p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.8 }}
+              className="flex flex-col sm:flex-row gap-4 justify-center px-10 sm:px-0"
+            >
+              <Button size="xl" variant="gold-cta" className="min-w-[160px] text-sm h-12 sm:h-14 tracking-widest" asChild>
+                <Link to={EXTERNAL_LINKS.booking} target="_blank" rel="noopener noreferrer">
+                  Book A Ride
+                </Link>
+              </Button>
+              <Button size="xl" variant="hero-outline" className="min-w-[160px] text-sm h-12 sm:h-14 tracking-widest backdrop-blur-md" asChild>
+                <Link to="#luxury-sedan">
+                  Explore Fleet
+                </Link>
+              </Button>
+            </motion.div>
 
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.5, duration: 1 }}
-              className="mt-12"
+              transition={{ delay: 1, duration: 1 }}
+              className="mt-12 pointer-events-none hidden md:flex flex-col items-center gap-3"
             >
-              <div className="flex flex-col items-center gap-2 text-white/40">
-                <span className="text-[10px] uppercase tracking-widest">Scroll to Explore</span>
-                <div className="w-px h-12 bg-gradient-to-b from-white/40 to-transparent" />
-              </div>
+              <span className="text-[10px] uppercase tracking-[0.2em] text-white/50">Scroll</span>
+              <div className="w-[1px] h-12 bg-gradient-to-b from-primary/50 to-transparent" />
             </motion.div>
           </motion.div>
         </div>
@@ -214,64 +235,69 @@ const ServicesPage = () => {
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[150px] translate-x-1/2 -translate-y-1/2 pointer-events-none" />
         <div className="container-luxury text-center relative z-10">
           <FadeInSection>
-            <span className="text-primary text-xs uppercase tracking-[0.5em] font-bold block mb-6">World-Class Standards</span>
-            <h2 className="font-display text-4xl md:text-6xl font-bold text-foreground mb-8">{sections.categories.title}</h2>
-            <p className="text-muted-foreground text-xl font-light max-w-3xl mx-auto leading-relaxed">
-              {sections.categories.description}
+            <span className="text-primary text-xs md:text-sm uppercase tracking-[0.5em] font-bold block mb-6">World-Class Standards</span>
+            <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-8">
+              The <span className="text-gradient-gold">AUSEMPI</span> Experience
+            </h2>
+            <p className="text-muted-foreground text-base sm:text-lg md:text-xl font-light max-w-3xl mx-auto leading-relaxed">
+              We offer more than just a ride; we provide a sanctuary on wheels. Choose between our flagship sedans for executive elegance or our commanding SUVs for group prestige.
             </p>
           </FadeInSection>
         </div>
       </section>
 
       {/* 3. Luxury Sedan Services */}
-      <section className="bg-charcoal py-24 md:py-32 relative overflow-hidden">
+      <section id="luxury-sedan" className="bg-charcoal py-20 md:py-32 relative overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
         <div className="container-luxury">
-          <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-            <FadeInSection className="order-2 lg:order-1">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-24 items-center">
+            {/* Image Side */}
+            <FadeInSection className="order-1 lg:order-1 relative">
               <div className="relative group">
-                <div className="absolute -inset-4 border border-primary/10 translate-x-4 translate-y-4 group-hover:translate-x-2 group-hover:translate-y-2 transition-transform duration-700 rounded-sm" />
-                <div className="aspect-[4/3] overflow-hidden rounded-sm relative z-10 shadow-2xl">
+                <div className="absolute -inset-3 sm:-inset-4 border border-primary/10 translate-x-0 translate-y-0 lg:group-hover:scale-105 transition-transform duration-700 rounded-sm" />
+                <div className="aspect-[4/3] sm:aspect-[16/10] lg:aspect-[4/3] overflow-hidden rounded-sm relative z-10 lg:hover:shadow-2xl transition-shadow duration-700">
                   <LazyImage
                     src={sections.sedan.image}
                     alt="Luxury Sedan"
-                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                    className="w-full h-full object-cover transition-transform duration-1000 lg:group-hover:scale-105"
+                    containerClassName="w-full h-full"
                   />
-                  <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-700" />
+                  <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-700" />
                 </div>
               </div>
             </FadeInSection>
 
-            <FadeInSection delay={0.2} className="order-1 lg:order-2">
+            {/* Content Side */}
+            <FadeInSection delay={0.2} className="order-2 lg:order-2">
               <div>
-                <div className="flex items-center gap-4 mb-6">
-                  <span className="w-12 h-px bg-primary" />
-                  <span className="text-primary text-xs uppercase tracking-[0.3em] font-bold">{sections.sedan.subtitle}</span>
+                <div className="flex items-center gap-3 md:gap-4 mb-4 md:mb-6">
+                  <span className="w-8 md:w-12 h-px bg-primary" />
+                  <span className="text-primary text-[10px] md:text-xs uppercase tracking-[0.3em] font-bold">{sections.sedan.subtitle}</span>
                 </div>
 
-                <h2 className="font-display text-4xl md:text-6xl font-bold text-white mb-6 leading-none">{sections.sedan.title}</h2>
-                <p className="text-white/60 text-lg font-light leading-relaxed mb-10">{sections.sedan.description}</p>
+                <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 md:mb-6 leading-tight">
+                  {sections.sedan.title}
+                </h2>
 
-                <div className="grid grid-cols-2 gap-y-6 gap-x-4 mb-12">
+                <p className="text-white/60 text-base sm:text-lg font-light leading-relaxed mb-8 md:mb-10">
+                  {sections.sedan.description}
+                </p>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 sm:gap-y-6 gap-x-4 mb-8 md:mb-12">
                   {sections.sedan.amenities.map((item, i) => (
                     <div key={i} className="flex items-center gap-3 text-white/70 group">
                       <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-black transition-colors duration-300">
                         <item.icon size={16} />
                       </div>
-                      <span className="text-sm uppercase tracking-wider font-medium">{item.label}</span>
+                      <span className="text-xs sm:text-sm uppercase tracking-wider font-medium">{item.label}</span>
                     </div>
                   ))}
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Button size="lg" className="bg-primary text-black hover:bg-white transition-colors duration-300 min-w-[180px]" asChild>
-                    <a href={EXTERNAL_LINKS.booking} target="_blank" rel="noopener noreferrer">
+                  <Button size="lg" className="bg-primary text-black hover:bg-white transition-colors duration-300 min-w-full sm:min-w-[200px] h-12 md:h-14 text-sm md:text-base uppercase font-semibold tracking-wider" asChild>
+                    <Link to={EXTERNAL_LINKS.booking} target="_blank" rel="noopener noreferrer">
                       Book Sedan
-                    </a>
-                  </Button>
-                  <Button size="lg" variant="luxury-outline" className="min-w-[180px]" asChild>
-                    <Link to={`/services/${sections.sedan.id}`}>
-                      View Details
                     </Link>
                   </Button>
                 </div>
@@ -282,54 +308,60 @@ const ServicesPage = () => {
       </section>
 
       {/* 4. Luxury SUV Services */}
-      <section className="bg-background py-24 md:py-32 relative overflow-hidden">
+      <section id="luxury-suv" className="bg-background py-20 md:py-32 relative overflow-hidden">
         <div className="container-luxury">
-          <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-            <FadeInSection delay={0.2} className="order-1">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-24 items-center">
+            {/* Content Side - First on Desktop */}
+            <FadeInSection delay={0.2} className="order-2 lg:order-1">
               <div>
-                <div className="flex items-center gap-4 mb-6">
-                  <span className="w-12 h-px bg-primary" />
-                  <span className="text-primary text-xs uppercase tracking-[0.3em] font-bold">{sections.suv.subtitle}</span>
+                <div className="flex items-center gap-3 md:gap-4 mb-4 md:mb-6">
+                  <span className="w-8 md:w-12 h-px bg-primary" />
+                  <span className="text-primary text-[10px] md:text-xs uppercase tracking-[0.3em] font-bold">
+                    {sections.suv.subtitle}
+                  </span>
                 </div>
-                <h2 className="font-display text-4xl md:text-6xl font-bold text-foreground mb-6 leading-none">{sections.suv.title}</h2>
-                <p className="text-muted-foreground text-lg font-light leading-relaxed mb-10">{sections.suv.description}</p>
 
-                <div className="grid grid-cols-2 gap-y-6 gap-x-4 mb-12">
+                <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 md:mb-6 leading-tight">
+                  {sections.suv.title}
+                </h2>
+
+                <p className="text-muted-foreground text-base sm:text-lg font-light leading-relaxed mb-8 md:mb-10">
+                  {sections.suv.description}
+                </p>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 sm:gap-y-6 gap-x-4 mb-8 md:mb-12">
                   {sections.suv.amenities.map((item, i) => (
                     <div key={i} className="flex items-center gap-3 text-muted-foreground group">
                       <div className="w-8 h-8 rounded-full bg-secondary flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-black transition-colors duration-300">
                         <item.icon size={16} />
                       </div>
-                      <span className="text-sm uppercase tracking-wider font-medium">{item.label}</span>
+                      <span className="text-xs sm:text-sm uppercase tracking-wider font-medium">{item.label}</span>
                     </div>
                   ))}
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Button size="lg" className="bg-primary text-black hover:bg-charcoal hover:text-white transition-colors duration-300 min-w-[180px]" asChild>
-                    <a href={EXTERNAL_LINKS.booking} target="_blank" rel="noopener noreferrer">
+                  <Button size="lg" className="bg-primary text-black hover:bg-charcoal hover:text-white transition-colors duration-300 min-w-full sm:min-w-[200px] h-12 md:h-14 text-sm md:text-base uppercase font-semibold tracking-wider" asChild>
+                    <Link to={EXTERNAL_LINKS.booking} target="_blank" rel="noopener noreferrer">
                       Book SUV
-                    </a>
-                  </Button>
-                  <Button size="lg" variant="luxury-outline" className="min-w-[180px]" asChild>
-                    <Link to={`/services/${sections.suv.id}`}>
-                      View Details
                     </Link>
                   </Button>
                 </div>
               </div>
             </FadeInSection>
 
-            <FadeInSection className="order-2">
+            {/* Image Side */}
+            <FadeInSection className="order-1 lg:order-2 relative">
               <div className="relative group">
-                <div className="absolute -inset-4 border border-primary/10 -translate-x-4 translate-y-4 group-hover:-translate-x-2 group-hover:translate-y-2 transition-transform duration-700 rounded-sm" />
-                <div className="aspect-[4/3] overflow-hidden rounded-sm relative z-10 shadow-2xl">
+                <div className="absolute -inset-3 sm:-inset-4 border border-primary/10 translate-x-0 translate-y-0 lg:group-hover:scale-105 transition-transform duration-700 rounded-sm" />
+                <div className="aspect-[4/3] sm:aspect-[16/10] lg:aspect-[4/3] overflow-hidden rounded-sm relative z-10 lg:hover:shadow-2xl transition-shadow duration-700">
                   <LazyImage
                     src={sections.suv.image}
                     alt="Luxury SUV"
                     className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                    containerClassName="w-full h-full"
                   />
-                  <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-700" />
+                  <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-700" />
                 </div>
               </div>
             </FadeInSection>
@@ -378,34 +410,58 @@ const ServicesPage = () => {
       <section className="bg-background py-32 md:py-48 relative">
         <div className="container-luxury">
           <div className="text-center mb-20 md:mb-28">
-            <span className="text-primary text-xs uppercase tracking-[0.5em] font-bold block mb-6">Specialized Travel</span>
-            <h2 className="font-display text-4xl md:text-7xl font-bold text-foreground mb-6">Service Packages</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">Tailored solutions for every occasion, ensuring your journey is as memorable as the destination.</p>
+            <span className="text-primary text-xs md:text-sm uppercase tracking-[0.5em] font-bold block mb-6">
+              Specialized Travel
+            </span>
+            <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6">
+              Service Packages
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto text-base sm:text-lg md:text-xl">
+              Tailored solutions for every occasion, ensuring your journey is as memorable as the destination.
+              </p>
           </div>
 
-          <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-6 md:gap-8">
+          <div className="grid lg:grid-cols-2 gap-6 lg:gap-8">
             {sections.specialPackages.map((pkg, idx) => (
               <FadeInSection key={pkg.id} delay={idx * 0.1} className="h-full">
-                <div className="group h-full p-8 bg-charcoal/5 hover:bg-charcoal/10 transition-all duration-500 rounded-lg border border-transparent hover:border-primary/20 flex flex-col relative overflow-hidden">
-                  <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity duration-500">
-                    <pkg.icon size={80} strokeWidth={1} />
+                <div className="group h-full bg-charcoal/5 hover:bg-charcoal/10 border border-white/5 hover:border-primary/20 rounded-sm overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_10px_30px_-10px_rgba(0,0,0,0.5)] flex flex-col">
+                  {/* Image Area - 3:2 Ratio */}
+                  <div className="relative aspect-[3/2]">
+                    <LazyImage
+                      src={pkg.image}
+                      alt={pkg.title}
+                      className="w-full h-full object-cover"
+                      containerClassName="w-full h-full group-hover:scale-105 transition-transform duration-1000"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-80" />
+
+                    {/* Floating Icon */}
+                    <div className="absolute bottom-0 right-6 translate-y-1/2 w-12 h-12 bg-primary text-black flex items-center justify-center rounded-sm shadow-lg transition-transform duration-500 group-hover:scale-110 z-10">
+                      <pkg.icon size={24} />
+                    </div>
                   </div>
 
-                  <div className="w-14 h-14 rounded-lg bg-white/5 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500 text-primary relative z-10 border border-white/10 group-hover:border-primary/30 group-hover:bg-primary/10">
-                    <pkg.icon size={28} />
+                  {/* Content Area - Always Visible */}
+                  <div className="p-6 pt-10 flex flex-col flex-grow relative bg-background backdrop-blur-sm">
+                    <h3 className="font-display text-2xl sm:text-3xl font-bold text-white mb-4 tracking-wide group-hover:text-primary transition-colors">
+                      {pkg.title}
+                    </h3>
+
+                    <p className="text-muted-foreground text-base sm:text-lg lg:text-base leading-relaxed mb-8">
+                      {pkg.description}
+                    </p>
+
+                    <div className="mt-auto pt-6 border-t border-white/5">
+                      <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-2 gap-y-3">
+                        {pkg.features.map((f, fi) => (
+                          <li key={fi} className="flex items-start gap-2.5 text-sm sm:text-base lg:text-sm font-medium text-white/70">
+                            <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0 mt-1.5" />
+                            {f}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   </div>
-
-                  <h3 className="font-display text-2xl font-bold text-foreground mb-4 group-hover:text-primary transition-colors relative z-10">{pkg.title}</h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed mb-8 flex-grow relative z-10">{pkg.description}</p>
-
-                  <ul className="space-y-3 relative z-10 mt-auto pt-6 border-t border-dashed border-white/10">
-                    {pkg.features.map((f, fi) => (
-                      <li key={fi} className="flex items-start gap-3 text-xs text-muted-foreground/80">
-                        <CheckCircle2 size={14} className="text-primary shrink-0 mt-0.5" />
-                        {f}
-                      </li>
-                    ))}
-                  </ul>
                 </div>
               </FadeInSection>
             ))}
