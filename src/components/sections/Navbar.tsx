@@ -92,7 +92,7 @@ const Navbar = () => {
                 >
                   <Link
                     to={link.href}
-                    className={`relative text-sm uppercase tracking-[0.15em] transition-all duration-300 group ${isActive
+                    className={`relative text-[0.8rem] uppercase tracking-[0.15em] transition-all duration-300 group ${isActive
                       ? "text-primary font-medium"
                       : link.isSecondary
                         ? "text-muted-foreground/70 hover:text-muted-foreground"

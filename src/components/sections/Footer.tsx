@@ -4,6 +4,7 @@ import { Mail, Phone, MapPin, Instagram, Twitter, Linkedin, Facebook, ArrowUpRig
 import { BRAND, CONTACT, EXTERNAL_LINKS } from "@/lib/constants";
 import { Button } from "@/components/ui/button";
 import startDustBg from "@/assets/stardust-bg.png";
+import logo from "@/assets/ausempi-logo.png";
 
 const footerLinks = {
   navigation: [
@@ -116,9 +117,13 @@ const Footer = () => {
               transition={{ duration: 0.6 }}
             >
               <Link to="/" className="inline-block group">
-                <span className="text-3xl md:text-4xl font-display font-bold tracking-[0.4em] text-gradient-gold transition-all duration-500 group-hover:tracking-[0.45em]">
-                  {BRAND.name}
-                </span>
+                <motion.img
+                  src={logo}
+                  alt={BRAND.name}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="h-12 lg:h-16 w-auto object-contain"
+                />
               </Link>
               <p className="text-muted-foreground mt-8 text-base leading-relaxed max-w-sm font-light italic">
                 "{BRAND.description}. We define the standard of excellence in every mile, ensuring your journey is as distinguished as your destination."
