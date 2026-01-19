@@ -89,7 +89,7 @@ export default function DriverLogin() {
 
         <div className="flex-1 flex flex-col justify-center items-center p-6 sm:p-12 lg:p-24 w-full">
           {/* Decorative Grid Background (Desktop Only on Right side) */}
-          <div className="fixed inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none hidden lg:block" />
+          <div className="fixed inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none hidden lg:block" />
 
           <div className="w-full max-w-[400px] relative z-10 py-12 lg:py-0">
             <motion.div
@@ -126,7 +126,7 @@ export default function DriverLogin() {
                     placeholder="AUS-0000"
                     value={employeeId}
                     onChange={(e) => setEmployeeId(e.target.value)}
-                    className="pl-11 h-12 sm:h-14 bg-white/[0.03] border-white/10 hover:border-primary/30 focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all duration-300 rounded-sm text-base placeholder:text-muted-foreground/30 font-light tracking-wide"
+                    className="pl-11 h-12 sm:h-14 bg-white/[0.03] border-white/10 hover:border-primary/30 focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all duration-300 rounded-sm text-base placeholder:text-muted-foreground/30 font-light tracking-wide bg-background"
                     required
                   />
                 </div>
@@ -152,8 +152,9 @@ export default function DriverLogin() {
                     id="password"
                     type={showPassword ? "text" : "password"}
                     value={password}
+                    placeholder="********"
                     onChange={(e) => setPassword(e.target.value)}
-                    className="pl-11 pr-11 h-12 sm:h-14 bg-white/[0.03] border-white/10 hover:border-primary/30 focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all duration-300 rounded-sm text-base placeholder:text-muted-foreground/30"
+                    className="pl-11 pr-11 h-12 sm:h-14 bg-white/[0.03] border-white/10 hover:border-primary/30 focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all duration-300 rounded-sm text-base placeholder:text-muted-foreground/30 bg-background autofill"
                     required
                   />
                   <button
@@ -184,18 +185,17 @@ export default function DriverLogin() {
                 )}
               </Button>
 
-              <div className="pt-8 relative text-center">
-                <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-white/10" />
-                </div>
+              <div className="pt-4 relative text-center">
                 <div className="relative">
-                  <span className="bg-[#0A0A0A] px-4 text-[10px] text-muted-foreground uppercase tracking-widest font-medium">
-                    Support
+                  <span className="px-4 text-[10px] text-muted-foreground uppercase tracking-widest font-medium">
+                    Need any help?
                   </span>
                 </div>
               </div>
 
-              <div className="flex justify-center pt-4">
+
+
+              <div className="flex justify-center pt-2">
                 <div className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors cursor-pointer group px-4 py-2 rounded-sm hover:bg-white/5">
                   <HelpCircle size={14} className="group-hover:text-primary transition-colors" />
                   <span className="text-xs tracking-wider">Contact Support</span>
@@ -207,7 +207,7 @@ export default function DriverLogin() {
           {/* Mobile Footer */}
           <div className="w-full text-center pb-6 lg:pb-0 lg:absolute lg:bottom-8 relative z-10">
             <p className="text-[9px] uppercase tracking-[0.3em] text-white/20 font-medium">
-              Secured by Ausempi Guard • 256-bit Encryption
+              Secured by Ausempi
             </p>
           </div>
         </div>
