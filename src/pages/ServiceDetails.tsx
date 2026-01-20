@@ -114,6 +114,11 @@ const ServiceDetails = () => {
   const { serviceId } = useParams();
   const service = SERVICES_DATA[serviceId as keyof typeof SERVICES_DATA];
 
+  const heroRef = useRef(null);
+  const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+
   // Fallback if ID not found
   if (!service) {
     return (
@@ -127,13 +132,8 @@ const ServiceDetails = () => {
         </div>
         <Footer />
       </MainLayout>
-    )
+    );
   }
-
-  const heroRef = useRef(null);
-  const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
-  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   return (
     <MainLayout>
@@ -281,7 +281,7 @@ const ServiceDetails = () => {
             <div className="md:col-span-4 h-[250px] md:h-full rounded-sm overflow-hidden group relative">
               <LazyImage
                 src={service.gallery[1]}
-                className="w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-110"
+                className="w-full h-full object-cover transition-transform duration-[2000ms] group-hover:scale-110"
                 alt="Detail View"
               />
               <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-700" />
@@ -289,7 +289,7 @@ const ServiceDetails = () => {
             <div className="md:col-span-4 h-[250px] md:h-full rounded-sm overflow-hidden group relative">
               <LazyImage
                 src={service.gallery[2]}
-                className="w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-110"
+                className="w-full h-full object-cover transition-transform duration-[2000ms] group-hover:scale-110"
                 alt="Interior View"
               />
               <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-700" />

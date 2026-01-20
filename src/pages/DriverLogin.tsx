@@ -38,7 +38,7 @@ export default function DriverLogin() {
           <LazyImage
             src={driverLoginImg}
             alt="Luxury Driver"
-            className="w-full h-full object-cover object-left opacity-60 transition-transform duration-[20s] hover:scale-105"
+            className="w-full h-full object-cover object-left opacity-60 transition-transform duration-[20000ms] hover:scale-105"
             containerClassName="h-full"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />

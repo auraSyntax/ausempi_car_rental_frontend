@@ -55,7 +55,8 @@ export const useGsapScrollTrigger = (
   }
 ) => {
   useEffect(() => {
-    if (!ref.current) return;
+    const currentRef = ref.current;
+    if (!currentRef) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -71,11 +72,11 @@ export const useGsapScrollTrigger = (
       { threshold: 0.1 }
     );
 
-    observer.observe(ref.current);
+    observer.observe(currentRef);
 
     return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
+      if (currentRef) {
+        observer.unobserve(currentRef);
       }
     };
   }, [ref, animation, options?.once]);

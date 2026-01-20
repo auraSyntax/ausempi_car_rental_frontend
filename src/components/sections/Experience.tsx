@@ -52,11 +52,11 @@ const Experience = () => {
       className="section-padding bg-[#0A0A0A] relative overflow-hidden"
     >
       {/* Decorative Background Text */}
-      <div className="hidden lg:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full text-center pointer-events-none select-none overflow-hidden opacity-[0.02]">
+      {/* <div className="hidden lg:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full text-center pointer-events-none select-none overflow-hidden opacity-[0.02]">
         <span className="font-display text-[20vw] font-bold whitespace-nowrap leading-none">
           AUSEMPI
         </span>
-      </div>
+      </div> */}
 
       {/* Decorative Elements */}
       <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[120px] -translate-x-1/2 -translate-y-1/2" />

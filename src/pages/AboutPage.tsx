@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import { Link } from "react-router-dom";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import {
   Shield,
@@ -120,8 +121,8 @@ const sections = {
   gallery: images.gallery
 };
 
-const FadeInSection = ({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) => {
-  const ref = useRef(null);
+const FadeInSection = ({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) => {
+  const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
 
   return (
@@ -130,6 +131,7 @@ const FadeInSection = ({ children, delay = 0 }: { children: React.ReactNode; del
       initial={{ opacity: 0, y: 30 }}
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
       transition={{ duration: 0.8, delay, ease: [0.21, 0.47, 0.32, 0.98] }}
+      className={className}
     >
       {children}
     </motion.div>
@@ -137,7 +139,7 @@ const FadeInSection = ({ children, delay = 0 }: { children: React.ReactNode; del
 };
 
 const AboutPage = () => {
-  const heroRef = useRef(null);
+  const heroRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ["start start", "end start"]
@@ -155,11 +157,13 @@ const AboutPage = () => {
         <motion.div style={{ y, opacity }} className="absolute inset-0 z-0">
           <LazyImage
             src={sections.hero.image}
-            className="w-full h-full object-cover brightness-[0.3]"
+            className="w-full h-full object-cover brightness-[0.4]"
             alt="Luxury Sedan Exterior"
             priority={true}
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-background" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-transparent to-background" />
+          {/* Grain Texture Overlay */}
+          <div className="absolute inset-0 opacity-[0.03] pointer-events-none mix-blend-overlay bg-[url('https://res.cloudinary.com/dzv9v4o7z/image/upload/v1706110000/grain-texture_q9x9x9.png')]" />
         </motion.div>
 
         <div className="container-luxury relative z-10 px-6">
@@ -176,13 +180,23 @@ const AboutPage = () => {
               </span>
             </div>
 
-            <h1 className="font-display text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold text-white mb-8 leading-[0.9] tracking-tight">
-              About <br /> <span className="text-gradient-gold">AUSEMPI</span>
-            </h1>
+            <motion.h1
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
+              className="font-display text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold text-white mb-8 leading-[0.9] tracking-tight"
+            >
+              About <br /> <span className="text-gradient-gold drop-shadow-2xl">AUSEMPI</span>
+            </motion.h1>
 
-            <p className="text-lg md:text-2xl text-white/80 font-light leading-relaxed max-w-3xl border-l-2 border-primary/40 pl-8 md:pl-10">
+            <motion.p
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1, delay: 0.5 }}
+              className="text-lg md:text-2xl text-white/80 font-light leading-relaxed max-w-3xl border-l-2 border-primary/40 pl-8 md:pl-10"
+            >
               {sections.hero.subtitle}
-            </p>
+            </motion.p>
           </motion.div>
         </div>
 
@@ -236,27 +250,34 @@ const AboutPage = () => {
               <div className="relative aspect-[3/4] md:aspect-[4/5] overflow-hidden rounded-sm group shadow-2xl">
                 <LazyImage
                   src={sections.story.image}
-                  className="w-full h-full object-cover transition-all duration-1000 group-hover:scale-105"
+                  className="w-full h-full object-cover transition-all duration-[1000ms] group-hover:scale-105"
                   alt="AUSEMPI Interior"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60" />
 
-                <div className="absolute bottom-8 left-8 right-8 text-white">
-                  <Quote size={40} className="text-primary mb-4 opacity-80" />
-                  <p className="text-xl md:text-2xl font-display leading-tight mb-4">
+                <div className="absolute bottom-6 md:bottom-8 left-6 md:left-8 right-6 md:right-8 text-white">
+                  <Quote size={40} className="text-primary mb-4 opacity-80 scale-75 md:scale-100 origin-left" />
+                  <p className="text-lg md:text-2xl font-display leading-tight mb-4 italic">
                     "Luxury is the absence of worry. It is the freedom of time and the comfort of silence."
                   </p>
-                  <p className="text-sm uppercase tracking-widest text-primary font-bold">The AUSEMPI Promise</p>
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-px bg-primary/50" />
+                    <p className="text-[10px] md:text-xs uppercase tracking-[0.2em] text-primary font-bold">The AUSEMPI Promise</p>
+                  </div>
                 </div>
               </div>
 
               {/* Floating Badge */}
-              <div className="absolute -top-6 -right-6 md:top-8 md:-right-8 w-24 h-24 md:w-32 md:h-32 rounded-full border border-primary/20 bg-background/80 backdrop-blur-md flex items-center justify-center p-4 animate-[spin_10s_linear_infinite]">
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                className="absolute -top-6 -right-6 md:top-8 md:-right-8 w-24 h-24 md:w-32 md:h-32 rounded-full border border-primary/20 bg-background/80 backdrop-blur-md flex items-center justify-center p-4 z-20"
+              >
                 <div className="text-center">
                   <span className="block text-[8px] md:text-[10px] uppercase tracking-widest font-bold text-primary">Est.</span>
                   <span className="block text-xl md:text-2xl font-bold font-display text-foreground">2018</span>
                 </div>
-              </div>
+              </motion.div>
             </FadeInSection>
           </div>
         </div>
@@ -277,14 +298,14 @@ const AboutPage = () => {
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-20">
             {sections.fleet.map((item, idx) => (
               <FadeInSection key={item.type} delay={idx * 0.2}>
-                <div className="group relative bg-white/[0.02] border border-white/5 hover:border-primary/20 transition-all duration-500 rounded-sm overflow-hidden">
+                <div className="group relative bg-white/[0.02] border border-white/5 hover:border-primary/20 transition-all duration-500 rounded-sm overflow-hidden hover:shadow-[0_0_50px_rgba(212,175,55,0.1)]">
                   <div className="aspect-[16/10] overflow-hidden relative border-b border-white/5">
                     <LazyImage
                       src={item.image}
                       alt={item.type}
-                      className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                      className="w-full h-full object-cover transition-transform duration-[1000ms] group-hover:scale-105"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-80" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80" />
                     <div className="absolute top-6 left-6 z-10">
                       <span className="px-3 py-1 bg-black/60 backdrop-blur-md border border-white/10 text-white text-[9px] uppercase font-bold tracking-widest rounded-sm">
                         {idx === 0 ? "Flagship Choice" : "Group Executive"}
@@ -325,9 +346,9 @@ const AboutPage = () => {
           </div>
 
           <div className="mt-16 text-center">
-            <a href="/fleet" className="inline-flex items-center gap-3 text-white text-xs uppercase tracking-[0.2em] font-bold group hover:text-primary transition-colors">
+            <Link to="/fleet" className="inline-flex items-center gap-3 text-white text-xs uppercase tracking-[0.2em] font-bold group hover:text-primary transition-colors">
               View Complete Fleet <ChevronRight size={16} className="transition-transform group-hover:translate-x-1" />
-            </a>
+            </Link>
           </div>
         </div>
       </section>
@@ -395,13 +416,13 @@ const AboutPage = () => {
           <div className="grid lg:grid-cols-2 gap-8 md:gap-12">
             {sections.whyChoose.map((item, idx) => (
               <FadeInSection key={item.title} delay={idx * 0.2}>
-                <div className="group relative overflow-hidden rounded-lg aspect-[16/10] md:aspect-[16/9]">
+                <div className="group relative overflow-hidden rounded-lg aspect-[16/10] md:aspect-[16/9] shadow-2xl">
                   <LazyImage
                     src={item.image}
                     alt={item.title}
-                    className="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-110 grayscale-[0.3] group-hover:grayscale-0"
+                    className="w-full h-full object-cover transition-transform duration-[1500ms] group-hover:scale-110 grayscale-[0.3] group-hover:grayscale-0"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent group-hover:via-black/20 transition-all duration-500" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent group-hover:via-black/10 transition-all duration-700" />
 
                   <div className="absolute inset-0 p-8 md:p-12 flex flex-col justify-end">
                     <span className="text-[10px] uppercase tracking-[0.3em] text-primary font-bold mb-3 md:mb-4 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
@@ -480,7 +501,7 @@ const AboutPage = () => {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
             {sections.gallery.map((img, idx) => (
               <FadeInSection key={idx} delay={idx * 0.15} className={idx % 2 === 1 ? 'md:translate-y-12' : ''}>
-                <div className="relative overflow-hidden group rounded-sm aspect-[3/4]">
+                <div className="relative overflow-hidden group rounded-sm aspect-[3/4] shadow-lg">
                   <LazyImage
                     src={img}
                     className="w-full h-full object-cover transition-transform duration-[1500ms] group-hover:scale-110 grayscale-[0.2] group-hover:grayscale-0"
