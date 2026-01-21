@@ -74,7 +74,7 @@ const Footer = () => {
                 <Button
                   variant="gold-cta"
                   size="xl"
-                  className="group px-5 sm:px-10 py-5 sm:py-7 text-sm sm:text-base rounded-none border border-primary/30 relative overflow-hidden"
+                  className="group px-5 sm:px-10 py-5 sm:py-7 text-xs sm:text-sm md:text-base rounded-none border border-primary/30 relative overflow-hidden"
                   asChild
                 >
                   <Link
