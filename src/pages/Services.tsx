@@ -13,7 +13,8 @@ import {
   BatteryCharging,
   Wine,
   Thermometer,
-  CheckCircle2
+  Star,
+  Clock
 } from "lucide-react";
 import MainLayout from "@/layouts/MainLayout";
 import { Navbar, Footer } from "@/components/sections";
@@ -32,11 +33,13 @@ import executiveTravelImg from "@/assets/service-executive-travel.avif";
 import interCityCustomImg from "@/assets/service-intercity-custom.avif";
 import specialEventsImg from "@/assets/service-special-events.avif";
 
+import ctaBgImg from "@/assets/service-cta-bg-1.avif";
+
 // High-quality luxury transport images from Unsplash
 const images = {
   sedan: sedanImg,
   suv: suvImg,
-  cta: "https://images.unsplash.com/photo-1617788138017-80ad40651399?q=80&w=2070&auto=format&fit=crop" // Abstract luxury car detail
+  cta: ctaBgImg
 };
 
 const sections = {
@@ -375,32 +378,34 @@ const ServicesPage = () => {
         <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[150px] translate-x-1/2 translate-y-1/2 pointer-events-none" />
 
         <div className="container-luxury relative z-10">
-          <div className="text-center mb-24">
-            <span className="text-primary text-xs uppercase tracking-[0.5em] font-bold block mb-6">Choose Your Level</span>
-            <h2 className="font-display text-4xl md:text-6xl font-bold text-white mb-8">Fleet Distinction</h2>
+          <div className="text-center mb-20">
+            <span className="text-primary text-[11px] md:text-xs uppercase tracking-[0.5em] font-bold block mb-6">Choose Your Level</span>
+            <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-8">Fleet Distinction</h2>
             <div className="w-24 h-px bg-gradient-to-r from-transparent via-primary to-transparent mx-auto" />
           </div>
 
-          <div className="max-w-5xl mx-auto overflow-hidden rounded-2xl border border-white/5 bg-white/[0.02] backdrop-blur-sm">
-            <div className="overflow-x-auto">
-              <table className="w-full text-left border-collapse min-w-[600px]">
-                <thead>
-                  <tr className="border-b border-white/10 bg-white/[0.02]">
-                    <th className="p-6 md:p-8 text-white/40 uppercase tracking-widest text-xs font-bold w-1/3">Specification</th>
-                    <th className="p-6 md:p-8 font-display text-xl md:text-2xl font-bold text-white w-1/3">Sedan Class</th>
-                    <th className="p-6 md:p-8 font-display text-xl md:text-2xl font-bold text-primary w-1/3">SUV Class</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {sections.comparison.map((row, i) => (
-                    <tr key={i} className="border-b border-white/5 last:border-0 hover:bg-white/[0.03] transition-colors group">
-                      <td className="p-6 md:p-8 text-white/60 text-sm font-medium tracking-wide group-hover:text-white transition-colors">{row.feature}</td>
-                      <td className="p-6 md:p-8 text-white/90 font-light">{row.sedan}</td>
-                      <td className="p-6 md:p-8 text-primary/90 font-medium">{row.suv}</td>
+          <div className="max-w-5xl mx-auto relative border border-gold/20 p-3 sm:p-5">
+            <div className="overflow-hidden rounded-none border border-white/5 bg-white/[0.04] backdrop-blur-sm">
+              <div className="overflow-x-auto">
+                <table className="w-full text-left border-collapse min-w-[600px]">
+                  <thead>
+                    <tr className="border-b border-white/10 bg-white/[0.04]">
+                      <th className="p-6 md:p-8 text-white/40 uppercase tracking-widest text-xs font-bold w-1/3">Specification</th>
+                      <th className="p-6 md:p-8 font-display text-xl md:text-2xl font-bold text-white w-1/3">Sedan Class</th>
+                      <th className="p-6 md:p-8 font-display text-xl md:text-2xl font-bold text-primary w-1/3">SUV Class</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {sections.comparison.map((row, i) => (
+                      <tr key={i} className="border-b border-white/5 last:border-0 hover:bg-white/[0.03] transition-colors group">
+                        <td className="p-6 md:p-8 text-white/60 text-sm font-medium tracking-wide group-hover:text-white transition-colors">{row.feature}</td>
+                        <td className="p-6 md:p-8 text-white/90 font-light">{row.sedan}</td>
+                        <td className="p-6 md:p-8 text-primary/90 font-medium">{row.suv}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
@@ -409,7 +414,7 @@ const ServicesPage = () => {
       {/* 6. Special Service Packages */}
       <section className="bg-background py-32 md:py-48 relative">
         <div className="container-luxury">
-          <div className="text-center mb-20 md:mb-28">
+          <div className="text-center mb-20 md:mb-24">
             <span className="text-primary text-xs md:text-sm uppercase tracking-[0.5em] font-bold block mb-6">
               Specialized Travel
             </span>
@@ -418,7 +423,7 @@ const ServicesPage = () => {
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto text-base sm:text-lg md:text-xl">
               Tailored solutions for every occasion, ensuring your journey is as memorable as the destination.
-              </p>
+            </p>
           </div>
 
           <div className="grid lg:grid-cols-2 gap-6 lg:gap-8">
@@ -470,34 +475,61 @@ const ServicesPage = () => {
       </section>
 
       {/* 7. Call-to-Action Section */}
-      <section className="py-32 relative bg-black overflow-hidden">
+      <section className="py-24 md:py-32 relative bg-black overflow-hidden group">
         <div className="absolute inset-0 z-0">
           <LazyImage
+            containerClassName="h-full"
             src={images.cta}
-            className="w-full h-full object-cover opacity-40"
+            className="w-full h-full object-cover object-right sm:object-center opacity-40 transition-transform duration-[1.5s] ease-in-out group-hover:scale-105"
             alt="Luxury Night Drive"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-transparent to-black/80" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#050505]/20 via-[#050505]/80 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#050505]/20 via-transparent to-[#050505]/80" />
         </div>
 
         <div className="container-luxury relative z-10 text-center">
           <FadeInSection>
-            <h2 className="font-display text-5xl md:text-8xl font-bold text-white mb-8 tracking-tight">Experience <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-gold">True Luxury</span></h2>
-            <p className="text-white/70 text-xl font-light max-w-2xl mx-auto mb-16 leading-relaxed">
-              Our chauffeurs are standing by. Book your AUSEMPI journey today and redefine your standard of travel.
+            {/* Trust Indicators */}
+            <div className="flex flex-wrap justify-center gap-6 md:gap-12 mb-10 md:mb-12 text-white/60">
+              <div className="flex items-center gap-2">
+                <Star size={16} className="text-primary" />
+                <span className="text-[10px] md:text-xs uppercase tracking-widest font-medium">5-Star Rated</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Shield size={16} className="text-primary" />
+                <span className="text-[10px] md:text-xs uppercase tracking-widest font-medium">Fully Insured</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Clock size={16} className="text-primary" />
+                <span className="text-[10px] md:text-xs uppercase tracking-widest font-medium">24/7 Service</span>
+              </div>
+            </div>
+
+            <h2 className="font-display text-4xl sm:text-5xl md:text-7xl xl:text-[5rem] font-bold text-white mb-6 md:mb-8 tracking-tight leading-[1.1]">
+              Experience <span className="block md:inline text-transparent bg-clip-text bg-gradient-to-r from-primary via-gold to-primary bg-[length:200%_auto] animate-shimmer p-2">True Luxury</span>
+            </h2>
+
+            <p className="text-white/70 text-base sm:text-lg md:text-xl font-light max-w-2xl mx-auto mb-12 sm:mb-16 leading-relaxed px-4">
+              Your chariot awaits. Step into a world where every journey is crafted to perfection, and every destination feels like a beginning.
             </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-              <Button size="xl" className="h-16 px-12 text-lg tracking-widest uppercase bg-primary hover:bg-white hover:text-black font-bold group min-w-[240px] shadow-[0_0_30px_rgba(212,175,55,0.3)] transition-all duration-300" asChild>
-                <a href={EXTERNAL_LINKS.booking} target="_blank" rel="noopener noreferrer">
-                  Reserve Now
-                  <ChevronRight size={20} className="ml-2 transition-transform group-hover:translate-x-1" />
-                </a>
+
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 w-full max-w-md mx-auto sm:max-w-none px-4 sm:px-0">
+              <Button size="xl" variant="gold-cta" className="w-full sm:w-auto min-w-[220px] h-14 sm:h-16 text-sm sm:text-base shadow-[0_0_20px_rgba(212,175,55,0.2)] hover:shadow-[0_0_40px_rgba(212,175,55,0.4)]" asChild>
+                <Link to={EXTERNAL_LINKS.booking} target="_blank" rel="noopener noreferrer">
+                  Book Your Ride
+                  <ChevronRight size={18} className="ml-2 transition-transform group-hover:translate-x-1" />
+                </Link>
               </Button>
-              <Button size="xl" variant="luxury-outline" className="h-16 px-12 text-lg tracking-widest uppercase border-white/20 text-white hover:border-white hover:bg-white/5 min-w-[240px]" asChild>
-                <a href="/contact">
+
+              <Button
+                size="xl"
+                variant="hero-outline"
+                className="w-full sm:w-auto min-w-[220px] h-14 sm:h-16 text-sm sm:text-base backdrop-blur-sm hover:bg-white/10 border-white/20"
+                asChild
+              >
+                <Link to="/contact">
                   Contact Concierge
-                </a>
+                </Link>
               </Button>
             </div>
           </FadeInSection>

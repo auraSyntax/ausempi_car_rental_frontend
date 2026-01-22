@@ -1,6 +1,6 @@
 
 import { useRef, useState, useEffect } from "react";
-import { motion, useInView, HTMLMotionProps } from "framer-motion";
+import { motion, useInView, HTMLMotionProps, type Easing } from "framer-motion";
 
 interface FadeInSectionProps extends HTMLMotionProps<"div"> {
     children: React.ReactNode;
@@ -46,7 +46,7 @@ export const FadeInSection = ({
                 // Faster, simpler transition on mobile
                 duration: isMobile ? 0.5 : 0.8,
                 delay: isMobile ? Math.min(delay, 0.2) : delay, // Cap delay on mobile to make it snappier
-                ease: (isMobile ? "easeOut" : [0.21, 0.47, 0.32, 0.98]) as any
+                ease: (isMobile ? "easeOut" : [0.21, 0.47, 0.32, 0.98]) as Easing
             }
         }
     };
