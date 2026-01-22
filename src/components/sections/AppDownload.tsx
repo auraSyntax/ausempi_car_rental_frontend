@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
 import {
   Smartphone, Star, Apple, Play, Wifi, MapPin,
@@ -49,6 +49,17 @@ const AppDownload = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
 
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.matchMedia("(max-width: 768px)").matches);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   return (
     <section
       id="app"
@@ -56,7 +67,7 @@ const AppDownload = () => {
       className="section-padding bg-[#050505] relative overflow-hidden"
     >
       {/* Editorial Background Text */}
-      <div className="hidden lg:flex absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 select-none pointer-events-none overflow-hidden w-full h-full flex items-center justify-center">
+      <div className="hidden lg:flex absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 select-none pointer-events-none overflow-hidden w-full h-full items-center justify-center">
         <span className="text-[20vw] font-display font-black text-white/[0.02] whitespace-nowrap leading-none">
           AUSEMPI
         </span>
@@ -66,9 +77,9 @@ const AppDownload = () => {
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
       <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
 
-      {/* Decorative Orbs */}
-      <div className="absolute top-1/4 -left-20 w-96 h-96 bg-primary/5 blur-[120px] rounded-full" />
-      <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-primary/5 blur-[120px] rounded-full" />
+      {/* Decorative Orbs - Reduced complexity for mobile */}
+      <div className="absolute top-1/4 -left-20 w-96 h-96 bg-primary/5 blur-[80px] md:blur-[120px] rounded-full" />
+      <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-primary/5 blur-[80px] md:blur-[120px] rounded-full" />
 
       <div className="container-luxury relative z-10">
         <div className="grid lg:grid-cols-2 gap-20 xl:gap-32 items-center">
@@ -76,13 +87,13 @@ const AppDownload = () => {
           {/* Visual Side: Enhanced Phone Mockup */}
           <div className="relative flex justify-center order-2 lg:order-1">
             <motion.div
-              initial={{ opacity: 0, scale: 0.9, rotateY: -10 }}
+              initial={{ opacity: 0, scale: 0.9, rotateY: isMobile ? 0 : -10 }}
               animate={isInView ? { opacity: 1, scale: 1, rotateY: 0 } : {}}
-              transition={{ duration: 1.2, ease: "easeOut" }}
-              className="relative perspective-1000"
+              transition={{ duration: isMobile ? 0.8 : 1.2, ease: "easeOut" }}
+              className="relative perspective-1000 will-change-transform"
             >
               {/* Dynamic Glow Behind Phone */}
-              <div className="absolute inset-0 bg-primary/10 blur-[100px] rounded-full transform scale-75 animate-pulse" />
+              <div className="absolute inset-0 bg-primary/10 blur-[60px] md:blur-[100px] rounded-full transform scale-75 animate-pulse" />
 
               {/* Main Phone Frame */}
               <div className="relative w-[300px] md:w-[340px]">
@@ -148,9 +159,9 @@ const AppDownload = () => {
 
                 {/* Floating Notification - Elite Level */}
                 <motion.div
-                  animate={{ y: [0, -10, 0] }}
+                  animate={{ y: isMobile ? 0 : [0, -10, 0] }}
                   transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                  className="absolute -right-12 top-24 bg-[#111] border border-primary/30 rounded-2xl p-4 shadow-2xl backdrop-blur-xl w-48 z-20"
+                  className="absolute -right-12 top-24 bg-[#111] border border-primary/30 rounded-2xl p-4 shadow-2xl backdrop-blur-xl w-48 z-20 will-change-transform hidden sm:block"
                 >
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center">
@@ -165,9 +176,9 @@ const AppDownload = () => {
 
                 {/* Floating Rating Badge */}
                 <motion.div
-                  animate={{ y: [0, 8, 0] }}
+                  animate={{ y: isMobile ? 0 : [0, 8, 0] }}
                   transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                  className="absolute -left-10 bottom-40 bg-white/5 border border-white/10 rounded-2xl p-3 px-4 shadow-2xl backdrop-blur-xl z-20"
+                  className="absolute -left-10 bottom-40 bg-white/5 border border-white/10 rounded-2xl p-3 px-4 shadow-2xl backdrop-blur-xl z-20 will-change-transform hidden sm:block"
                 >
                   <div className="flex items-center gap-3">
                     <div className="flex -space-x-2">

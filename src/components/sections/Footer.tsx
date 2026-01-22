@@ -293,7 +293,7 @@ const Footer = () => {
               © {currentYear} {BRAND.name} International
             </p>
             <p className="text-muted-foreground/40 text-[9px] uppercase tracking-[0.1em]">
-              Architected for distinction
+              Designed and Developed by <Link to="https://www.aurasyntax.com" target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary/80 transition-all duration-300">Aura Syntax</Link>
             </p>
           </motion.div>
 
