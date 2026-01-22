@@ -39,7 +39,7 @@ const ReserveCTA = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-primary text-xs sm:text-sm uppercase tracking-[0.4em] font-medium"
+            className="text-primary text-[11px] sm:text-sm uppercase tracking-[0.4em] font-medium"
           >
             Begin Your Journey
           </motion.span>

@@ -12,18 +12,29 @@ import {
   Users,
   Briefcase,
   Wifi,
-  Snowflake
+  Snowflake,
+  Crown,
+  UserCheck,
+  Zap,
+  Globe,
+  Clock
 } from "lucide-react";
 
 import MainLayout from "@/layouts/MainLayout";
 import { Navbar, Footer, ReserveCTA } from "@/components/sections";
 import { LazyImage, FadeInSection } from "@/components/common";
-import { aboutSections, featuresList } from "@/data/about";
 import grainBg from "@/assets/noise-bg.svg";
 import aboutPageBg from "@/assets/about-hero-bg.avif";
 import aboutStoryImg from "@/assets/about-story-img.avif";
 import aboutSedanImg from "@/assets/about-sedan.avif";
 import aboutSuvImg from "@/assets/about-suv.avif";
+import eliteChauffeursImg from "@/assets/about-elite-chauffeurs.avif";
+import bespokeComfortImg from "@/assets/about-bespoke-comfort.avif";
+import moment1Img from "@/assets/moment-1.avif";
+import moment2Img from "@/assets/moment-2.avif";
+import moment3Img from "@/assets/moment-3.avif";
+import moment4Img from "@/assets/moment-4.avif";
+import { cn } from "@/lib";
 
 const AboutPage = () => {
   const [isDesktop, setIsDesktop] = useState(false);
@@ -82,6 +93,74 @@ const AboutPage = () => {
       features: ["All-Terrain Capability", "Panoramic Views", "Unmatched Comfort"]
     }
   ];
+
+  // Values data
+  const valuesData = [
+    {
+      title: "Exclusivity",
+      text: "Every journey is a unique masterpiece, tailored precisely to your preferences and schedule.",
+      icon: Crown
+    },
+    {
+      title: "Integrity",
+      text: "Transparent, honest, and professional service at every touchpoint of your experience.",
+      icon: UserCheck
+    },
+    {
+      title: "Innovation",
+      text: "Leveraging the latest in automotive technology and logistics to ensure seamless travel.",
+      icon: Zap
+    }
+  ]
+
+  // Why choose data
+  const whyChooseData = [
+    {
+      title: "Elite Chauffeurs",
+      description: "Beyond driving, our chauffeurs are masters of hospitality and local navigation.",
+      image: eliteChauffeursImg
+    },
+    {
+      title: "Bespoke Comfort",
+      description: "In-vehicle amenities curated to your specific requirements and tastes.",
+      image: bespokeComfortImg
+    }
+  ]
+
+  // Features data
+  const featuresData = [
+    {
+      icon: Globe,
+      title: "Global Network",
+      text: "Elite service available in 25+ major luxury hubs worldwide, from London to Dubai."
+    },
+    {
+      icon: Clock,
+      title: "Precision Timing",
+      text: "Our 15-minute early arrival policy ensures you are never kept waiting."
+    },
+    {
+      icon: Shield,
+      title: "Full Privacy",
+      text: "Strict non-disclosure agreements and tinted privacy glass for absolute discretion."
+    }
+  ];
+
+  // Stats data
+  const statsData = [
+    { value: "8", label: "Years of Service", suffix: "+" },
+    { value: "15", label: "Rides Completed", suffix: "K+" },
+    { value: "25", label: "Global Regions", suffix: "+" },
+    { value: "99", label: "Client Satisfaction", suffix: ".9%" }
+  ];
+
+  // Gallery images
+  const galleryImages = [
+    moment1Img,
+    moment2Img,
+    moment3Img,
+    moment4Img
+  ]
 
   return (
     <MainLayout>
@@ -228,7 +307,7 @@ const AboutPage = () => {
         <div className="container-luxury">
           <div className="text-center mb-16 md:mb-20">
             <span className="text-primary text-xs uppercase tracking-[0.5em] font-bold block mb-4 md:mb-6">The AUSEMPI Collection</span>
-            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">Luxury Fleet</h2>
+            <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">Luxury Fleet</h2>
             <p className="text-white/50 text-base md:text-lg font-light max-w-2xl mx-auto px-6">
               Curated for performance, comfort, and ultimate discretion.
             </p>
@@ -261,7 +340,9 @@ const AboutPage = () => {
                   </div>
 
                   <div className="p-5 sm:p-6 md:p-10 flex-grow flex flex-col">
-                    <p className="text-white/60 text-sm sm:text-base font-light mb-8 leading-relaxed">{item.description}</p>
+                    <p className="text-white/60 text-sm sm:text-base font-light mb-8 leading-relaxed">
+                      {item.description}
+                    </p>
 
                     <div className="grid grid-cols-2 gap-y-4 gap-x-4 mb-8">
                       {item.specs.map((spec, sidx) => (
@@ -286,7 +367,7 @@ const AboutPage = () => {
           </div>
 
           <div className="mt-16 md:mt-24 text-center">
-            <Link to="/services" className="inline-flex items-center gap-3 text-white text-xs uppercase tracking-[0.25em] font-bold group hover:text-primary transition-colors border-b border-white/10 pb-1 hover:border-primary">
+            <Link to="/services" className="inline-flex items-center gap-3 text-white text-[12px] sm:text-xs uppercase tracking-[0.25em] font-bold group hover:text-primary transition-colors border-b border-white/10 pb-1 hover:border-primary">
               View Complete Fleet <ChevronRight size={14} className="transition-transform group-hover:translate-x-1" />
             </Link>
           </div>
@@ -300,11 +381,13 @@ const AboutPage = () => {
           <div className="grid lg:grid-cols-12 gap-12 lg:gap-20">
             <div className="lg:col-span-4">
               <div className="lg:sticky lg:top-32">
-                <span className="text-primary text-xs uppercase tracking-[0.5em] font-bold block mb-4 md:mb-6">Our Core</span>
-                <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-6 md:mb-8 leading-[1.1]">
-                  Mission, <br />Vision & <br /><span className="text-gradient-gold">Values</span>
+                <span className="text-primary text-[11px] md:text-xs uppercase tracking-[0.5em] font-bold block mb-4 md:mb-6">
+                  Our Core
+                </span>
+                <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-6 md:mb-8 leading-[1.1] lg:max-w-xs">
+                  Mission, Vision & <span className="text-gradient-gold"> Values</span>
                 </h2>
-                <p className="text-muted-foreground text-lg font-light leading-relaxed mb-8 md:mb-10 text-justify">
+                <p className="text-muted-foreground text-base sm:text-lg md:text-xl font-light leading-relaxed mb-8 md:mb-10 text-justify">
                   To be the world's most seamless and sophisticated private transportation partner, setting the benchmark for elite mobility.
                 </p>
                 <div className="flex items-center gap-6 p-6 bg-charcoal/5 rounded-sm border-l-2 border-primary">
@@ -315,15 +398,15 @@ const AboutPage = () => {
             </div>
 
             <div className="lg:col-span-8 grid md:grid-cols-2 gap-6">
-              {aboutSections.values.map((value, idx) => (
+              {valuesData.map((value, idx) => (
                 <FadeInSection key={value.title} delay={idx * 0.1}>
                   <div className="group p-6 md:p-10 bg-background border border-border/60 hover:border-primary/30 transition-all duration-300 rounded-lg shadow-sm hover:shadow-lg h-full relative overflow-hidden">
                     <div className="absolute top-0 left-0 w-1 h-0 bg-primary group-hover:h-full transition-all duration-700" />
                     <div className="w-12 h-12 md:w-14 md:h-14 rounded-lg bg-primary/10 flex items-center justify-center mb-6 md:mb-8 group-hover:bg-primary group-hover:text-black text-primary transition-all duration-500">
                       <value.icon size={24} strokeWidth={1.5} />
                     </div>
-                    <h3 className="font-display text-xl md:text-2xl font-bold text-foreground mb-3 md:mb-4">{value.title}</h3>
-                    <p className="text-muted-foreground text-sm md:text-base leading-relaxed font-light">{value.text}</p>
+                    <h3 className="font-display text-2xl font-bold text-foreground mb-3 md:mb-4">{value.title}</h3>
+                    <p className="text-muted-foreground text-[15px] md:text-base leading-relaxed font-light">{value.text}</p>
                   </div>
                 </FadeInSection>
               ))}
@@ -334,7 +417,7 @@ const AboutPage = () => {
                       <Shield className="text-white" size={24} strokeWidth={1.5} />
                     </div>
                     <h3 className="font-display text-xl md:text-2xl font-bold mb-3 md:mb-4">Safety First</h3>
-                    <p className="text-white/60 text-sm md:text-base leading-relaxed font-light">Rigorous vetting and advanced safety protocols for absolute peace of mind.</p>
+                    <p className="text-white/60 text-[15px] md:text-base leading-relaxed font-light">Rigorous vetting and advanced safety protocols for absolute peace of mind.</p>
                   </div>
                   <div className="mt-8 pt-8 border-t border-white/10 flex items-center gap-2 text-xs uppercase tracking-widest opacity-60">
                     <Award size={14} /> Certified Secure
@@ -346,7 +429,6 @@ const AboutPage = () => {
         </div>
       </section>
 
-
       {/* 5. Why Choose AUSEMPI (Premium Parallax) */}
       <section className="bg-charcoal py-20 md:py-32 relative overflow-hidden">
         {/* Subtle Background Pattern */}
@@ -354,10 +436,10 @@ const AboutPage = () => {
 
         <div className="container-luxury relative z-10">
           <div className="text-center mb-16 md:mb-24">
-            <span className="text-primary text-[10px] md:text-xs uppercase tracking-[0.4em] font-bold block mb-4 md:mb-6">
+            <span className="text-primary text-[11px] md:text-sm uppercase tracking-[0.4em] font-bold block mb-4 md:mb-6">
               Distinction
             </span>
-            <h2 className="font-display text-4xl md:text-6xl font-bold text-white mb-6">
+            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
               Why Choose <span className="text-gradient-gold">AUSEMPI</span>
             </h2>
             <div className="w-24 h-1 bg-primary/20 mx-auto rounded-full" />
@@ -365,27 +447,28 @@ const AboutPage = () => {
 
           {/* Primary Features (Images with Text) */}
           <div className="grid lg:grid-cols-2 gap-8 md:gap-12 mb-16 md:mb-24">
-            {aboutSections.whyChoose.map((item, idx) => (
+            {whyChooseData.map((item, idx) => (
               <FadeInSection key={item.title} delay={idx * 0.2}>
-                <div className="group relative overflow-hidden rounded-lg aspect-[4/3] md:aspect-[16/9] shadow-2xl border border-white/5 isolate">
+                <div className="group relative overflow-hidden rounded-lg aspect-[1/1.1] sm:aspect-[3/2] md:aspect-[4/3] shadow-2xl border border-white/5 isolate">
                   <LazyImage
+                    containerClassName="h-full w-full transition-transform duration-1000 group-hover:scale-105 origin-right"
                     src={item.image}
                     alt={item.title}
-                    className="w-full h-full object-cover transition-transform duration-[1200ms] group-hover:scale-105"
+                    className="w-full h-full object-cover object-center md:object-left"
                   />
                   {/* Gradient Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-80 transition-opacity duration-500 group-hover:opacity-90" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-90 transition-opacity duration-500 group-hover:opacity-90" />
 
                   {/* Content */}
-                  <div className="absolute inset-0 p-8 md:p-12 flex flex-col justify-end">
-                    <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                  <div className="absolute inset-0 p-7 md:p-12 flex flex-col justify-end">
+                    <div className=" transition-transform duration-500">
                       <span className="inline-block px-3 py-1 bg-primary/20 backdrop-blur-md border border-primary/30 text-primary text-[10px] uppercase font-bold tracking-widest rounded-sm mb-4">
                         Excellence 0{idx + 1}
                       </span>
-                      <h3 className="font-display text-3xl md:text-4xl font-bold text-white mb-3 md:mb-4">
+                      <h3 className="font-display text-[1.6rem] md:text-4xl font-bold text-white mb-3 md:mb-4">
                         {item.title}
                       </h3>
-                      <p className="text-white/70 text-base md:text-lg font-light leading-relaxed max-w-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+                      <p className="text-white/70 text-[15px] md:text-lg font-light leading-relaxed max-w-lg  transition-opacity duration-500 delay-100">
                         {item.description}
                       </p>
                     </div>
@@ -399,17 +482,17 @@ const AboutPage = () => {
           </div>
 
           {/* Secondary Features (Icon Grid) */}
-          <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
-            {featuresList.map((feature, idx) => (
+          <div className="grid lg:grid-cols-3 gap-6 lg:gap-8">
+            {featuresData.map((feature, idx) => (
               <FadeInSection key={feature.title} delay={0.2 + (idx * 0.1)}>
-                <div className="group h-full p-8 rounded-lg bg-gradient-to-b from-white/5 to-white/[0.02] border border-white/10 hover:border-primary/30 hover:bg-white/[0.07] transition-all duration-300 flex flex-col items-center text-center hover:-translate-y-1 hover:shadow-xl">
+                <div className="group h-full w-full p-8 rounded-lg bg-gradient-to-b from-white/5 to-white/[0.02] border border-white/10 hover:border-primary/30 hover:bg-white/[0.07] transition-all duration-300 flex flex-col items-center text-center hover:-translate-y-1 hover:shadow-xl">
                   <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center mb-6 text-primary border border-white/5 group-hover:border-primary/20 group-hover:scale-110 transition-all duration-300 group-hover:bg-primary/10">
                     <feature.icon size={28} strokeWidth={1.5} />
                   </div>
-                  <h4 className="font-display text-xl font-bold text-white mb-4 group-hover:text-primary transition-colors">
+                  <h4 className="font-display text-[1.4rem] md:text-2xl font-bold text-white mb-4 group-hover:text-primary transition-colors">
                     {feature.title}
                   </h4>
-                  <p className="text-white/60 text-sm md:text-base font-light leading-relaxed">
+                  <p className="text-white/60 text-[15px] md:text-base font-light leading-relaxed">
                     {feature.text}
                   </p>
                 </div>
@@ -419,12 +502,11 @@ const AboutPage = () => {
         </div>
       </section>
 
-
       {/* 6. Experience & Trust (Counters) */}
       <section className="bg-background py-16 md:py-32 border-y border-border/40">
         <div className="container-luxury">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 lg:gap-8">
-            {aboutSections.stats.map((stat, idx) => (
+            {statsData.map((stat, idx) => (
               <FadeInSection key={stat.label} delay={idx * 0.1}>
                 <div className="text-center group cursor-default">
                   <div className="font-display text-4xl md:text-7xl font-bold text-foreground mb-2 flex items-start justify-center">
@@ -442,48 +524,49 @@ const AboutPage = () => {
         </div>
       </section>
 
-
       {/* 7. Visual Lifestyle Gallery (Redesigned) */}
       <section className="bg-background py-20 md:py-40 overflow-hidden relative">
         <div className="container-luxury relative z-10">
-          <div className="flex flex-col md:flex-row justify-between items-end gap-8 mb-16 md:mb-24 px-4 md:px-0">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 mb-16 md:mb-24 px-4 md:px-0">
             <div className="max-w-3xl">
               <div className="flex items-center gap-4 mb-6">
                 <span className="h-px w-12 bg-primary" />
-                <span className="text-primary text-xs uppercase tracking-[0.4em] font-bold">Visual Storytelling</span>
+                <span className="text-primary text-[11px] sm:text-xs uppercase tracking-[0.4em] font-bold">Visual Storytelling</span>
               </div>
-              <h2 className="font-display text-5xl md:text-7xl font-bold text-foreground leading-[0.9] tracking-tight">
+              <h2 className="font-display text-4xl sm:text-5xl lg:text-7xl font-bold text-foreground leading-[0.9] tracking-tight">
                 Capturing <br /> <span className="text-gradient-gold">The Essence</span>
               </h2>
             </div>
             <div className="max-w-sm md:text-right">
-              <p className="text-muted-foreground text-base md:text-lg font-light leading-relaxed mb-6 italic border-l-2 md:border-l-0 md:border-r-2 border-primary/30 pl-4 md:pl-0 md:pr-4">
+              <p className="text-muted-foreground text-base md:text-lg font-light leading-relaxed  italic border-l-2 md:border-l-0 md:border-r-2 border-primary/30 pl-4 md:pl-0 md:pr-4">
                 "True luxury is not just seen, it is felt. A curated collection of moments defined by elegance."
               </p>
             </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6 auto-rows-[300px] md:auto-rows-[400px]">
-            {aboutSections.gallery.map((img, idx) => {
+            {galleryImages.map((img, idx) => {
               // Create a varied grid layout
               const isLarge = idx === 0 || idx === 3;
               const colSpan = isLarge ? "md:col-span-8" : "md:col-span-4";
+              const isLast = idx === galleryImages.length - 1;
 
               return (
                 <FadeInSection key={idx} delay={idx * 0.15} className={`relative group overflow-hidden rounded-sm ${colSpan}`}>
-                  <div className="w-full h-full relative overflow-hidden">
+                  <div className="w-full h-full relative overflow-hidden border border-gold/30">
                     <LazyImage
+                      containerClassName="h-full group-hover:scale-105 filter group-hover:saturate-0 transition-all duration-1000"
                       src={img}
-                      className="w-full h-full object-cover transition-transform duration-[1800ms] group-hover:scale-105 filter grayscale-[0.1] group-hover:grayscale-0"
+                      className={cn("w-full h-full object-cover", isLast ? "object-top" : "object-center")}
                       alt={`Lifestyle Moment ${idx + 1}`}
                     />
                     {/* Cinematic Overlay */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-700" />
 
                     {/* Hover Interaction */}
-                    <div className="absolute inset-0 p-8 flex flex-col justify-end items-start opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-4 group-hover:translate-y-0">
-                      <div className="bg-white/10 backdrop-blur-md border border-white/10 px-4 py-2 rounded-full">
-                        <span className="text-white text-[10px] uppercase tracking-[0.2em] font-bold">
+                    <div className="absolute inset-0 p-7 sm:p-8 flex flex-col justify-end items-start opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-4 group-hover:translate-y-0">
+                      <div className="bg-gold/10 backdrop-blur-md border border-gold/10 px-4 py-2 rounded-full">
+                        <span className="text-gold text-[10px] uppercase tracking-[0.2em] font-bold">
                           Moment 0{idx + 1}
                         </span>
                       </div>
@@ -493,15 +576,11 @@ const AboutPage = () => {
               );
             })}
           </div>
-
-          {/* Bottom decorative line */}
-          <div className="mt-24 w-full h-px bg-gradient-to-r from-transparent via-border to-transparent opacity-30" />
         </div>
 
         {/* Background Decorative elements */}
         <div className="absolute top-20 right-0 w-[40vw] h-full bg-charcoal/5 -skew-x-12 translate-x-1/2 pointer-events-none" />
       </section>
-
 
       <ReserveCTA />
       <Footer />
