@@ -65,7 +65,7 @@ const NotFound = () => {
             </Button>
 
             <Button variant="luxury-outline" size="xl" asChild className="w-full sm:w-auto min-w-[200px] text-sm">
-              <Link to="/fleet">
+              <Link to="/services">
                 <ArrowLeft className="mr-2 h-4 w-4 rotate-180" /> View Our Fleet
               </Link>
             </Button>

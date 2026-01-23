@@ -17,7 +17,7 @@ export default function ForgotPassword() {
     setIsLoading(true);
     // Simulate API call
     await new Promise((resolve) => setTimeout(resolve, 1500));
-    console.log("Reset link requested for:", email);
+    // console.log("Reset link requested for:", email);
     setIsSubmitted(true);
     setIsLoading(false);
   };

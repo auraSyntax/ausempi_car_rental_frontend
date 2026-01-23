@@ -5,6 +5,30 @@ import { gsap } from "gsap";
 // Scroll Position Hook
 // ============================================
 
+// Utility Functions
+const throttle = (func: Function, limit: number) => {
+  let inThrottle: boolean;
+  return function (this: any, ...args: any[]) {
+    if (!inThrottle) {
+      func.apply(this, args);
+      inThrottle = true;
+      setTimeout(() => (inThrottle = false), limit);
+    }
+  };
+};
+
+const debounce = (func: Function, wait: number) => {
+  let timeout: any;
+  return function (this: any, ...args: any[]) {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.apply(this, args), wait);
+  };
+};
+
+// ============================================
+// Scroll Position Hook
+// ============================================
+
 export const useScrollPosition = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
   const [scrollDirection, setScrollDirection] = useState<"up" | "down">("up");
@@ -12,12 +36,12 @@ export const useScrollPosition = () => {
   useEffect(() => {
     let lastScrollY = window.scrollY;
 
-    const handleScroll = () => {
+    const handleScroll = throttle(() => {
       const currentScrollY = window.scrollY;
       setScrollPosition(currentScrollY);
       setScrollDirection(currentScrollY > lastScrollY ? "down" : "up");
       lastScrollY = currentScrollY;
-    };
+    }, 100);
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
@@ -90,9 +114,9 @@ export const useParallax = (speed: number = 0.5) => {
   const [offset, setOffset] = useState(0);
 
   useEffect(() => {
-    const handleScroll = () => {
+    const handleScroll = throttle(() => {
       setOffset(window.scrollY * speed);
-    };
+    }, 16); // ~60fps
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
@@ -112,12 +136,12 @@ export const useWindowSize = () => {
   });
 
   useEffect(() => {
-    const handleResize = () => {
+    const handleResize = debounce(() => {
       setSize({
         width: window.innerWidth,
         height: window.innerHeight,
       });
-    };
+    }, 200);
 
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);

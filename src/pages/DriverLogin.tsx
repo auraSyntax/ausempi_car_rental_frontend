@@ -20,7 +20,7 @@ export default function DriverLogin() {
     setIsLoading(true);
     // Simulate API call
     await new Promise((resolve) => setTimeout(resolve, 1500));
-    console.log("Login attempted with:", { employeeId, password });
+    // console.log("Login attempted with:", { employeeId, password });
     setIsLoading(false);
   };
 

@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/select";
 import { FadeInSection, LazyImage } from "@/components/common";
 import contactBgImg from "@/assets/contact-bg-img.avif";
+import { CONTACT } from "@/lib/constants";
 
 const Contact = () => {
   const containerRef = useRef(null);
@@ -31,19 +32,19 @@ const Contact = () => {
     {
       icon: MapPin,
       label: "Global Headquarters",
-      value: "123 Luxury Way, Suite 500, London, UK",
+      value: "Mayfair, London, UK", // Hardcoded specifically for this page layout but could use CONTACT.address
       description: "Visit our central office in Mayfair."
     },
     {
       icon: Phone,
       label: "Direct Concierge",
-      value: "+44 (0) 20 7946 0000",
+      value: CONTACT.phone,
       description: "Available 24/7 for immediate assistance."
     },
     {
       icon: Mail,
       label: "Email Inquiries",
-      value: "concierge@ausempi.com",
+      value: CONTACT.email,
       description: "General inquiries and corporate accounts."
     },
     {

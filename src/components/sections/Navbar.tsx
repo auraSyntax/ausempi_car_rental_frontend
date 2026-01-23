@@ -6,6 +6,7 @@ import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { EXTERNAL_LINKS } from "@/lib/constants";
 import logo from "@/assets/ausempi-logo.png";
+import { useScrollPosition } from "@/hooks/useAnimations";
 
 const navLinks = [
   { name: "Home", href: "/" },
@@ -17,17 +18,10 @@ const navLinks = [
 ];
 
 const Navbar = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
+  const { scrollPosition } = useScrollPosition();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const isScrolled = scrollPosition > 50;
   const location = useLocation();
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   // Handle hash scroll when coming from another page
   useEffect(() => {
@@ -70,6 +64,7 @@ const Navbar = () => {
           <Link
             to="/"
             className="flex items-center group"
+            aria-label="AUSEMPI Home"
           >
             <motion.img
               src={logo}
@@ -81,11 +76,11 @@ const Navbar = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-8 xl:gap-10">
+          <ul className="hidden lg:flex items-center gap-8 xl:gap-10">
             {navLinks.map((link) => {
               const isActive = location.pathname === link.href;
               return (
-                <motion.div
+                <motion.li
                   key={link.name}
                   whileHover={{ y: -2 }}
                   transition={{ duration: 0.2 }}
@@ -105,10 +100,10 @@ const Navbar = () => {
                         }`} />
                     )}
                   </Link>
-                </motion.div>
+                </motion.li>
               );
             })}
-          </div>
+          </ul>
 
           {/* CTA Button */}
           <div className="hidden lg:block">

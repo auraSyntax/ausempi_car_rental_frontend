@@ -21,7 +21,14 @@ const NotFound = lazy(() => import("./pages/NotFound"));
 const DriverLogin = lazy(() => import("./pages/DriverLogin"));
 const ForgotPassword = lazy(() => import("./pages/ForgotPassword"));
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 5, // 5 minutes
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
