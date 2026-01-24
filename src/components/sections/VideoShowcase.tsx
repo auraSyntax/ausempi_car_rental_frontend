@@ -16,6 +16,7 @@ const VideoShowcase = () => {
     const [progress, setProgress] = useState(0);
     const [duration, setDuration] = useState(0);
     const [isHovered, setIsHovered] = useState(false);
+    const [isVideoReady, setIsVideoReady] = useState(false);
 
     useEffect(() => {
         const checkMobile = () => {
@@ -38,6 +39,12 @@ const VideoShowcase = () => {
     useEffect(() => {
         if (videoRef.current) {
             videoRef.current.volume = volume;
+
+            // Check if video is already ready
+            if (videoRef.current.readyState >= 3) {
+                setIsVideoReady(true);
+            }
+
             if (isInView && isPlaying) {
                 // Use a promise to handle the potential play() rejection (e.g., due to browser restrictions)
                 const playPromise = videoRef.current.play();
@@ -191,13 +198,34 @@ const VideoShowcase = () => {
                     <video
                         ref={videoRef}
                         src={videoSrc}
+                        poster={thumbnailSrc}
                         className="w-full h-full object-cover"
                         loop
                         muted={isMuted}
                         playsInline
                         onTimeUpdate={handleTimeUpdate}
                         onLoadedMetadata={handleLoadedMetadata}
+                        onCanPlay={() => setIsVideoReady(true)}
                     />
+
+                    {/* Thumbnail Overlay (Fallback/Loading) */}
+                    <AnimatePresence>
+                        {!isVideoReady && (
+                            <motion.div
+                                initial={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                transition={{ duration: 0.8, ease: "easeOut" }}
+                                className="absolute inset-0 z-10"
+                            >
+                                <img
+                                    src={thumbnailSrc}
+                                    alt="Video Thumbnail"
+                                    className="w-full h-full object-cover"
+                                />
+                                <div className="absolute inset-0 bg-black/20" />
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
 
                     {/* Subtle Overlay */}
                     <div className={`absolute inset-0 bg-black/30 transition-opacity duration-700 ${isHovered || !isPlaying ? 'opacity-100' : 'opacity-0'}`} />
