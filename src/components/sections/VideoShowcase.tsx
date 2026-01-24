@@ -57,8 +57,12 @@ const VideoShowcase = () => {
         if (videoRef.current) {
             if (isPlaying) {
                 videoRef.current.pause();
+                // When pausing, ensure controls are visible on mobile
+                if (isMobile) setIsHovered(true);
             } else {
                 videoRef.current.play();
+                // When playing, hide controls after starting
+                if (isMobile) setIsHovered(false);
             }
             setIsPlaying(!isPlaying);
         }
@@ -114,6 +118,16 @@ const VideoShowcase = () => {
         }
     };
 
+    // Auto-hide controls on mobile after inactivity when playing
+    useEffect(() => {
+        if (isMobile && isHovered && isPlaying) {
+            const timer = setTimeout(() => {
+                setIsHovered(false);
+            }, 3000);
+            return () => clearTimeout(timer);
+        }
+    }, [isHovered, isPlaying, isMobile]);
+
     return (
         <section className="relative w-full section-padding overflow-hidden bg-[#050505]">
             {/* Editorial Background Text */}
@@ -168,9 +182,10 @@ const VideoShowcase = () => {
                 <motion.div
                     ref={containerRef}
                     style={{ scale, opacity, y }}
-                    onMouseEnter={() => setIsHovered(true)}
-                    onMouseLeave={() => setIsHovered(false)}
-                    className="relative group aspect-video w-full max-w-6xl mx-auto rounded-[1.5rem] md:rounded-[2.5rem] overflow-hidden shadow-[0_32px_80px_-16px_rgba(0,0,0,0.5)] border border-white/10 bg-[#0A0A0A]"
+                    onMouseEnter={() => !isMobile && setIsHovered(true)}
+                    onMouseLeave={() => !isMobile && setIsHovered(false)}
+                    onClick={() => isMobile && setIsHovered(!isHovered)}
+                    className="relative group aspect-[4/3] sm:aspect-video w-full max-w-6xl mx-auto rounded-[1rem] md:rounded-[2rem] overflow-hidden shadow-[0_32px_80px_-16px_rgba(0,0,0,0.5)] border border-white/10 bg-[#0A0A0A]"
                 >
                     {/* Video Element */}
                     <video
@@ -188,20 +203,23 @@ const VideoShowcase = () => {
                     <div className={`absolute inset-0 bg-black/30 transition-opacity duration-700 ${isHovered || !isPlaying ? 'opacity-100' : 'opacity-0'}`} />
 
                     {/* ALWAYS Center Play/Pause Button Container */}
-                    <div className="absolute inset-0 hidden sm:flex items-center justify-center z-20 pointer-events-none">
+                    <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
                         <AnimatePresence>
                             {(!isPlaying || isHovered) && (
                                 <motion.button
                                     initial={{ opacity: 0, scale: 0.8, y: 10 }}
                                     animate={{ opacity: 1, scale: 1, y: 0 }}
                                     exit={{ opacity: 0, scale: 0.8, y: 10 }}
-                                    onClick={togglePlay}
-                                    className="pointer-events-auto w-20 h-20 sm:w-24 sm:h-24 lg:w-24 lg:h-24 rounded-full bg-white/10 backdrop-blur-2xl border border-white/20 flex items-center justify-center text-white hover:bg-primary hover:border-primary hover:text-black transition-all duration-500 shadow-2xl group/btn"
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        togglePlay();
+                                    }}
+                                    className="pointer-events-auto w-16 h-16 sm:w-20 sm:h-20 lg:w-20 lg:h-20 rounded-full bg-white/10 backdrop-blur-2xl border border-white/20 flex items-center justify-center text-white hover:bg-primary hover:border-primary hover:text-black transition-all duration-500 shadow-2xl group/btn"
                                 >
                                     {isPlaying ? (
-                                        <Pause className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 fill-current" />
+                                        <Pause className="w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10 fill-current" />
                                     ) : (
-                                        <Play className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 fill-current ml-1.5" />
+                                        <Play className="w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10 fill-current ml-1.5" />
                                     )}
                                     <div className="absolute inset-[-8px] rounded-full border border-white/5 group-hover/btn:border-primary/50 transition-colors duration-500 animate-pulse" />
                                 </motion.button>
@@ -213,10 +231,10 @@ const VideoShowcase = () => {
                     <motion.div
                         initial={false}
                         animate={{
-                            opacity: isHovered || !isPlaying || isMobile ? 1 : 0,
-                            y: isHovered || !isPlaying || isMobile ? 0 : 30
+                            opacity: isHovered || !isPlaying ? 1 : 0,
+                            y: isHovered || !isPlaying ? 0 : 30
                         }}
-                        className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 md:p-8 bg-gradient-to-t from-black/95 via-black/40 to-transparent z-30"
+                        className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 lg:p-8 bg-gradient-to-t from-black/95 via-black/40 to-transparent z-30"
                     >
                         <div className="flex flex-col gap-4 sm:gap-6">
                             {/* Premium Progress Bar */}
@@ -245,7 +263,7 @@ const VideoShowcase = () => {
                                         <button onClick={toggleMute} className="hover:text-primary transition-all duration-300 transform hover:scale-110" aria-label={isMuted ? "Unmute" : "Mute"}>
                                             {(isMuted || volume === 0) ? <VolumeX size={isMobile ? 20 : 24} /> : <Volume2 size={isMobile ? 20 : 24} />}
                                         </button>
-                                        <div className="hidden sm:flex w-0 group-hover/volume:w-24 overflow transition-all duration-500 ease-in-out items-center">
+                                        <div className="flex w-0 group-hover/volume:w-24 overflow transition-all duration-500 ease-in-out items-center">
                                             <input
                                                 type="range"
                                                 min="0"
@@ -253,7 +271,7 @@ const VideoShowcase = () => {
                                                 step="0.01"
                                                 value={isMuted ? 0 : volume}
                                                 onChange={handleVolumeChange}
-                                                className="volume-slider w-24 h-1 bg-white/20 rounded-full appearance-none cursor-pointer accent-primary hover:accent-primary/80 transition-all shrink-0"
+                                                className="volume-slider w-20 sm:w-24 h-1 bg-white/20 rounded-full appearance-none cursor-pointer accent-primary hover:accent-primary/80 transition-all shrink-0"
                                                 style={{
                                                     background: `linear-gradient(to right, hsl(var(--primary)) ${(isMuted ? 0 : volume) * 100}%, rgba(255, 255, 255, 0.2) ${(isMuted ? 0 : volume) * 100}%)`
                                                 }}
@@ -287,7 +305,7 @@ const VideoShowcase = () => {
                     </motion.div>
 
                     {/* Corner Info */}
-                    <div className="absolute top-8 left-8 hidden md:flex items-center gap-3 p-3 bg-black/60 backdrop-blur-xl rounded-2xl border border-white/10 opacity-60">
+                    <div className="absolute top-5 left-5 lg:top-8 lg:left-8 hidden md:flex items-center gap-3 p-3 bg-black/60 backdrop-blur-xl rounded-2xl border border-white/10 opacity-60">
                         <div className="flex flex-col">
                             <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary">AUSEMPI</span>
                             {/* <span className="text-[9px] text-white/40 uppercase tracking-[0.1em]">Ultra HD 4K</span> */}
