@@ -131,12 +131,14 @@
   }
 
   .glow-gold {
-    box-shadow: 0 0 30px hsl(var(--gold) / 0.25),
+    box-shadow:
+      0 0 30px hsl(var(--gold) / 0.25),
       0 0 60px hsl(var(--gold) / 0.1);
   }
 
   .glow-gold-hover:hover {
-    box-shadow: 0 0 40px hsl(var(--gold) / 0.35),
+    box-shadow:
+      0 0 40px hsl(var(--gold) / 0.35),
       0 0 80px hsl(var(--gold) / 0.15);
   }
 
@@ -194,5 +196,33 @@
 
   ::-webkit-scrollbar-thumb:hover {
     background: hsl(var(--primary));
+  }
+
+  /* Video Volume Slider Styling */
+  .volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    background: white;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    border: 2px solid hsl(var(--primary));
+    transition: transform 0.2s ease;
+  }
+
+  .volume-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+  }
+
+  .volume-slider::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    background: white;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid hsl(var(--primary));
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   }
 }

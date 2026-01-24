@@ -7,5 +7,6 @@ export { default as Fleet } from "./Fleet";
 export { default as About } from "./About";
 export { default as Experience } from "./Experience";
 export { default as ReserveCTA } from "./ReserveCTA";
+export { default as VideoShowcase } from "./VideoShowcase";
 export { default as AppDownload } from "./AppDownload";
 export { default as Footer } from "./Footer";

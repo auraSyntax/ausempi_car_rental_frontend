@@ -7,6 +7,7 @@ import {
   About,
   Experience,
   ReserveCTA,
+  VideoShowcase,
   AppDownload,
   Footer,
 } from "@/components/sections";
@@ -17,6 +18,7 @@ const Index = () => {
     <MainLayout>
       <Navbar />
       <Hero />
+      <VideoShowcase />
       <Services />
       <ServicePackages />
       <Fleet />

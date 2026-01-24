@@ -234,7 +234,7 @@ const AppDownload = () => {
                   transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
                   className="group relative"
                 >
-                  <div className="absolute inset-0 bg-white/[0.02] border border-white/5 rounded-2xl transition-all duration-500 group-hover:bg-white/[0.04] group-hover:border-primary/20" />
+                  <div className="absolute inset-0 bg-white/[0.02] border border-white/5 rounded-2xl transition-all duration-500 group-hover:bg-white/[0.04] group-hover:border-primary/20 backdrop-blur-md" />
                   <div className="relative p-6">
                     <div className="flex items-start justify-between mb-4">
                       <div className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center transition-all duration-500 group-hover:border-primary/30 group-hover:shadow-[0_0_20px_rgba(var(--primary),0.1)]">
