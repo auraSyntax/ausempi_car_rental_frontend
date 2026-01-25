@@ -7,6 +7,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { CookieConsent } from "./components/common/CookieConsent";
 import { PageLoader } from "./components/common/PageLoader";
 import { ScrollToTop } from "./components/common/ScrollToTop";
+import PWAReloadPrompt from "./components/PWAReloadPrompt";
+
 
 // Lazy load pages
 const Index = lazy(() => import("./pages/Index"));
@@ -35,6 +37,7 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
+      <PWAReloadPrompt />
       <BrowserRouter>
         <ScrollToTop />
         <PageLoader />
