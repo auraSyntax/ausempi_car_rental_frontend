@@ -6,22 +6,31 @@ import { gsap } from "gsap";
 // ============================================
 
 // Utility Functions
-const throttle = (func: Function, limit: number) => {
+// Utility Functions
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const throttle = <T extends (...args: any[]) => any>(func: T, limit: number) => {
   let inThrottle: boolean;
-  return function (this: any, ...args: any[]) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return function (this: any, ...args: Parameters<T>) {
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
+    const context = this;
     if (!inThrottle) {
-      func.apply(this, args);
+      func.apply(context, args);
       inThrottle = true;
       setTimeout(() => (inThrottle = false), limit);
     }
   };
 };
 
-const debounce = (func: Function, wait: number) => {
-  let timeout: any;
-  return function (this: any, ...args: any[]) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const debounce = <T extends (...args: any[]) => any>(func: T, wait: number) => {
+  let timeout: ReturnType<typeof setTimeout>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return function (this: any, ...args: Parameters<T>) {
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
+    const context = this;
     clearTimeout(timeout);
-    timeout = setTimeout(() => func.apply(this, args), wait);
+    timeout = setTimeout(() => func.apply(context, args), wait);
   };
 };
 

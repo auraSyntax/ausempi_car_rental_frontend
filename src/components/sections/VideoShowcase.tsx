@@ -36,10 +36,9 @@ const VideoShowcase = () => {
     const opacity = useTransform(scrollYProgress, [0.1, 0.3], [0, 1]);
     const y = useTransform(scrollYProgress, [0.1, 0.4], isMobile ? [0, 0] : [100, 0]);
 
+    // Effect for playback control
     useEffect(() => {
         if (videoRef.current) {
-            videoRef.current.volume = volume;
-
             // Check if video is already ready
             if (videoRef.current.readyState >= 3) {
                 setIsVideoReady(true);
@@ -59,6 +58,13 @@ const VideoShowcase = () => {
             }
         }
     }, [isInView, isPlaying]);
+
+    // Separate effect for volume to prevent re-triggering playback logic
+    useEffect(() => {
+        if (videoRef.current) {
+            videoRef.current.volume = volume;
+        }
+    }, [volume]);
 
     const togglePlay = () => {
         if (videoRef.current) {

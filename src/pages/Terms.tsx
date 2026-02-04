@@ -1,10 +1,9 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { Navbar, Footer, ReserveCTA } from "@/components/sections";
+import { Navbar, Footer } from "@/components/sections";
 import MainLayout from "@/layouts/MainLayout";
-import { Separator } from "@/components/ui/separator";
 import { FadeInSection, LazyImage } from "@/components/common";
-import { FileText, ShieldCheck, CreditCard, AlertCircle, Clock, Lock } from "lucide-react";
+import { FileText, ShieldCheck, CreditCard, AlertCircle, Clock, Lock, User, Info, DollarSign, CalendarX, Briefcase, Gavel, History, Mail } from "lucide-react";
 import legalPageBgImg from "@/assets/legal-page-bg.avif"
 
 const Terms = () => {
@@ -19,108 +18,132 @@ const Terms = () => {
 
   const sections = [
     {
-      icon: ShieldCheck,
-      title: "1. Acceptance of Terms",
+      icon: Info,
+      title: "1. Introduction",
       content: (
         <>
-          <p>
-            By accessing and using the AUSEMPI website and services, you agree to be bound by these Terms and Conditions. This agreement constitutes a legally binding contract between you and AUSEMPI. If you do not agree with any part of these terms, you must not use our services.
+          <p className="mb-4">
+            AUSEMPI Pty Ltd ("AUSEMPI", "we", "our", or "us") provides premium chauffeur, mobility, and related services. These Terms & Conditions govern all bookings, services, and interactions with AUSEMPI, including use of our website, platforms, and applications.
           </p>
-          <p className="mt-4">
-            We reserve the right to amend these terms at any time. Continued use of our services following any changes indicates your acceptance of the new terms.
+          <p>
+            By making a booking or using our services, you agree to be bound by these Terms & Conditions.
           </p>
         </>
       )
     },
     {
-      icon: Clock,
-      title: "2. Service Provision",
+      icon: Briefcase,
+      title: "2. Services",
       content: (
-        <>
-          <p>
-            AUSEMPI provides premium transportation services including executive chauffeurs, airport transfers, and bespoke travel solutions. While we strive for perfection, we reserve the right to modify or discontinue any service at our discretion.
-          </p>
-          <ul className="list-none space-y-3 mt-4">
-            <li className="flex items-start gap-3">
-              <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0" />
-              <span>Vehicle types are subject to availability and may be substituted with a comparable or higher class vehicle ensures your journey continues without interruption.</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0" />
-              <span>Punctuality is our priority, but we are not liable for delays caused by circumstances beyond our control (weather, traffic, road closures).</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0" />
-              <span>Our chauffeurs reserve the right to refuse service to any individual exhibiting inappropriate behavior or posing a safety risk.</span>
-            </li>
-          </ul>
-        </>
+        <p>
+          AUSEMPI provides premium chauffeur and mobility services delivered by independent contractor drivers or approved partners. Service availability is subject to vehicle availability, location, compliance requirements, and operational conditions.
+        </p>
       )
     },
     {
       icon: CreditCard,
-      title: "3. Booking & Payment",
+      title: "3. Bookings & Payments",
       content: (
         <>
-          <p>
-            All bookings must be confirmed through our official platform or authorized channels. Payments are processed securely via our integrated payment systems. We accept major credit cards and corporate account transfers.
+          <p className="mb-4">
+            Bookings may be made via our website, applications, or authorised channels. All prices are quoted in Australian dollars unless otherwise stated.
           </p>
-          <div className="bg-white/[0.03] border-l-2 border-primary p-6 mt-6 rounded-r-sm">
-            <p className="text-sm font-semibold text-primary uppercase tracking-widest mb-2">Financial Obligations</p>
-            <p className="text-white/80 italic text-sm leading-relaxed">
-              "Full payment or a pre-authorized deposit is required to secure any premium reservation. Rates are inclusive of taxes and standard fees unless otherwise specified. gratuities are discretionary but appreciated."
-            </p>
-          </div>
+          <p>
+            Payment terms, including deposits, pre-authorisations, or full prepayment, may apply depending on the service type.
+          </p>
         </>
       )
     },
     {
-      icon: AlertCircle,
-      title: "4. Cancellation Policy",
+      icon: DollarSign,
+      title: "4. Pricing & Charges",
       content: (
-        <>
-          <p>
-            We understand that plans can change. Our cancellation policy is designed to be fair while ensuring the availability of our fleet for all clients. Please review the tiers below:
-          </p>
-          <div className="grid sm:grid-cols-3 gap-4 mt-6">
-            <div className="bg-charcoal p-4 rounded-sm border border-white/10 text-center">
-              <span className="block text-primary font-display text-xl mb-1">24+ Hours</span>
-              <span className="text-xs text-white/60 uppercase tracking-wider">Full Refund</span>
-            </div>
-            <div className="bg-charcoal p-4 rounded-sm border border-white/10 text-center">
-              <span className="block text-gold font-display text-xl mb-1">12-24 Hours</span>
-              <span className="text-xs text-white/60 uppercase tracking-wider">50% Fee</span>
-            </div>
-            <div className="bg-charcoal p-4 rounded-sm border border-white/10 text-center">
-              <span className="block text-red-400 font-display text-xl mb-1">&lt; 12 Hours</span>
-              <span className="text-xs text-white/60 uppercase tracking-wider">No Refund</span>
-            </div>
-          </div>
-        </>
+        <p>
+          Pricing is governed by AUSEMPI’s Board-approved pricing frameworks. Additional charges may apply for tolls, extended waiting time, special requests, or changes outside standard service scope.
+        </p>
+      )
+    },
+    {
+      icon: CalendarX,
+      title: "5. Cancellations & Amendments",
+      content: (
+        <p>
+          Cancellation and amendment terms vary by service type and will be disclosed at the time of booking. Late cancellations or no-shows may incur fees.
+        </p>
+      )
+    },
+    {
+      icon: User,
+      title: "6. Chauffeurs & Vehicles",
+      content: (
+        <p>
+          Drivers operate as independent contractors and are required to meet AUSEMPI’s training, compliance, and presentation standards. AUSEMPI does not guarantee a specific driver or vehicle unless expressly agreed in writing.
+        </p>
       )
     },
     {
       icon: ShieldCheck,
-      title: "5. Liability & Insurance",
+      title: "7. Client Obligations",
       content: (
-        <>
-          <p>
-            AUSEMPI maintains comprehensive commercial insurance for all vehicles and passengers. Our liability is limited to the extent provided by our insurance coverage. We prioritize passenger safety above all else.
-          </p>
-          <p className="mt-4">
-            We are not responsible for personal belongings left in the vehicles, though we will make every effort to assist in their recovery. Clients are responsible for any damage caused to the vehicle interior beyond normal wear and tear.
-          </p>
-        </>
+        <p>
+          Clients must provide accurate booking information and comply with lawful instructions during service. Unsafe, unlawful, or abusive behaviour may result in immediate termination of service without refund.
+        </p>
+      )
+    },
+    {
+      icon: AlertCircle,
+      title: "8. Liability",
+      content: (
+        <p>
+          To the maximum extent permitted by law, AUSEMPI limits its liability for loss, damage, or delay caused by events beyond reasonable control. Nothing in these Terms excludes rights under Australian Consumer Law.
+        </p>
       )
     },
     {
       icon: Lock,
-      title: "6. Privacy & Data",
+      title: "9. Privacy",
+      content: (
+        <p>
+          Personal information is handled in accordance with the AUSEMPI Privacy Policy, available on our website.
+        </p>
+      )
+    },
+    {
+      icon: Clock,
+      title: "10. Force Majeure",
+      content: (
+        <p>
+          AUSEMPI is not liable for failure or delay caused by events beyond its reasonable control, including natural disasters, strikes, or government restrictions.
+        </p>
+      )
+    },
+    {
+      icon: Gavel,
+      title: "11. Governing Law",
+      content: (
+        <p>
+          These Terms & Conditions are governed by the laws of New South Wales, Australia.
+        </p>
+      )
+    },
+    {
+      icon: History,
+      title: "12. Changes to Terms",
+      content: (
+        <p>
+          AUSEMPI may update these Terms & Conditions from time to time. Updated terms apply upon publication.
+        </p>
+      )
+    },
+    {
+      icon: Mail,
+      title: "13. Contact",
       content: (
         <>
-          <p>
-            Your privacy is paramount. All personal data collected during the booking process is handled in accordance with our Privacy Policy and international data protection standards. We do not sell or share your personal information with third parties for marketing purposes.
-          </p>
+          <p className="font-bold text-white mb-2">AUSEMPI Pty Ltd</p>
+          <a href="mailto:info@coxempire.com" className="inline-flex items-center text-primary hover:text-white transition-colors tracking-widest text-sm sm:text-base font-bold border-b border-primary hover:border-white pb-1">
+            info@coxempire.com
+          </a>
         </>
       )
     }
@@ -164,6 +187,20 @@ const Terms = () => {
               <p className="text-muted-foreground max-w-2xl mx-auto text-base md:text-xl font-light leading-relaxed">
                 Please read these terms carefully. They define the agreement between you and AUSEMPI regarding your use of our premium luxury transportation services.
               </p>
+
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-12 mt-10 border-t border-white/10 pt-8 sm:border-none sm:pt-0">
+                <div className="flex flex-col items-center">
+                  <span className="text-primary/80 text-[10px] uppercase tracking-[0.2em] font-medium mb-1">Effective Date</span>
+                  <span className="text-white font-display text-lg">25/01/2026</span>
+                </div>
+
+                <div className="hidden sm:block w-px h-10 bg-gradient-to-b from-transparent via-white/20 to-transparent" />
+
+                <div className="flex flex-col items-center">
+                  <span className="text-primary/80 text-[10px] uppercase tracking-[0.2em] font-medium mb-1">Last Reviewed</span>
+                  <span className="text-white font-display text-lg">25/01/2026</span>
+                </div>
+              </div>
             </FadeInSection>
           </div>
         </section>
@@ -181,7 +218,7 @@ const Terms = () => {
                     {/* Timeline Dot */}
                     <div className="absolute left-[-5px] top-0 w-2.5 h-2.5 rounded-full bg-charcoal border border-white/20 group-hover:border-primary group-hover:bg-primary transition-all duration-500 shadow-[0_0_10px_rgba(0,0,0,0.5)]" />
 
-                    <div className="flex items-center gap-4 mb-6">
+                    <div className="flex items-center gap-4 mb-4">
                       <div className="w-10 h-10 rounded-sm bg-white/5 flex items-center justify-center text-primary/80 group-hover:text-primary group-hover:bg-primary/10 transition-colors duration-300">
                         <section.icon size={20} />
                       </div>
@@ -201,7 +238,7 @@ const Terms = () => {
             <FadeInSection delay={0.4}>
               <div className="mt-20 pt-10 border-t border-white/10 text-center">
                 <p className="text-muted-foreground/60 text-sm italic">
-                  Last Updated: January 2026. AUSEMPI reserves the right to update these terms at any time without prior notice.
+                  Last Updated: 25/01/2026. AUSEMPI reserves the right to update these terms at any time.
                 </p>
                 <p className="mt-4 text-xs text-muted-foreground/40 uppercase tracking-widest">
                   &copy; 2026 AUSEMPI Luxury Transport. All Rights Reserved.

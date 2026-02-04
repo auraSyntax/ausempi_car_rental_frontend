@@ -1,6 +1,6 @@
 import { useRegisterSW } from "virtual:pwa-register/react";
 import { toast } from "sonner";
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
 
 /**
  * PWAReloadPrompt handle service worker registration and updates.
@@ -21,10 +21,10 @@ function PWAReloadPrompt() {
         },
     });
 
-    const close = () => {
+    const close = useCallback(() => {
         setOfflineReady(false);
         setNeedRefresh(false);
-    };
+    }, [setOfflineReady, setNeedRefresh]);
 
     useEffect(() => {
         if (offlineReady) {
@@ -36,7 +36,7 @@ function PWAReloadPrompt() {
                 },
             });
         }
-    }, [offlineReady]);
+    }, [offlineReady, close]);
 
     useEffect(() => {
         if (needRefresh) {
