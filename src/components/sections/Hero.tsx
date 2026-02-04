@@ -11,6 +11,7 @@ import heroImageLandscape from "@/assets/hero_img_landscape.avif";
 import heroImagePortrait from "@/assets/hero_img_portrait.avif";
 import noiseBg from "@/assets/noise-bg.svg";
 import { Link } from "react-router-dom";
+import { useScrollTo } from "@/hooks/useAnimations";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -24,9 +25,10 @@ const Hero = () => {
   const ctaRef = useRef<HTMLDivElement>(null);
 
   const [heroImage, setHeroImage] = useState(heroImageLandscape);
+  const scrollTo = useScrollTo();
 
   useEffect(() => {
-    let timeoutId: NodeJS.Timeout;
+    let timeoutId: ReturnType<typeof setTimeout>;
 
     const handleResize = () => {
       clearTimeout(timeoutId);
@@ -156,7 +158,13 @@ const Hero = () => {
       ctx.revert();
       mm.revert();
     };
+
   }, []);
+
+  const handleScrollToFleet = (e: React.MouseEvent) => {
+    e.preventDefault();
+    scrollTo("fleet", 100);
+  };
 
   return (
     <section
@@ -251,7 +259,7 @@ const Hero = () => {
             asChild
           >
             <Link
-              to={EXTERNAL_LINKS?.booking}
+              to={EXTERNAL_LINKS.booking || "#"}
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -263,9 +271,9 @@ const Hero = () => {
             variant="hero-outline"
             size="xl"
             className="w-full sm:w-auto min-w-[200px] h-12 md:h-14 text-sm md:text-base tracking-[0.2em] backdrop-blur-sm hover:bg-white/10 border-white/20"
-            asChild
+            onClick={handleScrollToFleet}
           >
-            <Link to="#fleet">View Fleet</Link>
+            View Fleet
           </Button>
         </div>
       </div>

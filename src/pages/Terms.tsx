@@ -188,7 +188,7 @@ const Terms = () => {
                 Please read these terms carefully. They define the agreement between you and AUSEMPI regarding your use of our premium luxury transportation services.
               </p>
 
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-12 mt-10 border-t border-white/10 pt-8 sm:border-none sm:pt-0">
+              <div className="flex flex-row items-center justify-around sm:justify-center gap-6 sm:gap-12 mt-10 border-t border-white/10 pt-8 sm:border-none sm:pt-0">
                 <div className="flex flex-col items-center">
                   <span className="text-primary/80 text-[10px] uppercase tracking-[0.2em] font-medium mb-1">Effective Date</span>
                   <span className="text-white font-display text-lg">25/01/2026</span>
