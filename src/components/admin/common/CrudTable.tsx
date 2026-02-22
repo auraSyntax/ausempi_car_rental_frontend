@@ -19,18 +19,18 @@ import { Button } from "@/components/ui/button";
 import { Edit, Trash2, Loader2 } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 
-interface Column {
+interface Column<T> {
     key: string;
     label: string;
-    render?: (row: any) => React.ReactNode;
+    render?: (row: T) => React.ReactNode;
 }
 
-interface CrudTableProps {
-    data: any[];
-    columns: Column[];
+interface CrudTableProps<T> {
+    data: T[];
+    columns: Column<T>[];
     isLoading?: boolean;
-    onEdit: (item: any) => void;
-    onDelete: (item: any) => void;
+    onEdit: (item: T) => void;
+    onDelete: (item: T) => void;
     currentPage: number;
     totalPages: number;
     onPageChange: (page: number) => void;
@@ -39,7 +39,7 @@ interface CrudTableProps {
     loadingEditId?: number | null;
 }
 
-export const CrudTable = ({
+export const CrudTable = <T extends { id?: number | string }>({
     data,
     columns,
     isLoading,
@@ -50,7 +50,7 @@ export const CrudTable = ({
     onPageChange,
     emptyMessage = "No data found.",
     loadingEditId = null,
-}: CrudTableProps) => {
+}: CrudTableProps<T>) => {
 
     const handlePageChange = (page: number) => {
         if (page >= 1 && page <= totalPages) {

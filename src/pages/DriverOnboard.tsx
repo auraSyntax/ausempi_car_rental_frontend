@@ -56,14 +56,8 @@ export default function DriverOnboard() {
     const onSubmit = async (data: OnboardFormData) => {
         setIsLoading(true);
         try {
-            const payload = {
-                firstName: data.firstName,
-                ...(data.lastName ? { lastName: data.lastName } : {}),
-                employeeId: data.employeeId,
-                phoneNumber: data.phoneNumber,
-                email: data.email,
-                password: data.password,
-            };
+            // confirmPassword is UI-only — strip it before passing to the API
+            const { confirmPassword: _, ...payload } = data;
 
             const response = await api.post("/v1/users/register", payload);
 
@@ -72,7 +66,7 @@ export default function DriverOnboard() {
                 navigate("/driver-login");
             }
         } catch (error) {
-            const err = error as AxiosError<any>;
+            const err = error as AxiosError<{ message?: string; errors?: string[] }>;
             if (err.response && err.response.data) {
                 const errorData = err.response.data;
                 if (errorData.errors && Array.isArray(errorData.errors)) {

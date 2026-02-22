@@ -127,8 +127,7 @@ export const UserForm = ({
 
     const handleSubmit = (data: UserFormValues) => {
         // confirmPassword is UI-only — strip it before passing to the parent
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { confirmPassword, ...payload } = data;
+        const { confirmPassword: _, ...payload } = data;
         onSubmit(payload as UserFormValues);
     };
 

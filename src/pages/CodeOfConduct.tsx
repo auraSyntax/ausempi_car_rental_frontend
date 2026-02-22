@@ -1,9 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import ReactPlayer from "react-player";
-const ReactPlayerComponent = ReactPlayer as any;
-
 import {
     Shield,
     Play,
@@ -48,7 +45,7 @@ export default function CodeOfConduct() {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const playerRef = useRef<any>(null);
+    const playerRef = useRef<HTMLVideoElement>(null);
 
     const { user } = useSelector((state: RootState) => state.auth);
     // Key is user-scoped so two drivers on the same device never clash
@@ -142,7 +139,6 @@ export default function CodeOfConduct() {
         if (currentVideoId !== null) {
             fetchVideo(currentVideoId);
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentVideoId]);
 
 
@@ -537,8 +533,7 @@ export default function CodeOfConduct() {
                                 <div
                                     className="absolute inset-0 flex items-center justify-center bg-black/40 backdrop-blur-[2px] cursor-pointer transition-all group-hover:bg-black/20"
                                     onClick={() => {
-                                        const vid = playerRef.current as HTMLVideoElement | null;
-                                        vid?.play();
+                                        playerRef.current?.play();
                                     }}
                                 >
                                     <div className="w-20 h-20 rounded-full bg-primary flex items-center justify-center shadow-2xl shadow-primary/20 transform transition-transform group-hover:scale-110">
