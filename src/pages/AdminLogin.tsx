@@ -15,7 +15,8 @@ import api from "@/services/api";
 import { toast } from "sonner";
 import Cookies from "js-cookie";
 
-import driverLoginImg from "@/assets/driver-login.avif";
+// TODO: Replace with an appropriate admin login image if available, or reuse driver for now
+import adminLoginImg from "@/assets/driver-login.avif";
 
 const loginSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
@@ -24,7 +25,7 @@ const loginSchema = z.object({
 
 type LoginFormValues = z.infer<typeof loginSchema>;
 
-export default function DriverLogin() {
+export default function AdminLogin() {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
@@ -45,7 +46,7 @@ export default function DriverLogin() {
   const onSubmit = async (data: LoginFormValues) => {
     setIsLoading(true);
     try {
-      const response = await api.post("/v1/auth/login", { ...data, userType: "Driver" });
+      const response = await api.post("/v1/auth/login", { ...data, userType: "Admin" });
 
       const { accessToken, refreshToken, userDto } = response.data;
 
@@ -54,25 +55,29 @@ export default function DriverLogin() {
 
       // Set Refresh Token in Cookie
       if (refreshToken) {
+        // Secure cookie settings
         Cookies.set("refreshToken", refreshToken, { expires: 1, secure: window.location.protocol === 'https:', sameSite: 'Strict' });
       }
 
       toast.success("Login successful", {
-        description: `Welcome back, ${userDto.employeeName || userDto?.email}`,
+        description: `Welcome back, Administrator ${userDto.employeeName || userDto?.email}`,
       });
 
-      if (userDto.userType === "Driver") {
-        navigate("/code-of-conduct");
+      if (userDto.userType === "Admin") {
+        navigate("/admin/dashboard");
       } else {
-        toast.info("Access Restricted", {
-          description: "This portal is for drivers only. Redirecting you...",
+        toast.error("Access Denied", {
+          description: "This portal is strictly for administrators.",
         });
+        // Optional: Logout immediately if not admin? Or redirect to home?
+        // Let's redirect to home for safety
         navigate("/");
       }
     } catch (err: unknown) {
       console.error("Login failed", err);
+      // specific error type for axios response access
       const error = err as { response?: { data?: { message?: string } } };
-      const errorMessage = error.response?.data?.message || "Invalid email or password";
+      const errorMessage = error.response?.data?.message || "Invalid credentials";
       toast.error("Login failed", {
         description: errorMessage,
       });
@@ -93,12 +98,12 @@ export default function DriverLogin() {
       <div className="hidden lg:flex lg:w-1/2 relative bg-black shrink-0 h-screen sticky top-0 overflow-hidden z-[99]">
         <div className="absolute inset-0 z-0">
           <LazyImage
-            src={driverLoginImg}
-            alt="Luxury Driver"
-            className="w-full h-full object-cover object-left opacity-60 transition-transform duration-[20000ms] hover:scale-105"
+            src={adminLoginImg}
+            alt="Admin Portal"
+            className="w-full h-full object-cover object-left opacity-40 transition-transform duration-[20000ms] hover:scale-105 filter grayscale"
             containerClassName="h-full"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent" />
           <div className="absolute inset-0 bg-gradient-to-r from-black/20 to-transparent" />
         </div>
 
@@ -111,15 +116,17 @@ export default function DriverLogin() {
           >
             <Shield className="w-12 h-12 text-primary mb-6" />
             <h2 className="font-display text-5xl font-bold text-white mb-6 leading-tight">
-              Excellence in <br />
-              <span className="text-gradient-gold">Every Journey.</span>
+              Administrative <br />
+              <span className="text-gradient-gold">Control Center.</span>
             </h2>
             <p className="text-muted-foreground text-lg max-w-md leading-relaxed border-l-2 border-primary/30 pl-6">
-              Welcome to the Ausempi Driver Portal. Access your schedule, manage trips, and maintain the highest standards of service.
+              Secure access for system administrators to manage users, content, and system configuration.
             </p>
           </motion.div>
 
           <div className="flex gap-4 text-xs text-white/20 font-mono">
+            <span>•</span>
+            <span>RESTRICTED ACCESS</span>
             <span>•</span>
             <span>SECURED BY AUSEMPI</span>
           </div>
@@ -157,10 +164,10 @@ export default function DriverLogin() {
             >
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-[10px] font-bold tracking-[0.2em] uppercase mb-8">
                 <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-                Driver Access
+                Admin Access
               </div>
-              <h1 className="font-display text-4xl lg:text-5xl font-bold mb-4 text-foreground">Welcome Back</h1>
-              <p className="text-muted-foreground text-sm sm:text-base font-light">Please enter your specialized credentials to continue.</p>
+              <h1 className="font-display text-4xl lg:text-5xl font-bold mb-4 text-foreground">Dashboard Login</h1>
+              <p className="text-muted-foreground text-sm sm:text-base font-light">Please enter your administrative credentials.</p>
             </motion.div>
 
             <motion.form
@@ -180,7 +187,7 @@ export default function DriverLogin() {
                   </div>
                   <Input
                     id="email"
-                    placeholder="name@example.com"
+                    placeholder="admin@ausempi.com"
                     {...register("email")}
                     className={`pl-11 h-12 sm:h-14 bg-white/[0.03] border-white/10 hover:border-primary/30 focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all duration-300 rounded-sm text-base placeholder:text-muted-foreground/30 font-light tracking-wide bg-background ${errors.email ? "border-red-500" : ""
                       }`}
@@ -192,7 +199,7 @@ export default function DriverLogin() {
               </div>
 
               <div className="space-y-2">
-                {/* <div className="flex items-center justify-between ml-1">
+                <div className="flex items-center justify-between ml-1">
                   <Label htmlFor="password" className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">
                     Password
                   </Label>
@@ -202,7 +209,7 @@ export default function DriverLogin() {
                   >
                     Forgot Password?
                   </Link>
-                </div> */}
+                </div>
                 <div className="relative group">
                   <div className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground/50 group-focus-within:text-primary transition-colors duration-300">
                     <Lock size={18} />
@@ -236,39 +243,32 @@ export default function DriverLogin() {
                 {isLoading ? (
                   <span className="flex items-center gap-2">
                     <span className="h-4 w-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
-                    Authenticating...
+                    Verifying...
                   </span>
                 ) : (
                   <span className="flex items-center justify-center gap-2">
-                    Sign In to Dashboard
+                    Access Dashboard
                     <ChevronRight size={16} />
                   </span>
                 )}
               </Button>
 
               <div className="pt-4 text-center">
-                <span className="text-[10px] text-muted-foreground uppercase tracking-widest font-medium mr-2">
-                  New Driver?
-                </span>
-                <Link to="/driver-onboard" className="text-[10px] uppercase tracking-widest text-primary hover:text-primary/80 font-bold transition-colors">
-                  Register Here
-                </Link>
+                {/* Removed Driver Registration Link */}
               </div>
 
               <div className="pt-4 relative text-center">
                 <div className="relative">
                   <span className="px-4 text-[10px] text-muted-foreground uppercase tracking-widest font-medium">
-                    Need any help?
+                    System Issue?
                   </span>
                 </div>
               </div>
 
-
-
               <div className="flex justify-center pt-2">
                 <div className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors cursor-pointer group px-4 py-2 rounded-sm hover:bg-white/5">
                   <HelpCircle size={14} className="group-hover:text-primary transition-colors" />
-                  <span className="text-xs tracking-wider">Contact Support</span>
+                  <span className="text-xs tracking-wider">Contact IT Support</span>
                 </div>
               </div>
             </motion.form>
@@ -277,7 +277,7 @@ export default function DriverLogin() {
           {/* Mobile Footer */}
           <div className="w-full text-center pb-6 lg:pb-0 lg:absolute lg:bottom-8 relative z-10">
             <p className="text-[9px] uppercase tracking-[0.3em] text-white/20 font-medium">
-              Secured by Ausempi
+              Internal System • Ausempi
             </p>
           </div>
         </div>
