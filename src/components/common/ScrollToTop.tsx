@@ -10,12 +10,10 @@ export function ScrollToTop() {
 
     useEffect(() => {
         // If there's a hash, we let the hash-scrolling logic handle it
-        // Otherwise, we scroll to top smoothly on every route change
+        // Otherwise, we scroll to top instantly on every route change
+        // Smooth scrolling here can cause layout jumps during page load transitions
         if (!location.hash) {
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth",
-            });
+            window.scrollTo(0, 0);
         }
     }, [location]);
 

@@ -66,7 +66,7 @@ const Contact = () => {
       <Navbar />
 
       {/* Hero Section – Premium Brand Reveal */}
-      <section ref={containerRef} className="relative min-h-[85vh] flex items-center justify-center overflow-hidden pt-20">
+      <section ref={containerRef} className="relative min-h-[100vh] flex items-center justify-center overflow-hidden pt-20">
         {/* Background Image with Parallax & Dark Overlay */}
         <motion.div style={{ y, opacity }} className="absolute inset-0 z-0 select-none">
           <LazyImage
