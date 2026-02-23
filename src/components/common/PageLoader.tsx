@@ -2,11 +2,17 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
-export const PageLoader = () => {
-  const [isLoading, setIsLoading] = useState(false);
+export const PageLoader = ({ isForced = false }: { isForced?: boolean }) => {
+  const [isLoading, setIsLoading] = useState(isForced);
   const location = useLocation();
 
   useEffect(() => {
+    // If forced to load, keep it loading
+    if (isForced) {
+      setIsLoading(true);
+      return;
+    }
+
     // Show loader on route change
     setIsLoading(true);
 
@@ -16,7 +22,7 @@ export const PageLoader = () => {
     }, 800);
 
     return () => clearTimeout(timer);
-  }, [location.pathname]);
+  }, [location.pathname, isForced]);
 
   return (
     <AnimatePresence mode="wait">

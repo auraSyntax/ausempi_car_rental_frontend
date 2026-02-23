@@ -38,25 +38,48 @@ const debounce = <T extends (...args: any[]) => any>(func: T, wait: number) => {
 // Scroll Position Hook
 // ============================================
 
-export const useScrollPosition = () => {
-  const [scrollPosition, setScrollPosition] = useState(0);
+export const useScrollPosition = (threshold = 50) => {
+  const [isScrolled, setIsScrolled] = useState(typeof window !== "undefined" ? window.scrollY > threshold : false);
   const [scrollDirection, setScrollDirection] = useState<"up" | "down">("up");
 
   useEffect(() => {
     let lastScrollY = window.scrollY;
+    let ticking = false;
 
-    const handleScroll = throttle(() => {
+    // Set initial position immediately
+    setIsScrolled(window.scrollY > threshold);
+
+    const updateScrollDir = () => {
       const currentScrollY = window.scrollY;
-      setScrollPosition(currentScrollY);
-      setScrollDirection(currentScrollY > lastScrollY ? "down" : "up");
-      lastScrollY = currentScrollY;
-    }, 100);
+      const isPastThreshold = currentScrollY > threshold;
+
+      // Only set state if the value changed, React batches these but avoiding the call is even better
+      setIsScrolled((prev) => (prev !== isPastThreshold ? isPastThreshold : prev));
+
+      const newDirection = currentScrollY > lastScrollY ? "down" : "up";
+      if (Math.abs(currentScrollY - lastScrollY) > 5) {
+        setScrollDirection((prev) => (prev !== newDirection ? newDirection : prev));
+      }
+
+      lastScrollY = currentScrollY > 0 ? currentScrollY : 0;
+      ticking = false;
+    };
+
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateScrollDir);
+        ticking = true;
+      }
+    };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    // Also trigger on mount to ensure correct initial state
+    updateScrollDir();
 
-  return { scrollPosition, scrollDirection };
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [threshold]);
+
+  return { isScrolled, scrollDirection };
 };
 
 // ============================================

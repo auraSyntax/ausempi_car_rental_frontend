@@ -20,14 +20,13 @@ const navLinks = [
 ];
 
 const Navbar = () => {
-  const { scrollPosition } = useScrollPosition();
+  const { isScrolled } = useScrollPosition(50);
   const { isAuthenticated, user } = useSelector((state: RootState) => state.auth);
 
   // Determine dashboard route based on user type
   const dashboardHref =
     user?.userType === "Admin" ? "/admin/dashboard" : "/code-of-conduct";
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const isScrolled = scrollPosition > 50;
   const location = useLocation();
 
   // Handle hash scroll when coming from another page
@@ -38,7 +37,7 @@ const Navbar = () => {
       if (element) {
         setTimeout(() => {
           element.scrollIntoView({ behavior: "smooth" });
-        }, 100);
+        }, 850);
       }
     }
   }, [location]);

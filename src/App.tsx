@@ -120,7 +120,7 @@ const AuthController = ({ children }: { children: React.ReactNode }) => {
   }, [dispatch, isAuthenticated, navigate, location.pathname]);
 
   if (isRestoring) {
-    return <PageLoader />;
+    return <PageLoader isForced={true} />;
   }
 
   return <>{children}</>;
