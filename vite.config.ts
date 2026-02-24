@@ -10,19 +10,6 @@ export default defineConfig(({ mode }) => {
     server: {
       host: "::",
       port: 5173,
-      proxy: {
-        "/api": {
-          target: env.VITE_API_BASE_URL, // https://ausempicarrentalbackend-production.up.railway.app
-          changeOrigin: true, // Rewrites Host header beautifully
-          secure: false,
-          configure: (proxy, _options) => {
-            proxy.on("proxyReq", (proxyReq, _req, _res) => {
-              // Strip Origin header completely to bypass strict backend CORS validation for dev
-              proxyReq.removeHeader("Origin");
-            });
-          },
-        },
-      },
     },
     plugins: [
       react(),
