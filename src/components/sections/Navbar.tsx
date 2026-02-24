@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button";
 import { EXTERNAL_LINKS } from "@/lib/constants";
 import logo from "@/assets/ausempi-logo.png";
 import { useScrollPosition } from "@/hooks/useAnimations";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 
 const navLinks = [
   { name: "Home", href: "/" },
@@ -18,9 +20,13 @@ const navLinks = [
 ];
 
 const Navbar = () => {
-  const { scrollPosition } = useScrollPosition();
+  const { isScrolled } = useScrollPosition(50);
+  const { isAuthenticated, user } = useSelector((state: RootState) => state.auth);
+
+  // Determine dashboard route based on user type
+  const dashboardHref =
+    user?.userType === "Admin" ? "/admin/dashboard" : "/code-of-conduct";
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const isScrolled = scrollPosition > 50;
   const location = useLocation();
 
   // Handle hash scroll when coming from another page
@@ -31,7 +37,7 @@ const Navbar = () => {
       if (element) {
         setTimeout(() => {
           element.scrollIntoView({ behavior: "smooth" });
-        }, 100);
+        }, 850);
       }
     }
   }, [location]);
@@ -77,7 +83,10 @@ const Navbar = () => {
 
           {/* Desktop Navigation */}
           <ul className="hidden lg:flex items-center gap-8 xl:gap-10">
-            {navLinks.map((link) => {
+            {[
+              ...navLinks.filter(link => !isAuthenticated || link.name !== "Driver Login"),
+              ...(isAuthenticated ? [{ name: "Dashboard", href: dashboardHref }] : []),
+            ].map((link) => {
               const isActive = location.pathname === link.href;
               return (
                 <motion.li
@@ -191,7 +200,10 @@ const Navbar = () => {
                 <div className="container-luxury py-7 sm:py-8 flex flex-col items-center justify-center min-h-full gap-8">
                   {/* Links */}
                   <div className="flex flex-col items-center gap-6 w-full">
-                    {navLinks.map((link, index) => {
+                    {[
+                      ...navLinks.filter(link => !isAuthenticated || link.name !== "Driver Login"),
+                      ...(isAuthenticated ? [{ name: "Dashboard", href: dashboardHref }] : []),
+                    ].map((link, index) => {
                       const isActive = location.pathname === link.href;
                       return (
                         <motion.div

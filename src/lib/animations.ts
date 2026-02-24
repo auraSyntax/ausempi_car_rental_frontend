@@ -15,7 +15,7 @@ export const gsapFadeInUp = (
   }
 ) => {
   if (!element) return;
-  
+
   gsap.fromTo(
     element,
     {
@@ -59,7 +59,7 @@ export const gsapRevealFromLeft = (
   options?: { delay?: number; duration?: number }
 ) => {
   if (!element) return;
-  
+
   gsap.fromTo(
     element,
     { opacity: 0, x: -100 },
@@ -78,7 +78,7 @@ export const gsapRevealFromRight = (
   options?: { delay?: number; duration?: number }
 ) => {
   if (!element) return;
-  
+
   gsap.fromTo(
     element,
     { opacity: 0, x: 100 },
@@ -97,7 +97,7 @@ export const gsapScaleIn = (
   options?: { delay?: number; duration?: number }
 ) => {
   if (!element) return;
-  
+
   gsap.fromTo(
     element,
     { opacity: 0, scale: 0.8 },
@@ -214,17 +214,14 @@ export const tapScale = {
   transition: { duration: 0.1 },
 };
 
-// Page transitions
 export const pageTransition: Variants = {
-  initial: { opacity: 0, y: 20 },
+  initial: { opacity: 0 },
   animate: {
     opacity: 1,
-    y: 0,
     transition: { duration: 0.5, ease: "easeOut" },
   },
   exit: {
     opacity: 0,
-    y: -20,
     transition: { duration: 0.3, ease: "easeIn" },
   },
 };
