@@ -6,9 +6,8 @@ import { jwtDecode } from "jwt-decode";
 import { setCredentials } from "../store/authSlice";
 
 // Create axios instance
-// Using /api base URL to leverage the Vite proxy
 const api = axios.create({
-    baseURL: "/api",
+    baseURL: import.meta.env.VITE_API_BASE_URL,
     headers: {
         "Content-Type": "application/json",
     },
