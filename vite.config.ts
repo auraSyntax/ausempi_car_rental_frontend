@@ -12,15 +12,13 @@ export default defineConfig(({ mode }) => {
       port: 5173,
       proxy: {
         "/api": {
-          target: env.VITE_API_BASE_URL,
-          changeOrigin: true,
+          target: env.VITE_API_BASE_URL, // https://ausempicarrentalbackend-production.up.railway.app
+          changeOrigin: true, // Rewrites Host header beautifully
           secure: false,
           configure: (proxy, _options) => {
-            proxy.on("error", (err, _req, _res) => {
-              console.log("proxy error", err);
-            });
             proxy.on("proxyReq", (proxyReq, _req, _res) => {
-              proxyReq.setHeader("Origin", env.VITE_API_BASE_URL);
+              // Strip Origin header completely to bypass strict backend CORS validation for dev
+              proxyReq.removeHeader("Origin");
             });
           },
         },
