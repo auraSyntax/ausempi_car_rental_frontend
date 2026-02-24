@@ -1,63 +1,49 @@
-export const config = {
-    api: {
-        bodyParser: true, // lets Vercel parse JSON body for you
-    },
-};
+export const config = { api: { bodyParser: true } };
 
 export default async function handler(req, res) {
-    try {
-        const backendBase = process.env.VITE_API_BASE_URL; // e.g. https://...railway.app
-        if (!backendBase) {
-            return res.status(500).json({ message: "VITE_API_BASE_URL is not set" });
-        }
+  // handle preflight quickly (important)
+  if (req.method === "OPTIONS") return res.status(204).end();
 
-        const path = (req.query.path || []).join("/");
-        // remove trailing slash if any, then append /api/
-        const baseUrl = backendBase.replace(/\/$/, "");
-        const url = `${baseUrl}/api/${path}`;
+  const backendBase = process.env.BACKEND_URL; // NO /api here
+  if (!backendBase) return res.status(500).json({ message: "BACKEND_URL is not set" });
 
-        // Copy headers, but remove hop-by-hop headers
-        const headers = { ...req.headers };
-        delete headers.host;
-        delete headers.connection;
-        delete headers["content-length"];
+  const path = (req.query.path || []).join("/"); // auth/login
+  const baseUrl = backendBase.replace(/\/$/, "");
+  const url = `${baseUrl}/api/v1/${path}`; // keep your versioned API here
 
-        // Remove origin to prevent backend CORS completely (matching local dev behavior)
-        delete headers.origin;
+  const headers = { ...req.headers };
+  delete headers.host;
+  delete headers.connection;
+  delete headers["content-length"];
+  delete headers.origin; // remove origin so backend won't CORS block
 
-        const body =
-            req.method === "GET" || req.method === "HEAD"
-                ? undefined
-                : req.body
-                    ? typeof req.body === 'string'
-                        ? req.body
-                        : JSON.stringify(req.body)
-                    : undefined;
+  const body =
+    req.method === "GET" || req.method === "HEAD"
+      ? undefined
+      : req.body
+      ? typeof req.body === "string"
+        ? req.body
+        : JSON.stringify(req.body)
+      : undefined;
 
-        const upstream = await fetch(url, {
-            method: req.method,
-            headers: {
-                ...headers,
-                "content-type": "application/json",
-            },
-            body,
-        });
+  const upstream = await fetch(url, {
+    method: req.method,
+    headers: {
+      ...headers,
+      "content-type": "application/json",
+    },
+    body,
+  });
 
-        const text = await upstream.text();
+  const text = await upstream.text();
+  res.status(upstream.status);
 
-        // forward status + content-type
-        res.status(upstream.status);
-        res.setHeader("content-type", upstream.headers.get("content-type") || "application/json");
+  const ct = upstream.headers.get("content-type");
+  if (ct) res.setHeader("content-type", ct);
 
-        // forward set-cookie headers if available
-        const setCookie = upstream.headers.get("set-cookie");
-        if (setCookie) {
-            res.setHeader("set-cookie", setCookie);
-        }
+  // Forward set-cookie (if backend uses it)
+  const setCookie = upstream.headers.get("set-cookie");
+  if (setCookie) res.setHeader("set-cookie", setCookie);
 
-        return res.send(text);
-    } catch (err) {
-        console.error(err);
-        return res.status(500).json({ message: "Proxy error", error: String(err) });
-    }
+  return res.send(text);
 }
