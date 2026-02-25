@@ -42,10 +42,14 @@ export default function CodeOfConduct() {
     const [userAnswers, setUserAnswers] = useState<Record<number, number>>({});
     const [isPlaying, setIsPlaying] = useState(false);
     const [isCompleted, setIsCompleted] = useState(false);
+    const [isVideoFullyWatched, setIsVideoFullyWatched] = useState(false);
+    const [videoProgress, setVideoProgress] = useState(0);
+    const [currentTimeDisplay, setCurrentTimeDisplay] = useState("00:00");
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const playerRef = useRef<HTMLVideoElement>(null);
+    const maxTimeWatchedRef = useRef<number>(0);
 
     const { user } = useSelector((state: RootState) => state.auth);
     // Key is user-scoped so two drivers on the same device never clash
@@ -147,6 +151,10 @@ export default function CodeOfConduct() {
         setError(null);
         setUserAnswers({});
         setIsPlaying(false);
+        setIsVideoFullyWatched(false);
+        setVideoProgress(0);
+        setCurrentTimeDisplay("00:00");
+        maxTimeWatchedRef.current = 0;
 
         try {
             const data = await videoService.getVideoById(id);
@@ -159,10 +167,10 @@ export default function CodeOfConduct() {
         }
     };
 
-    const handleLogout = () => {
-        dispatch(logout());
-        Cookies.remove("refreshToken");
-        navigate("/driver-login");
+    const handleLogout = async () => {
+        await dispatch(logout());
+        // Cookies.remove("refreshToken");
+        // navigate("/driver-login");
     };
 
     const handleOptionChange = (questionId: number, optionId: number) => {
@@ -517,11 +525,29 @@ export default function CodeOfConduct() {
                                 <video
                                     key={videoData.viewVideoUrl}
                                     ref={playerRef}
-                                    controls
+                                    controls={isVideoFullyWatched}
                                     controlsList="nodownload"
                                     className="w-full h-full object-contain"
                                     onPlay={() => setIsPlaying(true)}
                                     onPause={() => setIsPlaying(false)}
+                                    onEnded={() => setIsVideoFullyWatched(true)}
+                                    onTimeUpdate={(e) => {
+                                        const vid = e.currentTarget;
+                                        if (vid.duration) {
+                                            setVideoProgress((vid.currentTime / vid.duration) * 100);
+                                        }
+                                        const m = Math.floor(vid.currentTime / 60).toString().padStart(2, '0');
+                                        const s = Math.floor(vid.currentTime % 60).toString().padStart(2, '0');
+                                        setCurrentTimeDisplay(`${m}:${s}`);
+
+                                        if (!isVideoFullyWatched && playerRef.current) {
+                                            if (playerRef.current.currentTime > maxTimeWatchedRef.current + 1) {
+                                                playerRef.current.currentTime = maxTimeWatchedRef.current;
+                                            } else {
+                                                maxTimeWatchedRef.current = playerRef.current.currentTime;
+                                            }
+                                        }
+                                    }}
                                     onContextMenu={(e) => e.preventDefault()}
                                 >
                                     {/* Explicit type tells the browser this is MP4 even though the URL has no extension */}
@@ -529,6 +555,29 @@ export default function CodeOfConduct() {
                                     Your browser does not support the video tag.
                                 </video>
                             )}
+
+                            {/* Custom Progress Bar for Uncompleted Video */}
+                            {!isVideoFullyWatched && isPlaying && (
+                                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent pt-16 z-10 pointer-events-none animate-in fade-in duration-500">
+                                    <div className="px-6 pb-3 flex justify-between items-center text-xs font-mono text-primary font-bold">
+                                        <span>{currentTimeDisplay}</span>
+                                        <div className="px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-[9px] tracking-widest uppercase animate-pulse">
+                                            Watching Required
+                                        </div>
+                                        <span>
+                                            {Math.floor((videoData?.durationSeconds || 0) / 60).toString().padStart(2, '0')}:
+                                            {((videoData?.durationSeconds || 0) % 60).toString().padStart(2, '0')}
+                                        </span>
+                                    </div>
+                                    <div className="h-1.5 bg-white/10 w-full relative flex-shrink-0">
+                                        <div
+                                            className="absolute inset-y-0 left-0 bg-primary shadow-[0_0_12px_rgba(var(--primary)/0.6)] transition-all duration-300 ease-linear"
+                                            style={{ width: `${videoProgress}%` }}
+                                        />
+                                    </div>
+                                </div>
+                            )}
+
                             {!isPlaying && (
                                 <div
                                     className="absolute inset-0 flex items-center justify-center bg-black/40 backdrop-blur-[2px] cursor-pointer transition-all group-hover:bg-black/20"
@@ -577,7 +626,7 @@ export default function CodeOfConduct() {
                     </div>
 
                     {/* Right Column: Quiz */}
-                    <div className="lg:col-span-4 sticky top-32">
+                    <div className={`lg:col-span-4 sticky top-32 transition-all duration-500 ${!isVideoFullyWatched ? "blur-md pointer-events-none select-none opacity-60" : ""}`}>
                         <Card className="bg-white/[0.03] border-white/10 rounded-sm shadow-2xl overflow-hidden">
                             <CardHeader className="border-b border-white/5 bg-white/[0.02]">
                                 <div className="flex items-center gap-2 text-primary mb-1">

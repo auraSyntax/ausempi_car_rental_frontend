@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import Cookies from "js-cookie";
 
 interface UserDto {
     id: number;
@@ -58,6 +59,13 @@ const authSlice = createSlice({
             state.isAuthenticated = false;
             state.tokenReceivedAt = null;
             state.sessionStartTime = null;
+
+            // Clear refresh token from cookies
+            Cookies.remove("refreshToken");
+
+            // Clear local and session storage
+            localStorage.clear();
+            sessionStorage.clear();
         },
     },
 });
