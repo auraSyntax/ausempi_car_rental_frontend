@@ -270,11 +270,11 @@ const AppDownload = () => {
                   <p className="text-white font-bold text-xl">4.9 / 5.0</p>
                   <p className="text-white/40 text-xs">App Store Excellence</p>
                 </div>
-                <div className="h-12 w-px bg-white/10 hidden sm:block" />
+                {/* <div className="h-12 w-px bg-white/10 hidden sm:block" />
                 <div className="flex flex-col gap-2">
                   <p className="text-white font-bold text-xl">150K+</p>
                   <p className="text-white/40 text-xs">Elite Active Members</p>
-                </div>
+                </div> */}
               </div>
 
               <div className="flex flex-wrap justify-center lg:justify-start gap-4">

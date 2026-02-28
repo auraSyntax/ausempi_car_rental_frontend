@@ -10,7 +10,8 @@ import {
   Check,
   Crown,
   Star,
-  ArrowRight
+  ArrowRight,
+  Clock
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { EXTERNAL_LINKS } from "@/lib/constants";
@@ -39,9 +40,10 @@ const serviceTiers = [
       "Complimentary water",
       "Flight tracking",
       "Meet & greet",
-      "60-min free wait time",
+      "30-min free wait time",
     ],
-    highlighted: false,
+    highlighted: true,
+    isComingSoon: false,
   },
   {
     name: "Luxury",
@@ -53,10 +55,11 @@ const serviceTiers = [
       "Premium refreshments",
       "Dedicated concierge",
       "Priority scheduling",
-      "90-min free wait time",
+      "60-min free wait time",
       "Personalized preferences",
     ],
-    highlighted: true,
+    highlighted: false,
+    isComingSoon: true,
   },
 ];
 
@@ -90,11 +93,11 @@ const specialPackages = [
 
 // Comparison Data
 const comparisonFeatures = [
-  { feature: "Passengers", sedan: "Up to 3", suv: "Up to 6" },
+  { feature: "Passengers", sedan: "Up to 2", suv: "Up to 2" },
   { feature: "Luggage", sedan: "2 Large bags", suv: "4 Large bags" },
-  { feature: "Ideal For", sedan: "Executive travel", suv: "Groups & families" },
+  { feature: "Ideal For", sedan: "Corporate", suv: "Executive" },
   { feature: "Interior Space", sedan: "Refined", suv: "Spacious" },
-  { feature: "Starting Price", sedan: "From $95", suv: "From $145" },
+  { feature: "Starting Price", sedan: "From $130", suv: "From $190" },
 ];
 
 const ServicePackages = () => {
@@ -115,6 +118,7 @@ const ServicePackages = () => {
           duration: 0.7,
           stagger: 0.12,
           ease: "power3.out",
+          force3D: true, // Hardware acceleration for header animation
           scrollTrigger: {
             trigger: headerRef.current,
             start: "top 85%",
@@ -172,62 +176,91 @@ const ServicePackages = () => {
               className={`group relative p-8 lg:p-12 rounded-none border transition-all duration-700 ${tier.highlighted
                 ? "border-primary/40 bg-primary/[0.03] shadow-[0_0_50px_-12px_rgba(212,175,55,0.15)]"
                 : "border-white/5 bg-white/[0.02]"
-                }`}
+                } ${tier.isComingSoon ? "overflow-hidden" : ""}`}
             >
+              {/* Coming Soon Overlay Layer */}
+              {tier.isComingSoon && (
+                <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-black/40 backdrop-blur-[2px]">
+                  {/* Diagonal subtle stripes */}
+                  <div className="absolute inset-0 opacity-20 pointer-events-none bg-[repeating-linear-gradient(45deg,transparent,transparent_10px,rgba(255,255,255,0.1)_10px,rgba(255,255,255,0.1)_20px)]" />
+
+                  <div className="relative flex flex-col items-center justify-center p-6 sm:p-8 bg-black/60 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl transform transition-transform duration-700 group-hover:scale-[1.03]">
+                    <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/20 via-transparent to-transparent opacity-20 pointer-events-none" />
+
+                    <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mb-4 relative overflow-hidden">
+                      <div className="absolute inset-0 bg-primary/20 animate-pulse" />
+                      <Clock size={20} className="text-primary relative z-10" />
+                    </div>
+
+                    <span className="text-white text-[11px] md:text-sm uppercase tracking-[0.4em] font-black drop-shadow-lg mb-1.5 text-center">
+                      Coming Soon
+                    </span>
+                    <span className="text-primary/70 text-[9px] uppercase tracking-widest font-medium text-center">
+                      Elevating Standards
+                    </span>
+
+                    {/* Glow effect under badge */}
+                    <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-3/4 h-2 bg-primary/40 blur-xl rounded-full pointer-events-none" />
+                  </div>
+                </div>
+              )}
+
               {/* Highlighted Badge */}
               {tier.highlighted && (
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2">
+                <div className={`absolute -top-4 left-1/2 -translate-x-1/2 z-30 ${tier.isComingSoon ? "opacity-60 grayscale blur-[2px]" : ""}`}>
                   <span className="bg-primary text-primary-foreground text-[10px] md:text-xs uppercase tracking-[0.2em] px-6 py-2 rounded-full font-bold shadow-lg shadow-primary/20">
                     Recommended
                   </span>
                 </div>
               )}
 
-              {/* Icon & Title */}
-              <div className="flex flex-col items-center text-center mb-6 sm:mb-8">
-                <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-6 transition-transform duration-500 group-hover:scale-110 ${tier.highlighted ? "bg-primary/20 shadow-[0_0_30px_-5px_rgba(212,175,55,0.3)]" : "bg-white/5"
-                  }`}>
-                  <tier.icon size={32} className={tier.highlighted ? "text-primary" : "text-muted-foreground"} />
+              <div className={`relative flex flex-col h-full transition-all duration-500 z-10 ${tier.isComingSoon ? "opacity-60 grayscale blur-[2px] pointer-events-none select-none" : ""}`}>
+                {/* Icon & Title */}
+                <div className="flex flex-col items-center text-center mb-6 sm:mb-8">
+                  <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-6 transition-transform duration-500 group-hover:scale-110 ${tier.highlighted ? "bg-primary/20 shadow-[0_0_30px_-5px_rgba(212,175,55,0.3)]" : "bg-white/5"
+                    }`}>
+                    <tier.icon size={32} className={tier.highlighted ? "text-primary" : "text-muted-foreground"} />
+                  </div>
+                  <h3 className={`font-display text-3xl md:text-4xl font-bold mb-2 ${tier.highlighted ? "text-gradient-gold" : "text-foreground"
+                    }`}>
+                    {tier.name}
+                  </h3>
+                  <p className="text-sm uppercase tracking-[0.2em] text-primary/80 font-medium">
+                    {tier.tagline}
+                  </p>
                 </div>
-                <h3 className={`font-display text-3xl md:text-4xl font-bold mb-2 ${tier.highlighted ? "text-gradient-gold" : "text-foreground"
-                  }`}>
-                  {tier.name}
-                </h3>
-                <p className="text-sm uppercase tracking-[0.2em] text-primary/80 font-medium">
-                  {tier.tagline}
+
+                {/* Description */}
+                <p className="text-muted-foreground text-center text-base sm:text-lg md:text-base lg:text-base leading-relaxed mb-8 sm:mb-10 sm:max-w-xs mx-auto">
+                  {tier.description}
                 </p>
+
+                {/* Features */}
+                <ul className="space-y-4 mb-12 md:min-h-[225px]">
+                  {tier.features.map((feature) => (
+                    <li key={feature} className="flex items-center gap-4 text-[0.9rem] sm:text-base">
+                      <div className={`shrink-0 w-6 h-6 rounded-full flex items-center justify-center ${tier.highlighted ? "bg-primary/20 text-primary" : "bg-white/10 text-muted-foreground"
+                        }`}>
+                        <Check size={14} />
+                      </div>
+                      <span className="text-foreground/90">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                {/* CTA */}
+                <Button
+                  variant={tier.highlighted ? "luxury" : "luxury-outline"}
+                  size="lg"
+                  className={`w-full h-12 sm:h-14 text-sm sm:text-base tracking-widest uppercase transition-all duration-300 ${tier.highlighted ? "hover:shadow-[0_0_30px_-5px_rgba(212,175,55,0.4)]" : ""
+                    }`}
+                  asChild
+                >
+                  <Link to={EXTERNAL_LINKS.booking} target="_blank" rel="noopener noreferrer">
+                    Book {tier.name}
+                  </Link>
+                </Button>
               </div>
-
-              {/* Description */}
-              <p className="text-muted-foreground text-center text-base sm:text-lg md:text-base lg:text-base leading-relaxed mb-8 sm:mb-10 sm:max-w-xs mx-auto">
-                {tier.description}
-              </p>
-
-              {/* Features */}
-              <ul className="space-y-4 mb-12 md:min-h-[225px]">
-                {tier.features.map((feature) => (
-                  <li key={feature} className="flex items-center gap-4 text-[0.9rem] sm:text-base">
-                    <div className={`shrink-0 w-6 h-6 rounded-full flex items-center justify-center ${tier.highlighted ? "bg-primary/20 text-primary" : "bg-white/10 text-muted-foreground"
-                      }`}>
-                      <Check size={14} />
-                    </div>
-                    <span className="text-foreground/90">{feature}</span>
-                  </li>
-                ))}
-              </ul>
-
-              {/* CTA */}
-              <Button
-                variant={tier.highlighted ? "luxury" : "luxury-outline"}
-                size="lg"
-                className={`w-full h-12 sm:h-14 text-sm sm:text-base tracking-widest uppercase transition-all duration-300 ${tier.highlighted ? "hover:shadow-[0_0_30px_-5px_rgba(212,175,55,0.4)]" : ""
-                  }`}
-                asChild
-              >
-                <Link to={EXTERNAL_LINKS.booking} target="_blank" rel="noopener noreferrer">
-                  Book {tier.name}
-                </Link>
-              </Button>
             </motion.div>
           ))}
         </div>
@@ -250,13 +283,7 @@ const ServicePackages = () => {
               transition={{ duration: 0.8 }}
               className="group relative overflow-hidden rounded-none bg-white/[0.02] border border-white/5"
             >
-              <div className="aspect-[3/2] overflow-hidden">
-                <img
-                  src={sedanImg}
-                  alt="Premium Sedan"
-                  className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
-                />
-
+              <div className="aspect-[3/2] overflow-hidden relative">
                 <LazyImage
                   src={sedanImg}
                   alt="Premium Sedan"
@@ -267,8 +294,10 @@ const ServicePackages = () => {
               </div>
               <div className="p-7 sm:p-10 relative">
                 <div className="flex justify-between items-center mb-8">
-                  <h4 className="font-display text-xl sm:text-3xl font-bold text-foreground">Premium Sedan</h4>
-                  <span className="text-primary font-bold text-xl">$95<span className="text-xs text-muted-foreground font-normal ml-1">Starting</span></span>
+                  <h4 className="font-display text-xl sm:text-3xl font-bold text-foreground">Sedan</h4>
+                  <span className="text-primary font-bold text-xl">
+                    {comparisonFeatures?.filter((item) => item.feature === "Starting Price")[0].sedan}
+                    <span className="text-xs text-muted-foreground font-normal ml-1">Starting</span></span>
                 </div>
 
                 <div className="space-y-4">
@@ -294,51 +323,88 @@ const ServicePackages = () => {
             </motion.div>
 
             {/* SUV Comparison Card */}
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-              className="group relative overflow-hidden rounded-none bg-primary/[0.03] border border-primary/20 shadow-[0_0_50px_-12px_rgba(212,175,55,0.1)]"
-            >
-              <div className="aspect-[3/2] overflow-hidden">
-                <img
-                  src={suvImg}
-                  alt="Luxury SUV"
-                  className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-transparent to-transparent opacity-60" />
-                <div className="absolute top-4 right-4 bg-primary text-primary-foreground px-4 py-1 rounded-full text-[10px] uppercase font-bold tracking-widest">
-                  Groups Choice
-                </div>
-              </div>
-              <div className="p-7 sm:p-10 relative">
-                <div className="flex justify-between items-center mb-8">
-                  <h4 className="font-display text-xl sm:text-3xl  font-bold text-gradient-gold">Luxury SUV</h4>
-                  <span className="text-primary font-bold text-xl">$145<span className="text-xs text-muted-foreground font-normal ml-1">Starting</span></span>
-                </div>
-
-                <div className="space-y-4">
-                  {comparisonFeatures.map((row) => (
-                    <div key={row.feature} className="flex justify-between items-center py-3 border-b border-white/5 last:border-0">
-                      <span className="text-muted-foreground text-[0.85rem] sm:text-sm uppercase tracking-wider">{row.feature}</span>
-                      <span className="text-foreground font-medium text-[0.9rem] sm:text-base">{row.suv}</span>
+            {(() => {
+              const isComingSoon = true;
+              return (
+                <motion.div
+                  initial={{ opacity: 0, x: 30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8 }}
+                  className={`group relative overflow-hidden rounded-none bg-primary/[0.03] border border-primary/20 shadow-[0_0_50px_-12px_rgba(212,175,55,0.1)] ${isComingSoon ? "pointer-events-none select-none" : ""}`}
+                >
+                  <div className="aspect-[3/2] overflow-hidden relative">
+                    <LazyImage
+                      src={suvImg}
+                      alt="Luxury SUV"
+                      containerClassName="w-full h-full"
+                      className={`w-full h-full object-cover transition-transform duration-1000 ${isComingSoon ? "grayscale opacity-80 blur-sm scale-105" : "group-hover:scale-110"}`}
+                    />
+                    {!isComingSoon && (
+                      <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-transparent to-transparent opacity-60" />
+                    )}
+                    <div className={`absolute top-4 right-4 bg-primary text-primary-foreground px-4 py-1 rounded-full text-[10px] uppercase font-bold tracking-widest ${isComingSoon ? "opacity-60 grayscale blur-[2px]" : ""}`}>
+                      Groups Choice
                     </div>
-                  ))}
-                </div>
 
-                <Button variant="luxury" className="w-full mt-8 group glow-gold h-12 sm:h-14 text-sm sm:text-base" asChild>
-                  <Link
-                    to={EXTERNAL_LINKS.booking}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-2"
-                  >
-                    Book SUV <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
-                  </Link>
-                </Button>
-              </div>
-            </motion.div>
+                    {/* Coming Soon Overlay Layer */}
+                    {isComingSoon && (
+                      <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-black/40 backdrop-blur-[2px]">
+                        {/* Diagonal subtle stripes */}
+                        <div className="absolute inset-0 opacity-20 bg-[repeating-linear-gradient(45deg,transparent,transparent_10px,rgba(255,255,255,0.1)_10px,rgba(255,255,255,0.1)_20px)]" />
+
+                        <div className="relative flex flex-col items-center justify-center p-6 sm:p-8 bg-black/60 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl">
+                          <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/20 via-transparent to-transparent opacity-20 pointer-events-none" />
+
+                          <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mb-4 relative overflow-hidden">
+                            <div className="absolute inset-0 bg-primary/20 animate-pulse" />
+                            <Clock size={20} className="text-primary relative z-10" />
+                          </div>
+
+                          <span className="text-white text-[11px] md:text-sm uppercase tracking-[0.4em] font-black drop-shadow-lg mb-1.5 text-center">
+                            Coming Soon
+                          </span>
+                          <span className="text-primary/70 text-[9px] uppercase tracking-widest font-medium text-center">
+                            Expanding Our Fleet
+                          </span>
+
+                          {/* Glow effect under badge */}
+                          <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-3/4 h-2 bg-primary/40 blur-xl rounded-full pointer-events-none" />
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                  <div className={`p-7 sm:p-10 relative transition-all duration-700 ${isComingSoon ? "opacity-60 grayscale blur-sm" : ""}`}>
+                    <div className="flex justify-between items-center mb-8">
+                      <h4 className="font-display text-xl sm:text-3xl font-bold text-gradient-gold">SUV</h4>
+                      <span className="text-primary font-bold text-xl">
+                        {comparisonFeatures?.filter((item) => item.feature === "Starting Price")[0].suv}
+                        <span className="text-xs text-muted-foreground font-normal ml-1">Starting</span></span>
+                    </div>
+
+                    <div className="space-y-4">
+                      {comparisonFeatures.map((row) => (
+                        <div key={row.feature} className="flex justify-between items-center py-3 border-b border-white/5 last:border-0">
+                          <span className="text-muted-foreground text-[0.85rem] sm:text-sm uppercase tracking-wider">{row.feature}</span>
+                          <span className="text-foreground font-medium text-[0.9rem] sm:text-base">{row.suv}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    <Button variant="luxury" className="w-full mt-8 group glow-gold h-12 sm:h-14 text-sm sm:text-base" asChild>
+                      <Link
+                        to={EXTERNAL_LINKS.booking}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center justify-center gap-2"
+                      >
+                        Book SUV <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+                      </Link>
+                    </Button>
+                  </div>
+                </motion.div>
+              );
+            })()}
           </div>
         </div>
 

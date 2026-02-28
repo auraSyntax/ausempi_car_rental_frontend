@@ -17,7 +17,8 @@ import {
   UserCheck,
   Zap,
   Globe,
-  Clock
+  Clock,
+  Car
 } from "lucide-react";
 
 import MainLayout from "@/layouts/MainLayout";
@@ -69,28 +70,29 @@ const AboutPage = () => {
   // Fleet date
   const fleetData = [
     {
-      type: "Executive Sedans",
+      type: "Sedans",
       description: "Sophisticated elegance for executive travel and intimate city transfers.",
       image: aboutSedanImg,
       specs: [
-        { icon: Users, label: "Up to 3 guests" },
+        { icon: Users, label: "2 guests" },
         { icon: Briefcase, label: "2 luggage" },
-        { icon: Wifi, label: "Complimentary WiFi" },
+        { icon: Car, label: "Amenities" },
         { icon: Snowflake, label: "Climate Control" },
       ],
       features: ["Advanced Acoustic Insulation", "Premium Leather Interiors", "Executive Climate Control"]
     },
     {
-      type: "Luxury SUVs",
+      type: "SUVs",
       description: "Commanding presence and generous space for group travel or extra luggage.",
       image: aboutSuvImg,
       specs: [
-        { icon: Users, label: "Up to 6 guests" },
+        { icon: Users, label: "2 guests" },
         { icon: Briefcase, label: "4 luggage" },
         { icon: Wifi, label: "Complimentary WiFi" },
         { icon: Snowflake, label: "Dual-zone Climate" },
       ],
-      features: ["All-Terrain Capability", "Panoramic Views", "Unmatched Comfort"]
+      features: ["All-Terrain Capability", "Panoramic Views", "Unmatched Comfort"],
+      isComingSoon: true
     }
   ];
 
@@ -316,38 +318,75 @@ const AboutPage = () => {
           <div className="grid lg:grid-cols-2 gap-8 md:gap-12 lg:gap-20">
             {fleetData.map((item, idx) => (
               <FadeInSection key={item.type} delay={idx * 0.2}>
-                <div className="group relative bg-white/[0.02] border border-white/5 hover:border-primary/20 transition-all duration-500 rounded-sm overflow-hidden hover:shadow-[0_0_60px_rgba(212,175,55,0.08)] h-full flex flex-col">
+                <div className={cn("group relative bg-white/[0.02] border border-white/5 transition-all duration-500 rounded-sm overflow-hidden h-full flex flex-col",
+                  !item.isComingSoon && "hover:border-primary/20 hover:shadow-[0_0_60px_rgba(212,175,55,0.08)] cursor-pointer"
+                )}>
                   <div className="aspect-[4/3] sm:aspect-[16/10] overflow-hidden relative border-b border-white/5">
                     <LazyImage
-                      containerClassName="transition-transform duration-1000 group-hover:scale-105 origin-bottom"
+                      containerClassName={cn("transition-transform duration-1000 origin-bottom", !item.isComingSoon && "group-hover:scale-105", item.isComingSoon && "grayscale opacity-80 blur-sm scale-105")}
                       src={item.image}
                       alt={item.type}
                       className="w-full h-full object-cover"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/20 to-transparent opacity-90" />
-                    <div className="absolute top-4 left-4 md:top-6 md:left-6 z-10">
-                      <span className="px-3 py-1 bg-black/60 backdrop-blur-md border border-white/10 text-white text-[9px] uppercase font-bold tracking-widest rounded-sm">
+                    <div className={cn("absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/20 to-transparent", item.isComingSoon ? "opacity-95" : "opacity-90")} />
+
+                    {/* Badge */}
+                    <div className="absolute top-4 left-4 md:top-6 md:left-6 z-10 transition-opacity duration-300">
+                      <span className={cn("px-3 py-1 bg-black/60 backdrop-blur-md border text-[9px] uppercase font-bold tracking-widest rounded-sm",
+                        item.isComingSoon ? "text-white/60 border-white/5" : "text-white border-white/10"
+                      )}>
                         {idx === 0 ? "Flagship Choice" : "Group Executive"}
                       </span>
                     </div>
 
-                    <div className="absolute bottom-4 left-4 md:bottom-6 md:left-6 z-10">
-                      <h3 className="font-display text-2xl md:text-3xl font-bold text-white mb-2 group-hover:text-primary transition-colors duration-300">
+                    {/* Coming Soon Overlay Layer */}
+                    {item.isComingSoon && (
+                      <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-black/40 backdrop-blur-[2px]">
+                        {/* Diagonal subtle stripes */}
+                        <div className="absolute inset-0 opacity-20 pointer-events-none bg-[repeating-linear-gradient(45deg,transparent,transparent_10px,rgba(255,255,255,0.1)_10px,rgba(255,255,255,0.1)_20px)]" />
+
+                        <div className="relative flex flex-col items-center justify-center p-6 sm:p-8 bg-black/60 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl transform transition-transform duration-700 group-hover:scale-[1.03]">
+                          <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/20 via-transparent to-transparent opacity-20 pointer-events-none" />
+
+                          <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mb-4 relative overflow-hidden">
+                            <div className="absolute inset-0 bg-primary/20 animate-pulse" />
+                            <Clock size={20} className="text-primary relative z-10" />
+                          </div>
+
+                          <span className="text-white text-[11px] md:text-sm uppercase tracking-[0.4em] font-black drop-shadow-lg mb-1.5">
+                            Coming Soon
+                          </span>
+                          <span className="text-primary/70 text-[9px] uppercase tracking-widest font-medium">
+                            Expanding Our Fleet
+                          </span>
+
+                          {/* Glow effect under badge */}
+                          <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-3/4 h-2 bg-primary/40 blur-xl rounded-full pointer-events-none" />
+                        </div>
+                      </div>
+                    )}
+
+                    <div className={cn("absolute bottom-4 left-4 md:bottom-6 md:left-6 z-30 transition-opacity duration-300")}>
+                      <h3 className={cn("font-display text-2xl md:text-3xl font-bold mb-2 transition-colors duration-300",
+                        item.isComingSoon ? "text-white/10" : "text-white group-hover:text-primary"
+                      )}>
                         {item.type}
                       </h3>
-                      <div className="h-0.5 w-12 bg-primary group-hover:w-24 transition-all duration-500" />
+                      {!item.isComingSoon && (
+                        <div className="h-0.5 w-12 bg-primary group-hover:w-24 transition-all duration-500" />
+                      )}
                     </div>
                   </div>
 
-                  <div className="p-5 sm:p-6 md:p-10 flex-grow flex flex-col">
+                  <div className={cn("p-5 sm:p-6 md:p-10 flex-grow flex flex-col relative transition-all duration-500", item.isComingSoon ? "opacity-60 grayscale blur-[2px] pointer-events-none select-none" : "")}>
                     <p className="text-white/60 text-sm sm:text-base font-light mb-8 leading-relaxed">
                       {item.description}
                     </p>
 
                     <div className="grid grid-cols-2 gap-y-4 gap-x-4 mb-8">
                       {item.specs.map((spec, sidx) => (
-                        <div key={sidx} className="flex items-center gap-2 md:gap-3 text-white/50 group-hover:text-white/90 transition-colors">
-                          <spec.icon size={16} className="text-primary shrink-0" />
+                        <div key={sidx} className={cn("flex items-center gap-2 md:gap-3 transition-colors", item.isComingSoon ? "text-white/30" : "text-white/50 group-hover:text-white/90")}>
+                          <spec.icon size={16} className={cn("shrink-0", item.isComingSoon ? "text-primary/50" : "text-primary")} />
                           <span className="text-[10px] sm:text-xs uppercase tracking-wider font-medium">{spec.label}</span>
                         </div>
                       ))}
@@ -355,11 +394,17 @@ const AboutPage = () => {
 
                     <div className="flex flex-wrap gap-2 pt-6 border-t border-white/5 mt-auto">
                       {item.features.map(f => (
-                        <span key={f} className="px-2 py-1 md:px-3 bg-white/[0.03] rounded-sm text-[9px] sm:text-[10px] uppercase tracking-wider text-white/40 border border-white/5">
+                        <span key={f} className={cn("px-2 py-1 md:px-3 bg-white/[0.03] rounded-sm text-[9px] sm:text-[10px] uppercase tracking-wider border",
+                          item.isComingSoon ? "text-white/20 border-white/5" : "text-white/40 border-white/5"
+                        )}>
                           {f}
                         </span>
                       ))}
                     </div>
+                    {/* Block Interaction Layer */}
+                    {item.isComingSoon && (
+                      <div className="absolute inset-0 z-30 opacity-0" />
+                    )}
                   </div>
                 </div>
               </FadeInSection>

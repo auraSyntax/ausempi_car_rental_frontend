@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useCallback } from "react";
 import { motion, useScroll, useTransform, useInView, AnimatePresence } from "framer-motion";
 import { Play, Pause, Volume2, VolumeX, Maximize2, Sparkles } from "lucide-react";
 import videoSrc from "@/assets/ausempi-video.mp4";
@@ -19,12 +19,15 @@ const VideoShowcase = () => {
     const [isVideoReady, setIsVideoReady] = useState(false);
 
     useEffect(() => {
-        const checkMobile = () => {
-            setIsMobile(window.matchMedia("(max-width: 768px)").matches);
+        const mediaQuery = window.matchMedia("(max-width: 768px)");
+        const handleMediaQueryChange = (e: MediaQueryListEvent | MediaQueryList) => {
+            setIsMobile(e.matches);
         };
-        checkMobile();
-        window.addEventListener("resize", checkMobile);
-        return () => window.removeEventListener("resize", checkMobile);
+        handleMediaQueryChange(mediaQuery);
+
+        const listener = (e: MediaQueryListEvent) => handleMediaQueryChange(e);
+        mediaQuery.addEventListener("change", listener);
+        return () => mediaQuery.removeEventListener("change", listener);
     }, []);
 
     const { scrollYProgress } = useScroll({
@@ -66,7 +69,7 @@ const VideoShowcase = () => {
         }
     }, [volume]);
 
-    const togglePlay = () => {
+    const togglePlay = useCallback(() => {
         if (videoRef.current) {
             if (isPlaying) {
                 videoRef.current.pause();
@@ -79,9 +82,9 @@ const VideoShowcase = () => {
             }
             setIsPlaying(!isPlaying);
         }
-    };
+    }, [isPlaying, isMobile]);
 
-    const toggleMute = () => {
+    const toggleMute = useCallback(() => {
         if (videoRef.current) {
             const newMuted = !isMuted;
             videoRef.current.muted = newMuted;
@@ -93,9 +96,9 @@ const VideoShowcase = () => {
                 videoRef.current.volume = 0.5;
             }
         }
-    };
+    }, [isMuted, volume]);
 
-    const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleVolumeChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         const newVolume = parseFloat(e.target.value);
         setVolume(newVolume);
         if (videoRef.current) {
@@ -108,28 +111,28 @@ const VideoShowcase = () => {
                 setIsMuted(true);
             }
         }
-    };
+    }, []);
 
-    const handleTimeUpdate = () => {
+    const handleTimeUpdate = useCallback(() => {
         if (videoRef.current) {
             setProgress((videoRef.current.currentTime / videoRef.current.duration) * 100);
         }
-    };
+    }, []);
 
-    const handleLoadedMetadata = () => {
+    const handleLoadedMetadata = useCallback(() => {
         if (videoRef.current) {
             setDuration(videoRef.current.duration);
         }
-    };
+    }, []);
 
-    const handleSeek = (e: React.MouseEvent<HTMLDivElement>) => {
+    const handleSeek = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
         if (videoRef.current && containerRef.current) {
             const rect = e.currentTarget.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const clickedPos = (x / rect.width) * videoRef.current.duration;
             videoRef.current.currentTime = clickedPos;
         }
-    };
+    }, []);
 
     // Auto-hide controls on mobile after inactivity when playing
     useEffect(() => {

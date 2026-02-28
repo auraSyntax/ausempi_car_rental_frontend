@@ -8,7 +8,8 @@ import {
     Clock,
     Crown,
     Star,
-    Briefcase
+    Briefcase,
+    Laptop
 } from "lucide-react";
 
 import luxurySedan from "@/assets/luxury-sedan.avif";
@@ -17,17 +18,17 @@ import luxurySuv from "@/assets/luxury-suv.avif";
 export const homeServices = [
     {
         id: "sedan",
-        title: "Luxury Sedan",
+        title: "Sedan",
         subtitle: "Executive Excellence",
         description: "Experience the pinnacle of executive travel. Our premium sedans offer a sanctuary of calm and sophistication, designed for the discerning professional who values time and tranquility.",
         image: luxurySedan,
         index: "01",
         tiers: [
             { name: "Premium", icon: Briefcase, features: ["Professional chauffeur", "Complimentary water", "Phone charging"] },
-            { name: "Luxury", icon: Crown, features: ["Elite chauffeur", "Premium refreshments", "Dedicated concierge"], highlighted: true },
+            { name: "Luxury", icon: Crown, features: ["Elite chauffeur", "Premium refreshments", "Dedicated concierge"], highlighted: true, isComingSoon: true },
         ],
         amenities: [
-            { icon: Wifi, label: "High-Speed WiFi" },
+            { icon: Laptop, label: "Work space" },
             { icon: BatteryCharging, label: "Device Charging" },
             { icon: Wine, label: "Refreshments" },
             { icon: Thermometer, label: "Climate Control" },
@@ -35,14 +36,15 @@ export const homeServices = [
     },
     {
         id: "suv",
-        title: "Luxury SUV",
+        title: "SUV",
         subtitle: "Commanding Presence",
         description: "Uncompromising space meets unparalleled luxury. Our flagship SUVs provide a commanding perspective and abundant room, making every group journey an occasion of shared prestige.",
         image: luxurySuv,
         index: "02",
+        isComingSoon: true,
         tiers: [
-            { name: "Premium", icon: Star, features: ["Up to 5 guests", "Luggage capacity", "Airport meet & greet"] },
-            { name: "Luxury", icon: Crown, features: ["Up to 6 guests", "Expanded cargo", "VIP handling"], highlighted: true },
+            { name: "Premium", icon: Star, features: ["Only 2 guests", "Luggage capacity", "Airport meet & greet"] },
+            { name: "Luxury", icon: Crown, features: ["Only 2 guests", "Luxury experience", "VIP handling"], highlighted: true, isComingSoon: false },
         ],
         amenities: [
             { icon: Shield, label: "Privacy Partition" },

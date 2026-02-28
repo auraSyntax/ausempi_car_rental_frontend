@@ -14,7 +14,8 @@ import {
   Wine,
   Thermometer,
   Star,
-  Clock
+  Clock,
+  Laptop
 } from "lucide-react";
 import MainLayout from "@/layouts/MainLayout";
 import { Navbar, Footer } from "@/components/sections";
@@ -45,12 +46,12 @@ const images = {
 const sections = {
   sedan: {
     id: "luxury-sedan",
-    title: "Luxury Sedan Services",
+    title: "Sedan Services",
     subtitle: "Executive Excellence",
     description: "Refined elegance for the discerning professional. Our sedan services are designed for those who value understated luxury and absolute precision.",
     image: images.sedan,
     amenities: [
-      { icon: Wifi, label: "High-Speed WiFi" },
+      { icon: Laptop, label: "Work space" },
       { icon: BatteryCharging, label: "Device Charging" },
       { icon: Wine, label: "Refreshments" },
       { icon: Thermometer, label: "Climate Control" },
@@ -69,34 +70,35 @@ const sections = {
   },
   suv: {
     id: "luxury-suv",
-    title: "Luxury SUV Services",
+    title: "SUV Services",
     subtitle: "Commanding Presence",
     description: "Spacious sophistication for groups or those who simply demand more. Our SUV fleet combines powerful performance with an expansive, luxury interior.",
     image: images.suv,
+    isComingSoon: true,
     amenities: [
       { icon: Shield, label: "Privacy Partition" },
-      { icon: Users, label: "Up to 6 Guests" },
+      { icon: Users, label: "Up to 2 Guests" },
       { icon: Briefcase, label: "4-5 Large Bags" },
       { icon: Snowflake, label: "Tri-zone Climate" },
     ],
     tiers: [
       {
         name: "Premium SUV",
-        features: ["Up to 5 guests", "Generous luggage", "Airport meet & greet", "WiFi & Charging"]
+        features: ["2 guests", "Generous luggage", "Airport meet & greet", "WiFi & Charging"]
       },
       {
         name: "Luxury SUV",
-        features: ["Up to 6 guests", "Expanded cargo space", "VIP airport handling", "Personalized amenities"],
+        features: ["2 guests", "Expanded cargo space", "VIP airport handling", "Personalized amenities"],
         highlighted: true
       }
     ]
   },
   comparison: [
-    { feature: "Capacity", sedan: "3 Guests", suv: "6 Guests" },
+    { feature: "Capacity", sedan: "2 Guests", suv: "2 Guests" },
     { feature: "Luggage", sedan: "2 Large", suv: "5 Large" },
-    { feature: "WiFi & Tech", sedan: "Included", suv: "Included" },
+    { feature: "Amenities & Tech", sedan: "Included", suv: "Included" },
     { feature: "Privacy", sedan: "High", suv: "Ultimate" },
-    { feature: "Best For", sedan: "Solo/Couples", suv: "Groups/Families" },
+    { feature: "Best For", sedan: "Corporate", suv: "Executive" },
   ],
   specialPackages: [
     {
@@ -249,7 +251,7 @@ const ServicesPage = () => {
         </div>
       </section>
 
-      {/* 3. Luxury Sedan Services */}
+      {/* 3. Sedan Services */}
       <section id="luxury-sedan" className="bg-charcoal py-20 md:py-32 relative overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
         <div className="container-luxury">
@@ -310,13 +312,13 @@ const ServicesPage = () => {
         </div>
       </section>
 
-      {/* 4. Luxury SUV Services */}
+      {/* 4. SUV Services */}
       <section id="luxury-suv" className="bg-background py-20 md:py-32 relative overflow-hidden">
         <div className="container-luxury">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-24 items-center">
             {/* Content Side - First on Desktop */}
             <FadeInSection delay={0.2} className="order-2 lg:order-1">
-              <div>
+              <div className={`transition-all duration-700 ${sections.suv.isComingSoon ? "opacity-60 grayscale blur-sm pointer-events-none select-none" : ""}`}>
                 <div className="flex items-center gap-3 md:gap-4 mb-4 md:mb-6">
                   <span className="w-8 md:w-12 h-px bg-primary" />
                   <span className="text-primary text-[10px] md:text-xs uppercase tracking-[0.3em] font-bold">
@@ -355,16 +357,45 @@ const ServicesPage = () => {
 
             {/* Image Side */}
             <FadeInSection className="order-1 lg:order-2 relative">
-              <div className="relative group">
-                <div className="absolute -inset-3 sm:-inset-4 border border-primary/10 translate-x-0 translate-y-0 lg:group-hover:scale-105 transition-transform duration-700 rounded-sm" />
-                <div className="aspect-[4/3] sm:aspect-[16/10] lg:aspect-[4/3] overflow-hidden rounded-sm relative z-10 lg:hover:shadow-2xl transition-shadow duration-700">
+              <div className={`relative group ${sections.suv.isComingSoon ? "pointer-events-none" : ""}`}>
+                <div className={`absolute -inset-3 sm:-inset-4 border border-primary/10 translate-x-0 translate-y-0 ${sections.suv.isComingSoon ? "" : "lg:group-hover:scale-105"} transition-transform duration-700 rounded-sm`} />
+                <div className={`aspect-[4/3] sm:aspect-[16/10] lg:aspect-[4/3] overflow-hidden rounded-sm relative z-10 ${sections.suv.isComingSoon ? "" : "lg:hover:shadow-2xl"} transition-shadow duration-700`}>
                   <LazyImage
                     src={sections.suv.image}
                     alt="Luxury SUV"
-                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                    className={`w-full h-full object-cover transition-transform duration-1000 ${sections.suv.isComingSoon ? "grayscale opacity-80 blur-sm scale-105" : "group-hover:scale-105"}`}
                     containerClassName="w-full h-full"
                   />
-                  <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-700" />
+                  {!sections.suv.isComingSoon && (
+                    <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-700" />
+                  )}
+
+                  {/* Coming Soon Overlay Layer */}
+                  {sections.suv.isComingSoon && (
+                    <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-black/40 backdrop-blur-[2px]">
+                      {/* Diagonal subtle stripes */}
+                      <div className="absolute inset-0 opacity-20 bg-[repeating-linear-gradient(45deg,transparent,transparent_10px,rgba(255,255,255,0.1)_10px,rgba(255,255,255,0.1)_20px)]" />
+
+                      <div className="relative flex flex-col items-center justify-center p-6 sm:p-8 bg-black/60 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl">
+                        <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/20 via-transparent to-transparent opacity-20 pointer-events-none" />
+
+                        <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mb-4 relative overflow-hidden">
+                          <div className="absolute inset-0 bg-primary/20 animate-pulse" />
+                          <Clock size={20} className="text-primary relative z-10" />
+                        </div>
+
+                        <span className="text-white text-[11px] md:text-sm uppercase tracking-[0.4em] font-black drop-shadow-lg mb-1.5 text-center">
+                          Coming Soon
+                        </span>
+                        <span className="text-primary/70 text-[9px] uppercase tracking-widest font-medium text-center">
+                          Expanding Our Fleet
+                        </span>
+
+                        {/* Glow effect under badge */}
+                        <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-3/4 h-2 bg-primary/40 blur-xl rounded-full pointer-events-none" />
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             </FadeInSection>
@@ -373,7 +404,7 @@ const ServicesPage = () => {
       </section>
 
       {/* 5. Premium vs Luxury Comparison */}
-      <section className="bg-[#050505] py-32 relative overflow-hidden">
+      {/* <section className="bg-[#050505] py-32 relative overflow-hidden">
         <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
         <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[150px] translate-x-1/2 translate-y-1/2 pointer-events-none" />
 
@@ -409,10 +440,10 @@ const ServicesPage = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* 6. Special Service Packages */}
-      <section className="bg-background py-32 md:py-48 relative">
+      <section className="bg-[#050505] py-32 md:py-48 relative" id="offerings">
         <div className="container-luxury">
           <div className="text-center mb-20 md:mb-24">
             <span className="text-primary text-xs md:text-sm uppercase tracking-[0.5em] font-bold block mb-6">
@@ -429,7 +460,7 @@ const ServicesPage = () => {
           <div className="grid lg:grid-cols-2 gap-6 lg:gap-8">
             {sections.specialPackages.map((pkg, idx) => (
               <FadeInSection key={pkg.id} delay={idx * 0.1} className="h-full">
-                <div className="group h-full bg-charcoal/5 hover:bg-charcoal/10 border border-white/5 hover:border-primary/20 rounded-sm overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_10px_30px_-10px_rgba(0,0,0,0.5)] flex flex-col">
+                <div className="group h-full bg-charcoal/5 hover:bg-charcoal/10 border border-white/10 hover:border-primary/50 rounded-sm overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_10px_30px_-10px_rgba(0,0,0,0.5)] flex flex-col">
                   {/* Image Area - 3:2 Ratio */}
                   <div className="relative aspect-[3/2]">
                     <LazyImage

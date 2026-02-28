@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { Users, Briefcase, Wifi, Snowflake, ChevronRight } from "lucide-react";
+import { Users, Briefcase, Wifi, Snowflake, ChevronRight, Laptop, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LazyImage } from "@/components/common";
 import insideSedan from "@/assets/sedan-inside.avif";
@@ -15,9 +15,9 @@ const vehicles = [
     category: "Premium",
     image: insideSedan,
     specs: [
-      { icon: Users, label: "Up to 3 guests" },
+      { icon: Users, label: "2 guests" },
       { icon: Briefcase, label: "2 luggage" },
-      { icon: Wifi, label: "Complimentary WiFi" },
+      { icon: Laptop, label: "Work space" },
       { icon: Snowflake, label: "Climate Control" },
     ],
     description: "The epitome of executive travel, our sedans offer a silent, smooth ride with unparalleled sophistication. Perfect for corporate transfers and airport arrivals.",
@@ -27,6 +27,7 @@ const vehicles = [
     name: "Luxury SUV",
     category: "Prestige",
     image: insideSuv,
+    isComingSoon: true,
     specs: [
       { icon: Users, label: "Up to 6 guests" },
       { icon: Briefcase, label: "4 luggage" },
@@ -90,32 +91,61 @@ const Fleet = () => {
                 className={`relative group ${index % 2 === 1 ? "lg:col-start-2" : ""}`}
               >
                 {/* Luxury Image Container */}
-                <div className="relative z-10 p-2 sm:p-3 border border-primary/20 bg-secondary/30 backdrop-blur-sm rounded-sm">
+                <div className={`relative z-10 p-2 sm:p-3 border border-primary/20 bg-secondary/30 backdrop-blur-sm rounded-sm ${vehicle.isComingSoon ? "pointer-events-none select-none" : ""}`}>
                   <div className="relative overflow-hidden aspect-[4/3]">
                     <LazyImage
                       src={vehicle.image}
                       alt={vehicle.name}
                       containerClassName="w-full h-full"
-                      className="transition-transform duration-1000 group-hover:scale-110"
+                      className={`transition-transform duration-1000 ${vehicle.isComingSoon ? "grayscale opacity-80 blur-sm scale-105" : "group-hover:scale-110"}`}
                     />
                     {/* Dark gradient overlay for text readability if needed */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                    {!vehicle.isComingSoon && (
+                      <div className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                    )}
+
+                    {/* Coming Soon Overlay Layer */}
+                    {vehicle.isComingSoon && (
+                      <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-black/40 backdrop-blur-[2px]">
+                        {/* Diagonal subtle stripes */}
+                        <div className="absolute inset-0 opacity-20 bg-[repeating-linear-gradient(45deg,transparent,transparent_10px,rgba(255,255,255,0.1)_10px,rgba(255,255,255,0.1)_20px)]" />
+
+                        <div className="relative flex flex-col items-center justify-center p-6 sm:p-8 bg-black/60 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl">
+                          <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/20 via-transparent to-transparent opacity-20 pointer-events-none" />
+
+                          <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mb-4 relative overflow-hidden">
+                            <div className="absolute inset-0 bg-primary/20 animate-pulse" />
+                            <Clock size={20} className="text-primary relative z-10" />
+                          </div>
+
+                          <span className="text-white text-[11px] md:text-sm uppercase tracking-[0.4em] font-black drop-shadow-lg mb-1.5 text-center">
+                            Coming Soon
+                          </span>
+                          <span className="text-primary/70 text-[9px] uppercase tracking-widest font-medium text-center">
+                            Expanding Our Fleet
+                          </span>
+
+                          {/* Glow effect under badge */}
+                          <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-3/4 h-2 bg-primary/40 blur-xl rounded-full pointer-events-none" />
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
 
                 {/* Background "Watermark" Number */}
                 <div
-                  className={`absolute -top-16 hidden lg:block text-[15rem] font-bold text-primary/5 select-none pointer-events-none -z-0 font-display ${index % 2 === 0 ? "-left-12" : "-right-12"
+                  className={`absolute -top-16 hidden lg:block text-[15rem] font-bold text-primary/5 ${vehicle.isComingSoon ? "grayscale blur-sm" : ""} select-none pointer-events-none -z-0 font-display ${index % 2 === 0 ? "-left-12" : "-right-12"
                     }`}
                 >
                   {vehicle.id}
                 </div>
 
                 {/* Floating Category Badge */}
-                <div className="absolute -top-4 -right-4 sm:top-8 sm:-right-8 z-20">
+                <div className={`absolute -top-4 -right-4 sm:top-8 sm:-right-8 z-20 ${vehicle.isComingSoon ? "opacity-60 grayscale blur-[2px]" : ""}`}>
                   <motion.div
                     initial={{ rotate: 0 }}
-                    whileHover={{ rotate: 0, scale: 1.05 }}
+                    whileHover={vehicle.isComingSoon ? {} : { rotate: 0, scale: 1.05 }}
                     className="bg-primary px-4 sm:px-6 py-1 sm:py-2 shadow-xl border border-white/10"
                   >
                     <span className="text-primary-foreground text-[10px] sm:text-xs uppercase tracking-[0.3em] font-bold whitespace-nowrap">
@@ -131,7 +161,7 @@ const Fleet = () => {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, delay: 0.2 }}
-                className={index % 2 === 1 ? "lg:col-start-1 lg:row-start-1" : ""}
+                className={`${index % 2 === 1 ? "lg:col-start-1 lg:row-start-1" : ""} ${vehicle.isComingSoon ? "opacity-60 grayscale blur-sm pointer-events-none select-none transition-all duration-700" : ""}`}
               >
                 <div className="flex items-center gap-4 mb-6">
                   <div className="h-[1px] w-12 bg-primary" />

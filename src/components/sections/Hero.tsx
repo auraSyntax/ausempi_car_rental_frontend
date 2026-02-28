@@ -1,5 +1,5 @@
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { motion } from "framer-motion";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -28,26 +28,22 @@ const Hero = () => {
   const scrollTo = useScrollTo();
 
   useEffect(() => {
-    let timeoutId: ReturnType<typeof setTimeout>;
+    const mediaQuery = window.matchMedia("(min-width: 1024px)");
 
-    const handleResize = () => {
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(() => {
-        if (window.innerWidth < 1024) {
-          setHeroImage(heroImagePortrait);
-        } else {
-          setHeroImage(heroImageLandscape);
-        }
-      }, 100);
+    // Use matchMedia to determine the correct image, avoiding expensive resize listeners
+    const handleMediaQueryChange = (e: MediaQueryListEvent | MediaQueryList) => {
+      setHeroImage(e.matches ? heroImageLandscape : heroImagePortrait);
     };
 
     // Initial check
-    handleResize();
+    handleMediaQueryChange(mediaQuery);
 
-    window.addEventListener("resize", handleResize);
+    // Using modern change event listener with fallback to avoid deprecation warnings if required in older browsers
+    const listener = (e: MediaQueryListEvent) => handleMediaQueryChange(e);
+    mediaQuery.addEventListener("change", listener);
+
     return () => {
-      window.removeEventListener("resize", handleResize);
-      clearTimeout(timeoutId);
+      mediaQuery.removeEventListener("change", listener);
     };
   }, []);
 
@@ -161,10 +157,10 @@ const Hero = () => {
 
   }, []);
 
-  const handleScrollToFleet = (e: React.MouseEvent) => {
+  const handleScrollToFleet = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
     scrollTo("fleet", 100);
-  };
+  }, [scrollTo]);
 
   return (
     <section

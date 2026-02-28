@@ -9,21 +9,20 @@ import logo from "@/assets/ausempi-logo.png";
 const footerLinks = {
   navigation: [
     { name: "Home", href: "/" },
-    { name: "Services", href: "/#services" },
-    { name: "About", href: "/#experience" },
-    { name: "Contact", href: "/#contact" },
+    { name: "Services", href: "/services" },
+    { name: "About", href: "/about" },
+    { name: "Contact", href: "/contact" },
   ],
   services: [
-    { name: "Airport Transfers", href: "/#services" },
-    { name: "Corporate Travel", href: "/#services" },
-    { name: "Special Events", href: "/#services" },
-    { name: "Hourly Charters", href: "/#services" },
+    { name: "Airport Transfers", href: "/services#offerings" },
+    { name: "Executive Travel", href: "/services#offerings" },
+    { name: "Intercity & Custom", href: "/services#offerings" },
+    { name: "Special Events", href: "/services#offerings" },
   ],
   legal: [
     { name: "Privacy Policy", href: "/privacy" },
     { name: "Terms of Service", href: "/terms" },
     { name: "Cookie Policy", href: "/cookies" },
-    { name: "Driver Portal", href: "/driver-login" },
   ],
 };
 

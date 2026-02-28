@@ -1,17 +1,17 @@
-import { useRef, useEffect } from "react";
+import React, { useRef, useEffect, memo } from "react";
 import { motion, useInView } from "framer-motion";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Crown, ArrowRight, MousePointer2 } from "lucide-react";
+import { Crown, ArrowRight, MousePointer2, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LazyImage } from "@/components/common";
 import { homeServices } from "@/data/service";
 import { Link } from "react-router-dom";
-import { EXTERNAL_LINKS } from "@/lib";
+import { cn, EXTERNAL_LINKS } from "@/lib";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const ServiceCard = ({ service, index }: { service: typeof homeServices[0]; index: number }) => {
+const ServiceCard = memo(({ service, index }: { service: typeof homeServices[0]; index: number }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(cardRef, { once: true, margin: "-10%" });
@@ -27,6 +27,7 @@ const ServiceCard = ({ service, index }: { service: typeof homeServices[0]; inde
       gsap.to(imageRef.current, {
         yPercent: -15,
         ease: "none",
+        force3D: true, // Hardware acceleration for parallax image
         scrollTrigger: {
           trigger: cardRef.current,
           start: "top bottom",
@@ -47,8 +48,10 @@ const ServiceCard = ({ service, index }: { service: typeof homeServices[0]; inde
     >
       {/* Background Index Number */}
       <div
-        className={`hidden xl:block absolute top-[20%] font-display text-[20rem] 2xl:text-[25rem] font-black text-white/[0.02] pointer-events-none select-none z-0 leading-none transition-transform duration-[1.5s] ease-out ${isReversed ? "left-[5%]" : "right-[5%]"
-          }`}
+        className={cn(`hidden xl:block absolute top-[20%] font-display text-[20rem] 2xl:text-[25rem] font-black text-white/[0.02] pointer-events-none select-none z-0 leading-none transition-transform duration-[1.5s] ease-out`,
+          `${isReversed ? "left-[5%]" : "right-[5%]"}`,
+          `${service.isComingSoon ? "blur-sm" : ""}`
+        )}
         style={{
           opacity: isInView ? 1 : 0,
           transform: isInView
@@ -65,12 +68,12 @@ const ServiceCard = ({ service, index }: { service: typeof homeServices[0]; inde
           }`}
       >
         <div className="absolute inset-0 overflow-hidden">
-          <div ref={imageRef} className="w-full h-[130%] -top-[15%] relative will-change-transform">
+          <div ref={imageRef} className={`w-full h-[130%] -top-[15%] relative will-change-transform ${service.isComingSoon ? "pointer-events-none select-none" : ""}`}>
             <LazyImage
               src={service.image}
               alt={service.title}
               containerClassName="w-full h-full"
-              className="object-cover object-center brightness-[0.75] transition-all duration-700 lg:hover:scale-105"
+              className={`object-cover object-center brightness-[0.75] transition-all duration-700 ${service.isComingSoon ? "grayscale opacity-80 blur-sm scale-105" : "lg:hover:scale-105"}`}
             />
           </div>
           {/* Gradient Overlays */}
@@ -80,6 +83,33 @@ const ServiceCard = ({ service, index }: { service: typeof homeServices[0]; inde
             }`} />
           {/* Mobile bottom fade */}
           <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent lg:hidden z-20" />
+
+          {/* Coming Soon Overlay Layer */}
+          {service.isComingSoon && (
+            <div className="absolute inset-0 z-30 flex flex-col items-center justify-center bg-black/40 backdrop-blur-[2px]">
+              {/* Diagonal subtle stripes */}
+              <div className="absolute inset-0 opacity-20 bg-[repeating-linear-gradient(45deg,transparent,transparent_10px,rgba(255,255,255,0.1)_10px,rgba(255,255,255,0.1)_20px)]" />
+
+              <div className="relative flex flex-col items-center justify-center p-6 sm:p-8 bg-black/60 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl">
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/20 via-transparent to-transparent opacity-20 pointer-events-none" />
+
+                <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mb-4 relative overflow-hidden">
+                  <div className="absolute inset-0 bg-primary/20 animate-pulse" />
+                  <Clock size={20} className="text-primary relative z-10" />
+                </div>
+
+                <span className="text-white text-[11px] md:text-sm uppercase tracking-[0.4em] font-black drop-shadow-lg mb-1.5 text-center">
+                  Coming Soon
+                </span>
+                <span className="text-primary/70 text-[9px] uppercase tracking-widest font-medium text-center">
+                  Expanding Our Fleet
+                </span>
+
+                {/* Glow effect under badge */}
+                <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-3/4 h-2 bg-primary/40 blur-xl rounded-full pointer-events-none" />
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Floating Badge (Desktop) */}
@@ -88,7 +118,7 @@ const ServiceCard = ({ service, index }: { service: typeof homeServices[0]; inde
           animate={isInView ? { opacity: 1, scale: 1 } : {}}
           transition={{ duration: 0.6, delay: 0.4 }}
           className={`absolute bottom-8 left-8 lg:bottom-16 ${isReversed ? "lg:right-16 lg:left-auto" : "lg:left-16 lg:right-auto"
-            } z-30 hidden lg:block`}
+            } z-40 hidden lg:block ${service.isComingSoon ? "opacity-60 grayscale blur-[2px]" : ""}`}
         >
           <div className="bg-background/40 backdrop-blur-xl border border-white/10 px-6 py-3 shadow-[0_8px_32px_rgba(0,0,0,0.4)] rounded-none">
             <span className="text-primary text-xs uppercase tracking-[0.3em] font-bold flex items-center gap-3">
@@ -102,7 +132,7 @@ const ServiceCard = ({ service, index }: { service: typeof homeServices[0]; inde
       {/* Content Section */}
       <div
         className={`relative z-20 w-full lg:col-span-6 flex flex-col justify-center px-6 sm:px-12 py-16 lg:p-20 xl:p-28 order-2 ${isReversed ? "lg:order-1 lg:pr-12" : "lg:order-2 lg:pl-12"
-          }`}
+          } ${service.isComingSoon ? "opacity-60 grayscale blur-sm pointer-events-none select-none transition-all duration-700" : ""}`}
       >
         <motion.div
           initial={{ opacity: 0, x: isReversed ? 50 : -50 }}
@@ -132,33 +162,62 @@ const ServiceCard = ({ service, index }: { service: typeof homeServices[0]; inde
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.4 + i * 0.1 }}
-              whileHover={{ scale: 1.02 }}
+              whileHover={tier.isComingSoon ? {} : { scale: 1.02 }}
               className={`relative p-6 rounded-none transition-all duration-300 group ${tier.highlighted
                 ? "bg-gradient-to-br from-primary/10 to-transparent border border-primary/20"
                 : "bg-white/[0.02] border border-white/5 hover:border-white/10"
-                }`}
+                } ${tier.isComingSoon ? "overflow-hidden" : ""}`}
             >
-              <div className="flex items-start justify-between mb-4">
-                <div className={`w-12 h-12 flex items-center justify-center rounded-none ${tier.highlighted ? "bg-primary text-black" : "bg-white/5 text-white group-hover:bg-primary/20 group-hover:text-primary transition-colors"
-                  }`}>
-                  <tier.icon size={18} />
+              {/* Coming Soon Overlay Layer */}
+              {tier.isComingSoon && (
+                <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-black/40 backdrop-blur-[2px]">
+                  {/* Diagonal subtle stripes */}
+                  <div className="absolute inset-0 opacity-20 pointer-events-none bg-[repeating-linear-gradient(45deg,transparent,transparent_10px,rgba(255,255,255,0.1)_10px,rgba(255,255,255,0.1)_20px)]" />
+
+                  <div className="relative flex flex-col items-center justify-center p-4 sm:p-6 bg-black/60 backdrop-blur-xl border border-white/10 rounded-xl shadow-2xl transform transition-transform duration-700 group-hover:scale-[1.03]">
+                    <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-primary/20 via-transparent to-transparent opacity-20 pointer-events-none" />
+
+                    <div className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mb-3 relative overflow-hidden">
+                      <div className="absolute inset-0 bg-primary/20 animate-pulse" />
+                      <Clock size={16} className="text-primary relative z-10" />
+                    </div>
+
+                    <span className="text-white text-[10px] sm:text-xs uppercase tracking-[0.4em] font-black drop-shadow-lg mb-1.5 text-center">
+                      Coming Soon
+                    </span>
+                    <span className="text-primary/70 text-[8px] uppercase tracking-widest font-medium text-center">
+                      Elevating Standards
+                    </span>
+
+                    {/* Glow effect under badge */}
+                    <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-3/4 h-2 bg-primary/40 blur-xl rounded-full pointer-events-none" />
+                  </div>
                 </div>
-                {tier.highlighted && <Crown size={24} className="text-primary animate-pulse" />}
+              )}
+
+              <div className={`relative flex flex-col h-full transition-all duration-500 z-10 ${tier.isComingSoon ? "opacity-60 grayscale blur-[2px] pointer-events-none select-none" : ""}`}>
+                <div className="flex items-start justify-between mb-4">
+                  <div className={`w-12 h-12 flex items-center justify-center rounded-none ${tier.highlighted ? "bg-primary text-black" : "bg-white/5 text-white group-hover:bg-primary/20 group-hover:text-primary transition-colors"
+                    }`}>
+                    <tier.icon size={18} />
+                  </div>
+                  {tier.highlighted && <Crown size={24} className={`text-primary ${tier.isComingSoon ? '' : 'animate-pulse'}`} />}
+                </div>
+
+                <h4 className={`text-xl lg:text-2xl font-bold uppercase tracking-widest mb-4 ${tier.highlighted ? "text-primary" : "text-foreground"
+                  }`}>
+                  {tier.name}
+                </h4>
+
+                <ul className="space-y-2.5">
+                  {tier.features.map((feature) => (
+                    <li key={feature} className="text-sm lg:text-base text-muted-foreground flex items-center gap-2">
+                      <div className={`w-1 h-1 rounded-full ${tier.highlighted ? "bg-primary" : "bg-white/30"}`} />
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
               </div>
-
-              <h4 className={`text-xl lg:text-2xl font-bold uppercase tracking-widest mb-4 ${tier.highlighted ? "text-primary" : "text-foreground"
-                }`}>
-                {tier.name}
-              </h4>
-
-              <ul className="space-y-2.5">
-                {tier.features.map((feature) => (
-                  <li key={feature} className="text-sm lg:text-base text-muted-foreground flex items-center gap-2">
-                    <div className={`w-1 h-1 rounded-full ${tier.highlighted ? "bg-primary" : "bg-white/30"}`} />
-                    {feature}
-                  </li>
-                ))}
-              </ul>
             </motion.div>
           ))}
         </div>
@@ -200,7 +259,9 @@ const ServiceCard = ({ service, index }: { service: typeof homeServices[0]; inde
       </div>
     </div>
   );
-};
+});
+
+ServiceCard.displayName = "ServiceCard";
 
 const Services = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -220,6 +281,7 @@ const Services = () => {
           duration: 1,
           stagger: 0.15,
           ease: "power2.out",
+          force3D: true, // Hardware acceleration to reduce paint cost
           scrollTrigger: {
             trigger: headerRef.current,
             start: "top 75%",
