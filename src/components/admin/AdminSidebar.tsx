@@ -18,7 +18,7 @@ export function AdminSidebar() {
 
     const navItems = [
         { name: "Home", icon: Home, path: "/" },
-        { name: "Dashboard", icon: LayoutDashboard, path: "/admin/dashboard" },
+        // { name: "Dashboard", icon: LayoutDashboard, path: "/admin/dashboard" },
         { name: "Video Master", icon: Video, path: "/admin/video-master" },
         { name: "User Master", icon: Users, path: "/admin/user-master" },
     ];
