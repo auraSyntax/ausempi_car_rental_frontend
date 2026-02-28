@@ -16,7 +16,7 @@ import { toast } from "sonner";
 import Cookies from "js-cookie";
 
 // TODO: Replace with an appropriate admin login image if available, or reuse driver for now
-import adminLoginImg from "@/assets/driver-login.avif";
+import adminLoginImg from "@/assets/admin-login.avif";
 
 const loginSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
@@ -95,12 +95,12 @@ export default function AdminLogin() {
       </div>
 
       {/* Left Panel - Visual (Desktop Only) */}
-      <div className="hidden lg:flex lg:w-1/2 relative bg-black shrink-0 h-screen sticky top-0 overflow-hidden z-[99]">
+      <div className="hidden lg:flex lg:w-1/2 relative bg-black shrink-0 h-screen top-0 overflow-hidden z-[99]">
         <div className="absolute inset-0 z-0">
           <LazyImage
             src={adminLoginImg}
             alt="Admin Portal"
-            className="w-full h-full object-cover object-left opacity-40 transition-transform duration-[20000ms] hover:scale-105 filter grayscale"
+            className="w-full h-full object-cover object-left opacity-40 transition-transform duration-[20000ms] hover:scale-105 filter"
             containerClassName="h-full"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent" />
@@ -144,7 +144,7 @@ export default function AdminLogin() {
           >
             <Link to="/">
               <div className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center group-hover:border-primary/50 transition-colors bg-background/50 backdrop-blur-sm">
-                <ArrowLeft size={14} className="transition-transform group-hover:-translate-x-1" />
+                <ArrowLeft size={14} className="transition-transform group-hover:scale-110" />
               </div>
               <span className="text-xs uppercase tracking-widest font-medium">Back to Home</span>
             </Link>

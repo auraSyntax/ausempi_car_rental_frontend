@@ -90,7 +90,7 @@ export default function DriverLogin() {
       </div>
 
       {/* Left Panel - Visual (Desktop Only) */}
-      <div className="hidden lg:flex lg:w-1/2 relative bg-black shrink-0 h-screen sticky top-0 overflow-hidden z-[99]">
+      <div className="hidden lg:flex lg:w-1/2 relative bg-black shrink-0 h-screen top-0 overflow-hidden z-[99]">
         <div className="absolute inset-0 z-0">
           <LazyImage
             src={driverLoginImg}
@@ -137,7 +137,7 @@ export default function DriverLogin() {
           >
             <Link to="/">
               <div className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center group-hover:border-primary/50 transition-colors bg-background/50 backdrop-blur-sm">
-                <ArrowLeft size={14} className="transition-transform group-hover:-translate-x-1" />
+                <ArrowLeft size={14} className="transition-transform group-hover:scale-110" />
               </div>
               <span className="text-xs uppercase tracking-widest font-medium">Back to Home</span>
             </Link>
