@@ -11,7 +11,8 @@ import {
   Crown,
   Star,
   ArrowRight,
-  Clock
+  Clock,
+  Lock
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { EXTERNAL_LINKS } from "@/lib/constants";
@@ -180,16 +181,16 @@ const ServicePackages = () => {
             >
               {/* Coming Soon Overlay Layer */}
               {tier.isComingSoon && (
-                <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-black/40 backdrop-blur-[2px]">
+                <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-black/60">
                   {/* Diagonal subtle stripes */}
                   <div className="absolute inset-0 opacity-20 pointer-events-none bg-[repeating-linear-gradient(45deg,transparent,transparent_10px,rgba(255,255,255,0.1)_10px,rgba(255,255,255,0.1)_20px)]" />
 
-                  <div className="relative flex flex-col items-center justify-center p-6 sm:p-8 bg-black/60 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl transform transition-transform duration-700 group-hover:scale-[1.03]">
+                  <div className="relative flex flex-col items-center justify-center p-6 sm:p-8 bg-black/80 border border-white/10 rounded-2xl shadow-2xl transform transition-transform duration-700 group-hover:scale-[1.03]">
                     <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/20 via-transparent to-transparent opacity-20 pointer-events-none" />
 
-                    <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mb-4 relative overflow-hidden">
+                    <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center mb-4 relative overflow-hidden">
                       <div className="absolute inset-0 bg-primary/20 animate-pulse" />
-                      <Clock size={20} className="text-primary relative z-10" />
+                      <Lock size={20} className="text-primary relative z-10" />
                     </div>
 
                     <span className="text-white text-[11px] md:text-sm uppercase tracking-[0.4em] font-black drop-shadow-lg mb-1.5 text-center">
@@ -200,21 +201,21 @@ const ServicePackages = () => {
                     </span>
 
                     {/* Glow effect under badge */}
-                    <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-3/4 h-2 bg-primary/40 blur-xl rounded-full pointer-events-none" />
+                    <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-3/4 h-2 bg-primary/60 blur-md rounded-full pointer-events-none" />
                   </div>
                 </div>
               )}
 
               {/* Highlighted Badge */}
               {tier.highlighted && (
-                <div className={`absolute -top-4 left-1/2 -translate-x-1/2 z-30 ${tier.isComingSoon ? "opacity-60 grayscale blur-[2px]" : ""}`}>
+                <div className={`absolute -top-4 left-1/2 -translate-x-1/2 z-30 ${tier.isComingSoon ? "opacity-80 grayscale" : ""}`}>
                   <span className="bg-primary text-primary-foreground text-[10px] md:text-xs uppercase tracking-[0.2em] px-6 py-2 rounded-full font-bold shadow-lg shadow-primary/20">
                     Recommended
                   </span>
                 </div>
               )}
 
-              <div className={`relative flex flex-col h-full transition-all duration-500 z-10 ${tier.isComingSoon ? "opacity-60 grayscale blur-[2px] pointer-events-none select-none" : ""}`}>
+              <div className={`relative flex flex-col h-full transition-all duration-500 z-10 ${tier.isComingSoon ? "opacity-80 grayscale pointer-events-none select-none" : ""}`}>
                 {/* Icon & Title */}
                 <div className="flex flex-col items-center text-center mb-6 sm:mb-8">
                   <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-6 transition-transform duration-500 group-hover:scale-110 ${tier.highlighted ? "bg-primary/20 shadow-[0_0_30px_-5px_rgba(212,175,55,0.3)]" : "bg-white/5"
@@ -331,34 +332,34 @@ const ServicePackages = () => {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.8 }}
-                  className={`group relative overflow-hidden rounded-none bg-primary/[0.03] border border-primary/20 shadow-[0_0_50px_-12px_rgba(212,175,55,0.1)] ${isComingSoon ? "pointer-events-none select-none" : ""}`}
+                  className={`group relative overflow-hidden rounded-none ${isComingSoon ? "bg-white/[0.08] border border-white/5 pointer-events-none select-none" : "bg-primary/[0.03] border border-primary/20 shadow-[0_0_50px_-12px_rgba(212,175,55,0.1)]"}`}
                 >
                   <div className="aspect-[3/2] overflow-hidden relative">
                     <LazyImage
                       src={suvImg}
                       alt="Luxury SUV"
                       containerClassName="w-full h-full"
-                      className={`w-full h-full object-cover transition-transform duration-1000 ${isComingSoon ? "grayscale opacity-80 blur-sm scale-105" : "group-hover:scale-110"}`}
+                      className={`w-full h-full object-cover transition-transform duration-1000 ${isComingSoon ? "grayscale opacity-80 scale-105" : "group-hover:scale-110"}`}
                     />
                     {!isComingSoon && (
                       <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-transparent to-transparent opacity-60" />
                     )}
-                    <div className={`absolute top-4 right-4 bg-primary text-primary-foreground px-4 py-1 rounded-full text-[10px] uppercase font-bold tracking-widest ${isComingSoon ? "opacity-60 grayscale blur-[2px]" : ""}`}>
+                    <div className={`absolute top-4 right-4 px-4 py-1 rounded-full text-[10px] uppercase font-bold tracking-widest ${isComingSoon ? "bg-white/10 text-white/70" : "bg-primary text-primary-foreground"}`}>
                       Groups Choice
                     </div>
 
                     {/* Coming Soon Overlay Layer */}
                     {isComingSoon && (
-                      <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-black/40 backdrop-blur-[2px]">
+                      <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-black/60">
                         {/* Diagonal subtle stripes */}
                         <div className="absolute inset-0 opacity-20 bg-[repeating-linear-gradient(45deg,transparent,transparent_10px,rgba(255,255,255,0.1)_10px,rgba(255,255,255,0.1)_20px)]" />
 
-                        <div className="relative flex flex-col items-center justify-center p-6 sm:p-8 bg-black/60 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl">
+                        <div className="relative flex flex-col items-center justify-center p-6 sm:p-8 bg-black/80 border border-white/10 rounded-2xl shadow-2xl">
                           <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/20 via-transparent to-transparent opacity-20 pointer-events-none" />
 
-                          <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mb-4 relative overflow-hidden">
-                            <div className="absolute inset-0 bg-primary/20 animate-pulse" />
-                            <Clock size={20} className="text-primary relative z-10" />
+                          <div className={`w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center mb-4 relative overflow-hidden bg-primary/10 border border-primary/20 `}>
+                            <div className={`absolute inset-0 animate-pulse bg-primary/20`} />
+                            <Lock size={20} className={`relative z-10 text-primary`} />
                           </div>
 
                           <span className="text-white text-[11px] md:text-sm uppercase tracking-[0.4em] font-black drop-shadow-lg mb-1.5 text-center">
@@ -369,38 +370,55 @@ const ServicePackages = () => {
                           </span>
 
                           {/* Glow effect under badge */}
-                          <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-3/4 h-2 bg-primary/40 blur-xl rounded-full pointer-events-none" />
+                          <div className={`absolute -bottom-4 left-1/2 -translate-x-1/2 w-3/4 h-2 blur-md rounded-full pointer-events-none ${isComingSoon ? "bg-white/40" : "bg-primary/60"}`} />
                         </div>
                       </div>
                     )}
                   </div>
-                  <div className={`p-7 sm:p-10 relative transition-all duration-700 ${isComingSoon ? "opacity-60 grayscale blur-sm" : ""}`}>
-                    <div className="flex justify-between items-center mb-8">
-                      <h4 className="font-display text-xl sm:text-3xl font-bold text-gradient-gold">SUV</h4>
-                      <span className="text-primary font-bold text-xl">
-                        {comparisonFeatures?.filter((item) => item.feature === "Starting Price")[0].suv}
-                        <span className="text-xs text-muted-foreground font-normal ml-1">Starting</span></span>
-                    </div>
+                  <div className={`p-7 sm:p-10 relative transition-all duration-700 ${isComingSoon ? "pointer-events-none select-none overflow-hidden" : ""}`}>
+                    {/* Dark overlay for the section */}
+                    {isComingSoon && (
+                      <div className="absolute inset-0 z-0 bg-black/60 pointer-events-none" />
+                    )}
 
-                    <div className="space-y-4">
-                      {comparisonFeatures.map((row) => (
-                        <div key={row.feature} className="flex justify-between items-center py-3 border-b border-white/5 last:border-0">
-                          <span className="text-muted-foreground text-[0.85rem] sm:text-sm uppercase tracking-wider">{row.feature}</span>
-                          <span className="text-foreground font-medium text-[0.9rem] sm:text-base">{row.suv}</span>
+                    <div className="relative z-10 w-full">
+                      <div className="flex justify-between items-center mb-8 flex-wrap gap-y-4">
+                        <div className="flex items-center gap-4">
+                          <h4 className={`font-display text-xl sm:text-3xl font-bold ${isComingSoon ? "text-foreground/50" : "text-gradient-gold"}`}>SUV</h4>
+                          {isComingSoon && (
+                            <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 shadow-xl backdrop-blur-md">
+                              <Lock size={16} className="text-primary/80" />
+                              <span className="text-primary/80 text-[9px] md:text-xs uppercase tracking-[0.3em] font-bold">Coming Soon</span>
+                            </div>
+                          )}
                         </div>
-                      ))}
-                    </div>
+                        <span className={`font-bold text-xl ${isComingSoon ? "text-foreground/50" : "text-primary"}`}>
+                          {comparisonFeatures?.filter((item) => item.feature === "Starting Price")[0].suv}
+                          <span className="text-xs text-muted-foreground font-normal ml-1">Starting</span></span>
+                      </div>
 
-                    <Button variant="luxury" className="w-full mt-8 group glow-gold h-12 sm:h-14 text-sm sm:text-base" asChild>
-                      <Link
-                        to={EXTERNAL_LINKS.booking}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center justify-center gap-2"
-                      >
-                        Book SUV <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
-                      </Link>
-                    </Button>
+                      <div className={`space-y-4 ${isComingSoon ? "opacity-80" : ""}`}>
+                        {comparisonFeatures.map((row) => (
+                          <div key={row.feature} className="flex justify-between items-center py-3 border-b border-white/5 last:border-0">
+                            <span className="text-muted-foreground text-[0.85rem] sm:text-sm uppercase tracking-wider">{row.feature}</span>
+                            <span className="text-foreground/50 font-medium text-[0.9rem] sm:text-base">{row.suv}</span>
+                          </div>
+                        ))}
+                      </div>
+
+                      <div className={isComingSoon ? "opacity-80" : ""}>
+                        <Button variant={isComingSoon ? "luxury-outline" : "luxury"} className={`w-full mt-8 group h-12 sm:h-14 text-sm sm:text-base ${isComingSoon ? "grayscale" : "glow-gold"}`} asChild>
+                          <Link
+                            to={EXTERNAL_LINKS.booking}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center justify-center gap-2"
+                          >
+                            Book SUV <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+                          </Link>
+                        </Button>
+                      </div>
+                    </div>
                   </div>
                 </motion.div>
               );

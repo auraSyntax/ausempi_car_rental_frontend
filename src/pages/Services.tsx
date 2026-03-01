@@ -15,6 +15,7 @@ import {
   Thermometer,
   Star,
   Clock,
+  Lock,
   Laptop
 } from "lucide-react";
 import MainLayout from "@/layouts/MainLayout";
@@ -318,39 +319,51 @@ const ServicesPage = () => {
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-24 items-center">
             {/* Content Side - First on Desktop */}
             <FadeInSection delay={0.2} className="order-2 lg:order-1">
-              <div className={`transition-all duration-700 ${sections.suv.isComingSoon ? "opacity-60 grayscale blur-sm pointer-events-none select-none" : ""}`}>
-                <div className="flex items-center gap-3 md:gap-4 mb-4 md:mb-6">
-                  <span className="w-8 md:w-12 h-px bg-primary" />
-                  <span className="text-primary text-[10px] md:text-xs uppercase tracking-[0.3em] font-bold">
-                    {sections.suv.subtitle}
-                  </span>
-                </div>
+              <div className={`relative transition-all duration-700 ${sections.suv.isComingSoon ? "pointer-events-none select-none z-10" : ""}`}>
+                <div className="relative z-10 w-full">
+                  <div className={`flex items-center gap-3 md:gap-4 mb-4 md:mb-6 ${sections.suv.isComingSoon ? "grayscale opacity-80" : ""}`}>
+                    <span className="w-8 md:w-12 h-px bg-primary" />
+                    <span className="text-primary text-[10px] md:text-xs uppercase tracking-[0.3em] font-bold">
+                      {sections.suv.subtitle}
+                    </span>
+                  </div>
 
-                <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4 md:mb-6 leading-tight">
-                  {sections.suv.title}
-                </h2>
-
-                <p className="text-muted-foreground text-base sm:text-lg font-light leading-relaxed mb-8 md:mb-10">
-                  {sections.suv.description}
-                </p>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 sm:gap-y-6 gap-x-4 mb-8 md:mb-12">
-                  {sections.suv.amenities.map((item, i) => (
-                    <div key={i} className="flex items-center gap-3 text-muted-foreground group">
-                      <div className="w-8 h-8 rounded-full bg-secondary flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-black transition-colors duration-300">
-                        <item.icon size={16} />
+                  <div className="flex flex-wrap items-center gap-x-6 gap-y-4 mb-4 md:mb-6">
+                    <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground/50 leading-tight">
+                      {sections.suv.title}
+                    </h2>
+                    {sections.suv.isComingSoon && (
+                      <div className="flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-primary/10 border border-primary/20 shadow-xl backdrop-blur-md">
+                        <Lock size={16} className="text-primary md:w-5 md:h-5" />
+                        <span className="text-primary text-[10px] md:text-xs uppercase tracking-[0.4em] font-bold">Coming Soon</span>
                       </div>
-                      <span className="text-xs sm:text-sm uppercase tracking-wider font-medium">{item.label}</span>
-                    </div>
-                  ))}
-                </div>
+                    )}
+                  </div>
 
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <Button size="lg" className="bg-primary text-black hover:bg-charcoal hover:text-white transition-colors duration-300 min-w-full sm:min-w-[200px] h-12 md:h-14 text-sm md:text-base uppercase font-semibold tracking-wider" asChild>
-                    <Link to={EXTERNAL_LINKS.booking} target="_blank" rel="noopener noreferrer">
-                      Book SUV
-                    </Link>
-                  </Button>
+                  <div className={sections.suv.isComingSoon ? "grayscale opacity-80" : ""}>
+                    <p className="text-muted-foreground text-base sm:text-lg font-light leading-relaxed mb-8 md:mb-10">
+                      {sections.suv.description}
+                    </p>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 sm:gap-y-6 gap-x-4 mb-8 md:mb-12">
+                      {sections.suv.amenities.map((item, i) => (
+                        <div key={i} className="flex items-center gap-3 text-muted-foreground group">
+                          <div className="w-8 h-8 rounded-full bg-secondary flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-black transition-colors duration-300">
+                            <item.icon size={16} />
+                          </div>
+                          <span className="text-xs sm:text-sm uppercase tracking-wider font-medium">{item.label}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="flex flex-col sm:flex-row gap-4">
+                      <Button size="lg" className="bg-primary text-black hover:bg-charcoal hover:text-white transition-colors duration-300 min-w-full sm:min-w-[200px] h-12 md:h-14 text-sm md:text-base uppercase font-semibold tracking-wider" asChild>
+                        <Link to={EXTERNAL_LINKS.booking} target="_blank" rel="noopener noreferrer">
+                          Book SUV
+                        </Link>
+                      </Button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </FadeInSection>
@@ -358,12 +371,12 @@ const ServicesPage = () => {
             {/* Image Side */}
             <FadeInSection className="order-1 lg:order-2 relative">
               <div className={`relative group ${sections.suv.isComingSoon ? "pointer-events-none" : ""}`}>
-                <div className={`absolute -inset-3 sm:-inset-4 border border-primary/10 translate-x-0 translate-y-0 ${sections.suv.isComingSoon ? "" : "lg:group-hover:scale-105"} transition-transform duration-700 rounded-sm`} />
+                <div className={`absolute -inset-3 sm:-inset-4 border border-foreground/10 translate-x-0 translate-y-0 ${sections.suv.isComingSoon ? "" : "lg:group-hover:scale-105"} transition-transform duration-700 rounded-sm`} />
                 <div className={`aspect-[4/3] sm:aspect-[16/10] lg:aspect-[4/3] overflow-hidden rounded-sm relative z-10 ${sections.suv.isComingSoon ? "" : "lg:hover:shadow-2xl"} transition-shadow duration-700`}>
                   <LazyImage
                     src={sections.suv.image}
                     alt="Luxury SUV"
-                    className={`w-full h-full object-cover transition-transform duration-1000 ${sections.suv.isComingSoon ? "grayscale opacity-80 blur-sm scale-105" : "group-hover:scale-105"}`}
+                    className={`w-full h-full object-cover transition-transform duration-1000 ${sections.suv.isComingSoon ? "grayscale opacity-80 scale-105" : "group-hover:scale-105"}`}
                     containerClassName="w-full h-full"
                   />
                   {!sections.suv.isComingSoon && (
@@ -372,16 +385,16 @@ const ServicesPage = () => {
 
                   {/* Coming Soon Overlay Layer */}
                   {sections.suv.isComingSoon && (
-                    <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-black/40 backdrop-blur-[2px]">
+                    <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-black/60">
                       {/* Diagonal subtle stripes */}
                       <div className="absolute inset-0 opacity-20 bg-[repeating-linear-gradient(45deg,transparent,transparent_10px,rgba(255,255,255,0.1)_10px,rgba(255,255,255,0.1)_20px)]" />
 
-                      <div className="relative flex flex-col items-center justify-center p-6 sm:p-8 bg-black/60 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl">
+                      <div className="relative flex flex-col items-center justify-center p-6 sm:p-8 bg-black/80 border border-white/10 rounded-2xl shadow-2xl">
                         <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/20 via-transparent to-transparent opacity-20 pointer-events-none" />
 
-                        <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mb-4 relative overflow-hidden">
+                        <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center mb-4 relative overflow-hidden">
                           <div className="absolute inset-0 bg-primary/20 animate-pulse" />
-                          <Clock size={20} className="text-primary relative z-10" />
+                          <Lock size={20} className="text-primary relative z-10" />
                         </div>
 
                         <span className="text-white text-[11px] md:text-sm uppercase tracking-[0.4em] font-black drop-shadow-lg mb-1.5 text-center">
@@ -392,7 +405,7 @@ const ServicesPage = () => {
                         </span>
 
                         {/* Glow effect under badge */}
-                        <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-3/4 h-2 bg-primary/40 blur-xl rounded-full pointer-events-none" />
+                        <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-3/4 h-2 bg-primary/60 blur-md rounded-full pointer-events-none" />
                       </div>
                     </div>
                   )}

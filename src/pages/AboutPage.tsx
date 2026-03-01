@@ -18,7 +18,8 @@ import {
   Zap,
   Globe,
   Clock,
-  Car
+  Car,
+  Lock
 } from "lucide-react";
 
 import MainLayout from "@/layouts/MainLayout";
@@ -323,7 +324,7 @@ const AboutPage = () => {
                 )}>
                   <div className="aspect-[4/3] sm:aspect-[16/10] overflow-hidden relative border-b border-white/5">
                     <LazyImage
-                      containerClassName={cn("transition-transform duration-1000 origin-bottom", !item.isComingSoon && "group-hover:scale-105", item.isComingSoon && "grayscale opacity-80 blur-sm scale-105")}
+                      containerClassName={cn("transition-transform duration-1000 origin-bottom", !item.isComingSoon && "group-hover:scale-105", item.isComingSoon && "grayscale opacity-80 scale-105")}
                       src={item.image}
                       alt={item.type}
                       className="w-full h-full object-cover"
@@ -341,16 +342,16 @@ const AboutPage = () => {
 
                     {/* Coming Soon Overlay Layer */}
                     {item.isComingSoon && (
-                      <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-black/40 backdrop-blur-[2px]">
+                      <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-black/60">
                         {/* Diagonal subtle stripes */}
                         <div className="absolute inset-0 opacity-20 pointer-events-none bg-[repeating-linear-gradient(45deg,transparent,transparent_10px,rgba(255,255,255,0.1)_10px,rgba(255,255,255,0.1)_20px)]" />
 
-                        <div className="relative flex flex-col items-center justify-center p-6 sm:p-8 bg-black/60 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl transform transition-transform duration-700 group-hover:scale-[1.03]">
+                        <div className="relative flex flex-col items-center justify-center p-6 sm:p-8 bg-black/80 border border-white/10 rounded-2xl shadow-2xl transform transition-transform duration-700 group-hover:scale-[1.03]">
                           <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/20 via-transparent to-transparent opacity-20 pointer-events-none" />
 
-                          <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mb-4 relative overflow-hidden">
+                          <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center mb-4 relative overflow-hidden">
                             <div className="absolute inset-0 bg-primary/20 animate-pulse" />
-                            <Clock size={20} className="text-primary relative z-10" />
+                            <Lock size={20} className="text-primary relative z-10" />
                           </div>
 
                           <span className="text-white text-[11px] md:text-sm uppercase tracking-[0.4em] font-black drop-shadow-lg mb-1.5">
@@ -361,24 +362,32 @@ const AboutPage = () => {
                           </span>
 
                           {/* Glow effect under badge */}
-                          <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-3/4 h-2 bg-primary/40 blur-xl rounded-full pointer-events-none" />
+                          <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-3/4 h-2 bg-primary/60 blur-md rounded-full pointer-events-none" />
                         </div>
                       </div>
                     )}
 
-                    <div className={cn("absolute bottom-4 left-4 md:bottom-6 md:left-6 z-30 transition-opacity duration-300")}>
-                      <h3 className={cn("font-display text-2xl md:text-3xl font-bold mb-2 transition-colors duration-300",
-                        item.isComingSoon ? "text-white/10" : "text-white group-hover:text-primary"
+                    <div className={cn("absolute bottom-4 left-4 md:bottom-6 md:left-6 z-30 transition-opacity duration-300", item.isComingSoon ? "flex flex-wrap items-center gap-4" : "")}>
+                      <h3 className={cn("font-display text-2xl md:text-3xl font-bold transition-colors duration-300",
+                        item.isComingSoon ? "text-white/50" : "text-white group-hover:text-primary mb-2"
                       )}>
                         {item.type}
                       </h3>
+
+                      {item.isComingSoon && (
+                        <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 shadow-xl backdrop-blur-md">
+                          <Lock size={14} className="text-primary" />
+                          <span className="text-primary text-[9px] md:text-xs uppercase tracking-[0.3em] font-bold">Coming Soon</span>
+                        </div>
+                      )}
+
                       {!item.isComingSoon && (
                         <div className="h-0.5 w-12 bg-primary group-hover:w-24 transition-all duration-500" />
                       )}
                     </div>
                   </div>
 
-                  <div className={cn("p-5 sm:p-6 md:p-10 flex-grow flex flex-col relative transition-all duration-500", item.isComingSoon ? "opacity-60 grayscale blur-[2px] pointer-events-none select-none" : "")}>
+                  <div className={cn("p-5 sm:p-6 md:p-10 flex-grow flex flex-col relative transition-all duration-500", item.isComingSoon ? "opacity-80 grayscale pointer-events-none select-none bg-background" : "")}>
                     <p className="text-white/60 text-sm sm:text-base font-light mb-8 leading-relaxed">
                       {item.description}
                     </p>
