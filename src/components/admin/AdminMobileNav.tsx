@@ -26,7 +26,7 @@ export function AdminMobileNav() {
 
     const navItems = [
         { name: "Home", icon: Home, path: "/" },
-        { name: "Dashboard", icon: LayoutDashboard, path: "/admin/dashboard" },
+        // { name: "Dashboard", icon: LayoutDashboard, path: "/admin/dashboard" },
         { name: "Videos", icon: Video, path: "/admin/video-master" },
         { name: "Users", icon: Users, path: "/admin/user-master" },
     ];
